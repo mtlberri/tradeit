@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import Firebase
 
 class SecondViewController: UIViewController {
     
     // Outlet reference to the "Log +1 in Firebase!" button
     @IBOutlet weak var log1InFirebase: UIButton!
 
+    // Firebase database ref
+    var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-
         
     }
 
@@ -29,8 +32,12 @@ class SecondViewController: UIViewController {
 
     // Action called when "Log +1 in Firebase!" button pressed
     @IBAction func log1InFirebasePressed(sender: UIButton) {
-        // Do something
+        // Print message when button pressed
         print("'Log +1 in Firebase!' button pressed")
+        
+        // Push a "+1 added!" entry in Firebase
+        ref.childByAutoId().setValue("+1 added!")
+        
     }
 
 }
