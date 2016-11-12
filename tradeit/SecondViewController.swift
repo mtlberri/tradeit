@@ -13,6 +13,8 @@ class SecondViewController: UIViewController {
     
     // Outlet reference to the "Log +1 in Firebase!" button
     @IBOutlet weak var log1InFirebase: UIButton!
+    // Outlet reference to the item descirption text field
+    @IBOutlet weak var itemDescription: UITextField!
 
     // Firebase database ref
     var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
@@ -34,10 +36,22 @@ class SecondViewController: UIViewController {
     @IBAction func log1InFirebasePressed(sender: UIButton) {
         // Print message when button pressed
         print("'Log +1 in Firebase!' button pressed")
+
+        // Create and initialized the item object
+        let itemToBeLogged = Item()
+        if let description = itemDescription.text {
+            //get the text and use it
+            itemToBeLogged.description = description
+        }
         
-        // Push a "+1 added!" entry in Firebase
-        ref.childByAutoId().setValue("+1 added!")
+        // Create the NSDictionary for transfer to Firebase
+        let itemToBeLoggedDictionary: NSDictionary = [
+            "itemDescription": itemToBeLogged.description
+        ]
         
+        // Push a NSDictionary entry in Firebase
+        ref.childByAutoId().setValue(itemToBeLoggedDictionary)
+    
     }
 
 }

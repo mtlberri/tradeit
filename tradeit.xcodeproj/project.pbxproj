@@ -11,6 +11,8 @@
 		86C6DA136ECD78A491A397FD /* Pods_tradeit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB99383F6B51C1F1323E5E /* Pods_tradeit.framework */; };
 		B7352ED71DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
 		B7352ED81DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
+		B789D4221DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
+		B789D4231DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113821DD7AB1C002DFA2F /* AppDelegate.swift */; };
 		B79113851DD7AB1C002DFA2F /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113841DD7AB1C002DFA2F /* FirstViewController.swift */; };
 		B79113871DD7AB1C002DFA2F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113861DD7AB1C002DFA2F /* SecondViewController.swift */; };
@@ -37,6 +39,7 @@
 		9BBCFB09A854C040C4FF5ECE /* Pods-tradeit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeit/Pods-tradeit.debug.xcconfig"; sourceTree = "<group>"; };
 		ABD5F7E24ADB950610FDF054 /* Pods-tradeitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeitTests/Pods-tradeitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B789D4211DD7D939001AD480 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B791137F1DD7AB1C002DFA2F /* tradeit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79113821DD7AB1C002DFA2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B79113841DD7AB1C002DFA2F /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 				B79113821DD7AB1C002DFA2F /* AppDelegate.swift */,
 				B79113841DD7AB1C002DFA2F /* FirstViewController.swift */,
 				B79113861DD7AB1C002DFA2F /* SecondViewController.swift */,
+				B789D4211DD7D939001AD480 /* Item.swift */,
 				B79113881DD7AB1C002DFA2F /* Main.storyboard */,
 				B791138B1DD7AB1C002DFA2F /* Assets.xcassets */,
 				B791138D1DD7AB1C002DFA2F /* LaunchScreen.storyboard */,
@@ -337,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B789D4221DD7D939001AD480 /* Item.swift in Sources */,
 				B79113871DD7AB1C002DFA2F /* SecondViewController.swift in Sources */,
 				B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* FirstViewController.swift in Sources */,
@@ -347,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B789D4231DD7D939001AD480 /* Item.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
