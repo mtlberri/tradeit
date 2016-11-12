@@ -1,0 +1,6 @@
+framework module Pods_tradeit {
+  umbrella header "Pods-tradeit-umbrella.h"
+
+  export *
+  module * { export * }
+}
