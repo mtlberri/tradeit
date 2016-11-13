@@ -71,7 +71,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="guitar" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
-                                <rect key="frame" x="96" y="138" width="327" height="224"/>
+                                <rect key="frame" x="58" y="138" width="485" height="224"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
