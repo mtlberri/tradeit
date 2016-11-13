@@ -13,6 +13,7 @@ import Firebase
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
 class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: Outlets
     // Outlet reference to the "Log +1 in Firebase!" button
     @IBOutlet weak var log1InFirebase: UIButton!
     // Outlet reference to the item descirption text field
@@ -20,11 +21,13 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     // Outlet reference to the image of the item being posted
     @IBOutlet weak var imageOfItem: UIImageView!
 
+    // MARK: Properties
     // Firebase database ref
     var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
     // Image Picker of the view controller
     let imagePicker = UIImagePickerController()
     
+    // MARK: override of View Controller basic functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +43,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: Actions
     // Action called when the "Choose image button is pressed"
     @IBAction func chooseImagePressed(sender: UIButton) {
         // No editing will be allowed
@@ -52,6 +56,20 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         
     }
     
+    // MARK: UIImagePickerControllerDelegate Methods
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageOfItem.contentMode = .ScaleAspectFit
+            imageOfItem.image = pickedImage
+        }
+        // Dismiss the image picker
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        // Do nothing
+    }
     
     
     // Action called when "Log +1 in Firebase!" button pressed
