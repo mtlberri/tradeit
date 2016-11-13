@@ -9,20 +9,28 @@
 import UIKit
 import Firebase
 
-class SecondViewController: UIViewController {
+// That Class implements Protocols as delegate for the UIImagePickerController
+// Also required UINavigationController Delgate (related to the image picker popping out the view)
+class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // Outlet reference to the "Log +1 in Firebase!" button
     @IBOutlet weak var log1InFirebase: UIButton!
     // Outlet reference to the item descirption text field
     @IBOutlet weak var itemDescription: UITextField!
+    // Outlet reference to the image of the item being posted
+    @IBOutlet weak var imageOfItem: UIImageView!
 
     // Firebase database ref
     var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
-    
+    // Image Picker of the view controller
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Set the present class as the delegate for the image picker
+        imagePicker.delegate = self
+        
         
     }
 
@@ -32,6 +40,20 @@ class SecondViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Action called when the "Choose image button is pressed"
+    @IBAction func chooseImagePressed(sender: UIButton) {
+        // No editing will be allowed
+        imagePicker.allowsEditing = false
+        // Select the source to be the Photo Library
+        imagePicker.sourceType = .PhotoLibrary
+        
+        // Present the image picker
+        presentViewController(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    
+    
     // Action called when "Log +1 in Firebase!" button pressed
     @IBAction func log1InFirebasePressed(sender: UIButton) {
         // Print message when button pressed

@@ -73,15 +73,24 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="guitar" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
                                 <rect key="frame" x="58" y="138" width="485" height="224"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCr-nU-KiJ">
+                                <rect key="frame" x="238" y="427" width="124" height="30"/>
+                                <state key="normal" title="Choose image"/>
+                                <connections>
+                                    <action selector="chooseImagePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="ane-on-m3V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9fm-6c-AOJ" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="20" id="0sJ-ug-M2G"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="40" id="6nK-S8-uOx"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="AmF-E1-xsg"/>
+                            <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="GCr-nU-KiJ" secondAttribute="bottom" constant="10" id="BHB-d2-pgh"/>
                             <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Gih-UA-y0m"/>
-                            <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="GBL-Lu-DAn" secondAttribute="bottom" constant="50" id="JIU-dK-dYV"/>
+                            <constraint firstItem="GCr-nU-KiJ" firstAttribute="top" secondItem="GBL-Lu-DAn" secondAttribute="bottom" constant="30" id="Ji8-Y0-CI9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fm-6c-AOJ" secondAttribute="trailing" id="JvY-69-D4Z"/>
+                            <constraint firstItem="GCr-nU-KiJ" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Rnf-qy-wBJ"/>
                             <constraint firstItem="9fm-6c-AOJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Sgh-3s-iWE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" id="fri-UA-lA6"/>
                             <constraint firstItem="GBL-Lu-DAn" firstAttribute="top" secondItem="9fm-6c-AOJ" secondAttribute="bottom" constant="50" id="vHU-yK-1vb"/>
@@ -89,6 +98,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Post item" image="second" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="imageOfItem" destination="GBL-Lu-DAn" id="44w-Ig-Fee"/>
                         <outlet property="itemDescription" destination="9fm-6c-AOJ" id="bSy-Db-k49"/>
                         <outlet property="log1InFirebase" destination="LOu-Vz-FDW" id="cgH-OA-gUe"/>
                     </connections>
