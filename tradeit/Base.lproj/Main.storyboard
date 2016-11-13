@@ -58,35 +58,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Post item View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="181.5" y="279.5" width="237.5" height="41.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
-                                <rect key="frame" x="236" y="120" width="129" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
+                                <rect key="frame" x="236" y="481" width="129" height="30"/>
                                 <state key="normal" title="Log +1 in Firebase!"/>
                                 <connections>
                                     <action selector="log1InFirebasePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="6Rf-xO-SPg"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item description" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fm-6c-AOJ">
-                                <rect key="frame" x="62" y="65" width="485" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item description" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fm-6c-AOJ">
+                                <rect key="frame" x="58" y="37" width="485" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="guitar" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
+                                <rect key="frame" x="96" y="138" width="327" height="224"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9fm-6c-AOJ" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="20" id="0sJ-ug-M2G"/>
-                            <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="9fm-6c-AOJ" secondAttribute="bottom" constant="25" id="4Vx-Op-IKr"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="40" id="6nK-S8-uOx"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="AmF-E1-xsg"/>
+                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Gih-UA-y0m"/>
+                            <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="GBL-Lu-DAn" secondAttribute="bottom" constant="50" id="JIU-dK-dYV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fm-6c-AOJ" secondAttribute="trailing" id="JvY-69-D4Z"/>
                             <constraint firstItem="9fm-6c-AOJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Sgh-3s-iWE"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" id="fri-UA-lA6"/>
+                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="top" secondItem="9fm-6c-AOJ" secondAttribute="bottom" constant="50" id="vHU-yK-1vb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Post item" image="second" id="cPa-gy-q4n"/>
@@ -121,6 +119,7 @@
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="guitar" width="455" height="682"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>
