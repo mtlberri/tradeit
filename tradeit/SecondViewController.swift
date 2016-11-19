@@ -22,6 +22,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imageOfItem: UIImageView!
 
     // MARK: Properties
+    // Create and initialized the item object
+    let itemToBeLogged = Item()
     // Firebase database ref
     var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
     // Image Picker of the view controller
@@ -68,7 +70,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        // Do nothing
+        // Dismiss the image picker
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
@@ -77,16 +80,14 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Print message when button pressed
         print("'Log +1 in Firebase!' button pressed")
 
-        // Create and initialized the item object
-        let itemToBeLogged = Item()
         if let description = itemDescription.text {
             //get the text and use it
-            itemToBeLogged.description = description
+            self.itemToBeLogged.description = description
         }
         
         // Create the NSDictionary for transfer to Firebase
         let itemToBeLoggedDictionary: NSDictionary = [
-            "itemDescription": itemToBeLogged.description
+            "itemDescription": self.itemToBeLogged.description
         ]
         
         // Push a NSDictionary entry in Firebase
