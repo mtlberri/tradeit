@@ -47,36 +47,36 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
 
     // MARK: Actions
     // Action called when the "Choose image button is pressed"
-    @IBAction func chooseImagePressed(sender: UIButton) {
+    @IBAction func chooseImagePressed(_ sender: UIButton) {
         // No editing will be allowed
         imagePicker.allowsEditing = false
         // Select the source to be the Photo Library
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         
         // Present the image picker
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
         
     }
     
     // MARK: UIImagePickerControllerDelegate Methods
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageOfItem.contentMode = .ScaleAspectFit
+            imageOfItem.contentMode = .scaleAspectFit
             imageOfItem.image = pickedImage
         }
         // Dismiss the image picker
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the image picker
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
     // Action called when "Log +1 in Firebase!" button pressed
-    @IBAction func log1InFirebasePressed(sender: UIButton) {
+    @IBAction func log1InFirebasePressed(_ sender: UIButton) {
         // Print message when button pressed
         print("'Log +1 in Firebase!' button pressed")
 
