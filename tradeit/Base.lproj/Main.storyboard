@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="First View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
@@ -59,45 +59,44 @@
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item description" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fm-6c-AOJ">
-                                <rect key="frame" x="58" y="37" width="275" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item description" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fm-6c-AOJ">
+                                <rect key="frame" x="20" y="69" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="guitar" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
-                                <rect key="frame" x="58" y="138" width="275" height="224"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCr-nU-KiJ">
-                                <rect key="frame" x="133" y="425" width="124" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCr-nU-KiJ">
+                                <rect key="frame" x="145" y="579" width="124" height="30"/>
                                 <state key="normal" title="Choose image"/>
                                 <connections>
                                     <action selector="chooseImagePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="ane-on-m3V"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
-                                <rect key="frame" x="131" y="482" width="129" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
+                                <rect key="frame" x="143" y="617" width="129" height="30"/>
                                 <state key="normal" title="Log +1 in Firebase!"/>
                                 <connections>
                                     <action selector="log1InFirebasePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="6Rf-xO-SPg"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="guitar" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
+                                <rect key="frame" x="97" y="256" width="210" height="224"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9fm-6c-AOJ" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="20" id="0sJ-ug-M2G"/>
+                            <constraint firstItem="9fm-6c-AOJ" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="50" id="0sJ-ug-M2G"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="40" id="6nK-S8-uOx"/>
+                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="8I4-jN-EYj"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="AmF-E1-xsg"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="GCr-nU-KiJ" secondAttribute="bottom" constant="10" id="BHB-d2-pgh"/>
-                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Gih-UA-y0m"/>
-                            <constraint firstItem="GCr-nU-KiJ" firstAttribute="top" secondItem="GBL-Lu-DAn" secondAttribute="bottom" constant="30" id="Ji8-Y0-CI9"/>
+                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="100" id="Gih-UA-y0m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fm-6c-AOJ" secondAttribute="trailing" id="JvY-69-D4Z"/>
                             <constraint firstItem="GCr-nU-KiJ" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Rnf-qy-wBJ"/>
                             <constraint firstItem="9fm-6c-AOJ" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Sgh-3s-iWE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" id="fri-UA-lA6"/>
-                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="top" secondItem="9fm-6c-AOJ" secondAttribute="bottom" constant="50" id="vHU-yK-1vb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" constant="100" id="fri-UA-lA6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Post item" image="second" id="cPa-gy-q4n"/>
@@ -109,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="359.37031484257875"/>
+            <point key="canvasLocation" x="749.27536231884062" y="358.69565217391306"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
