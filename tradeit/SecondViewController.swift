@@ -25,7 +25,10 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     // Create and initialized the item object
     let itemToBeLogged = Item()
     // Firebase database ref
-    var ref: FIRDatabaseReference! = FIRDatabase.database().reference()
+    var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
+    // Firebase storage reference
+    let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
+    
     // Image Picker of the view controller
     let imagePicker = UIImagePickerController()
     
@@ -61,9 +64,11 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     // MARK: UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
+        // Get the image itself
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageOfItem.contentMode = .scaleAspectFit
-            imageOfItem.image = pickedImage
+            // imageOfItem is the outlet to the view!
+            self.imageOfItem.contentMode = .scaleAspectFit
+            self.imageOfItem.image = pickedImage
         }
         // Dismiss the image picker
         dismiss(animated: true, completion: nil)
@@ -84,15 +89,40 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             //get the text and use it
             self.itemToBeLogged.description = description
         }
-        
         // Create the NSDictionary for transfer to Firebase
         let itemToBeLoggedDictionary: NSDictionary = [
             "itemDescription": self.itemToBeLogged.description
         ]
-        
         // Push a NSDictionary entry in Firebase
-        ref.childByAutoId().setValue(itemToBeLoggedDictionary)
-    
+        dbRef.childByAutoId().setValue(itemToBeLoggedDictionary)
+        
+        // Create a ref to the exact location where to upload the picture
+        let itemToBeLoggedImageRef = imagesRef.child("test.jpg")
+        
+        
+        // Upload the image to Google Storage
+        // If the image is not nil...
+        if let image = self.imageOfItem.image {
+            // ...Then convert the image into a Data? object...
+            let imageData: Data? = UIImageJPEGRepresentation(image, 1.0)
+            // ...Then if Data? is not nil, launch the Google Upload
+            if let data = imageData {
+                let uploadTask = itemToBeLoggedImageRef.put(data, metadata: nil) { metadata, error in
+                    if (error != nil) {
+                        // Uh-oh, an error occured!
+                        print("error occured when trying to upload...")
+                    } else {
+                        print("image uploaded successfully!")
+                        // Get the download url from the metadata
+                        // let downloadURL = metadata!.downloadURL
+                    }
+                }
+            }
+        }
+
+        
+
+        
     }
 
 }

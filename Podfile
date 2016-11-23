@@ -8,12 +8,14 @@ target 'tradeit' do
   # Pods for tradeit
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
   target 'tradeitTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'Firebase/Core'
     pod 'Firebase/Database'
+    pod 'Firebase/Storage'
   end
 
 end
