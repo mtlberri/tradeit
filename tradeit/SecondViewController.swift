@@ -11,7 +11,7 @@ import Firebase
 
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
-class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     // MARK: Properties
     // Create and initialized the item object
@@ -28,20 +28,10 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var postItemButton: UIButton!
     
     // Outlet reference to the item descirption text field
-    @IBOutlet weak var itemDescription: UITextField! {
-        willSet {
-            itemToBeLogged.description = newValue.text
-            print("The description of the itemToBeLogged has been set to equal the view")
-        }
-    }
+    @IBOutlet weak var itemDescription: UITextView!
     
     // Outlet reference to the image of the item being posted
-    @IBOutlet weak var imageOfItem: UIImageView! {
-        willSet {
-            itemToBeLogged.image = newValue.image
-            print("The image of the itemToBeLogged has been set to equal the view")
-        }
-    }
+    @IBOutlet weak var imageOfItem: UIImageView!
     
     // MARK: Methods
     // Method posting the item to be logged in firebase
@@ -87,6 +77,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
         // Set the present class as the delegate for the image picker
         imagePicker.delegate = self
+        // Set the present class as the delegate for the ui text view for item description
+        itemDescription.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -111,6 +103,13 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the image picker
         dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: UITextViewDelegate Methods
+    func textViewDidChange(_ textView: UITextView) {
+        // set the text from the text view into the item description
+        self.itemToBeLogged.description = textView.text
+        print("text view did change!")
     }
     
     // MARK: Actions
