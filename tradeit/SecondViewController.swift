@@ -12,14 +12,6 @@ import Firebase
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
 class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    // MARK: Outlets
-    // Outlet reference to the "Log +1 in Firebase!" button
-    @IBOutlet weak var log1InFirebase: UIButton!
-    // Outlet reference to the item descirption text field
-    @IBOutlet weak var itemDescription: UITextField!
-    // Outlet reference to the image of the item being posted
-    @IBOutlet weak var imageOfItem: UIImageView!
 
     // MARK: Properties
     // Create and initialized the item object
@@ -28,73 +20,41 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
     // Firebase storage reference
     let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
-    
     // Image Picker of the view controller
-    let imagePicker = UIImagePickerController()
+    let imagePicker = UIImagePickerController()    
     
-    // MARK: override of View Controller basic functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Set the present class as the delegate for the image picker
-        imagePicker.delegate = self
-        
-        
-    }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: Actions
-    // Action called when the "Choose image button is pressed"
-    @IBAction func chooseImagePressed(_ sender: UIButton) {
-        // No editing will be allowed
-        imagePicker.allowsEditing = false
-        // Select the source to be the Photo Library
-        imagePicker.sourceType = .photoLibrary
-        
-        // Present the image picker
-        present(imagePicker, animated: true, completion: nil)
-        
-    }
+    // MARK: Outlets
+    // Outlet reference to the "Post item!" button
+    @IBOutlet weak var postItemButton: UIButton!
     
-    // MARK: UIImagePickerControllerDelegate Methods
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        // Get the image itself
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            // imageOfItem is the outlet to the view!
-            self.imageOfItem.contentMode = .scaleAspectFit
-            self.imageOfItem.image = pickedImage
+    // Outlet reference to the item descirption text field
+    @IBOutlet weak var itemDescription: UITextField! {
+        willSet {
+            itemToBeLogged.description = newValue.text
+            print("The description of the itemToBeLogged has been set to equal the view")
         }
-        // Dismiss the image picker
-        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // Dismiss the image picker
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
-    // Action called when "Log +1 in Firebase!" button pressed
-    @IBAction func log1InFirebasePressed(_ sender: UIButton) {
-        // Print message when button pressed
-        print("'Log +1 in Firebase!' button pressed")
-
-        if let description = itemDescription.text {
-            //get the text and use it
-            self.itemToBeLogged.description = description
+    // Outlet reference to the image of the item being posted
+    @IBOutlet weak var imageOfItem: UIImageView! {
+        willSet {
+            itemToBeLogged.image = newValue.image
+            print("The image of the itemToBeLogged has been set to equal the view")
         }
-        // Create the NSDictionary for transfer to Firebase
-        let itemToBeLoggedDictionary: NSDictionary = [
-            "itemDescription": self.itemToBeLogged.description
+    }
+    
+    // MARK: Methods
+    // Method posting the item to be logged in firebase
+    func postItemInFirebase (_ item: Item) {
+        
+        // Create the NSDictionary for transfer to Firebase DB
+        let itemDictionary: NSDictionary = [
+            "description": item.description ?? "",
+            "image": "To be developped later..",
+            "tags": item.tags ?? ["items"]
         ]
         // Push a NSDictionary entry in Firebase
-        dbRef.childByAutoId().setValue(itemToBeLoggedDictionary)
+        dbRef.childByAutoId().setValue(itemDictionary)
         
         // Create a ref to the exact location where to upload the picture
         let itemToBeLoggedImageRef = imagesRef.child("test.jpg")
@@ -119,11 +79,61 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 }
             }
         }
-
-        
-
         
     }
+    
+    // MARK: override of View Controller basic functions
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Set the present class as the delegate for the image picker
+        imagePicker.delegate = self
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: UIImagePickerControllerDelegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // Get the image itself
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            // imageOfItem is the outlet to the view!
+            self.imageOfItem.contentMode = .scaleAspectFit
+            self.imageOfItem.image = pickedImage
+            
+        }
+        // Dismiss the image picker
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the image picker
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: Actions
+    // Action called when the "Choose image button is pressed"
+    @IBAction func chooseImagePressed(_ sender: UIButton) {
+        // No editing will be allowed
+        imagePicker.allowsEditing = false
+        // Select the source to be the Photo Library
+        imagePicker.sourceType = .photoLibrary
+        
+        // Present the image picker
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // Action called when "Post item button pressed"
+    @IBAction func postItemButtonPressed(_ sender: UIButton) {
+        // Print message when button pressed
+        print("'Post item!' button pressed")
+        postItemInFirebase(itemToBeLogged)
+      
+    }
+
+    
 
 }
 
