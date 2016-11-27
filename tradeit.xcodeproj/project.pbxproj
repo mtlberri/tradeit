@@ -117,10 +117,9 @@
 		B79113811DD7AB1C002DFA2F /* tradeit */ = {
 			isa = PBXGroup;
 			children = (
+				B7F7DAC51DE5261B001319C3 /* Controller */,
+				B7F7DAC41DE525C6001319C3 /* Model */,
 				B79113821DD7AB1C002DFA2F /* AppDelegate.swift */,
-				B79113841DD7AB1C002DFA2F /* FirstViewController.swift */,
-				B79113861DD7AB1C002DFA2F /* SecondViewController.swift */,
-				B789D4211DD7D939001AD480 /* Item.swift */,
 				B79113881DD7AB1C002DFA2F /* Main.storyboard */,
 				B791138B1DD7AB1C002DFA2F /* Assets.xcassets */,
 				B791138D1DD7AB1C002DFA2F /* LaunchScreen.storyboard */,
@@ -137,6 +136,23 @@
 				B791139B1DD7AB1C002DFA2F /* Info.plist */,
 			);
 			path = tradeitTests;
+			sourceTree = "<group>";
+		};
+		B7F7DAC41DE525C6001319C3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B789D4211DD7D939001AD480 /* Item.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B7F7DAC51DE5261B001319C3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B79113841DD7AB1C002DFA2F /* FirstViewController.swift */,
+				B79113861DD7AB1C002DFA2F /* SecondViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
