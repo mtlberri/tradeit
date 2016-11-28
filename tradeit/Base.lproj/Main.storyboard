@@ -63,14 +63,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCr-nU-KiJ">
-                                <rect key="frame" x="158" y="577" width="98" height="30"/>
+                                <rect key="frame" x="158" y="575" width="98" height="30"/>
                                 <state key="normal" title="Choose image"/>
                                 <connections>
                                     <action selector="chooseImagePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="ane-on-m3V"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
-                                <rect key="frame" x="173" y="617" width="69" height="30"/>
+                                <rect key="frame" x="173" y="615" width="69" height="30"/>
                                 <state key="normal" title="Post item!"/>
                                 <connections>
                                     <action selector="postItemButtonPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="9EX-2i-OCX"/>
@@ -88,10 +88,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PLG-c1-vHv">
+                                <rect key="frame" x="132" y="663" width="150" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="40" id="6nK-S8-uOx"/>
                             <constraint firstItem="GBL-Lu-DAn" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="8I4-jN-EYj"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="AmF-E1-xsg"/>
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="30" id="AxJ-Jk-iAL"/>
@@ -99,8 +101,11 @@
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="DFG-5F-jGy"/>
                             <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="100" id="Gih-UA-y0m"/>
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="HQN-kP-GvS"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="PLG-c1-vHv" secondAttribute="bottom" constant="20" id="N26-L3-n9c"/>
                             <constraint firstItem="GCr-nU-KiJ" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Rnf-qy-wBJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" constant="100" id="fri-UA-lA6"/>
+                            <constraint firstItem="PLG-c1-vHv" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="kKs-rV-0EO"/>
+                            <constraint firstItem="PLG-c1-vHv" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="20" id="o8l-sZ-Crj"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Post item" image="second" id="cPa-gy-q4n"/>
@@ -108,6 +113,7 @@
                         <outlet property="imageOfItem" destination="GBL-Lu-DAn" id="44w-Ig-Fee"/>
                         <outlet property="itemDescription" destination="Ywg-tV-4Ta" id="mFR-jU-Gep"/>
                         <outlet property="postItemButton" destination="LOu-Vz-FDW" id="xRB-ll-eSW"/>
+                        <outlet property="progressView" destination="PLG-c1-vHv" id="TFx-dN-7jz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

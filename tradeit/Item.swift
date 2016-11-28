@@ -3,6 +3,9 @@ import UIKit
 
 class Item {
     
+    // Item key (Firebase key)
+    var key: String?
+    
     // Description of the item being traded
     var description: String?
     
@@ -11,5 +14,8 @@ class Item {
     
     // Image
     var image: UIImage?
+    
+    // Image path
+    var imagePath: String?
     
 }

@@ -26,33 +26,43 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     // MARK: Outlets
     // Outlet reference to the "Post item!" button
     @IBOutlet weak var postItemButton: UIButton!
-    
     // Outlet reference to the item descirption text field
     @IBOutlet weak var itemDescription: UITextView!
-    
     // Outlet reference to the image of the item being posted
     @IBOutlet weak var imageOfItem: UIImageView!
+    // progress view
+    @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Methods
     // Method posting the item to be logged in firebase
     func postItemInFirebase (_ item: Item) {
         
+        item.key = dbRef.childByAutoId().key
+        print("Item key is set to \(item.key!)")
+        
         // Create the NSDictionary for transfer to Firebase DB
         let itemDictionary: NSDictionary = [
             "description": item.description ?? "",
-            "image": "To be developped later..",
+            "key": item.key!,
             "tags": item.tags ?? ["items"]
         ]
+        // Create the child item that will be updated in the DB
+        let childUpdate = ["\(item.key!)": itemDictionary]
+        
         // Push a NSDictionary entry in Firebase
-        dbRef.childByAutoId().setValue(itemDictionary)
-        
-        // Create a ref to the exact location where to upload the picture
-        let itemToBeLoggedImageRef = imagesRef.child("test.jpg")
-        
+        dbRef.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
+            print("Loading of item in Firebase DB completed! At reference key: \(ref.key)...")
+        })
         
         // Upload the image to Google Storage
         // If the image is not nil...
-        if let image = self.imageOfItem.image {
+        if let image = item.image {
+            
+            // Create a ref to the exact location where to upload the picture
+            item.imagePath = "\(item.key!).jpg"
+            let itemToBeLoggedImageRef = imagesRef.child(item.imagePath!)
+            print("...corresponding image will be stored at: \(item.imagePath!)")
+            
             // ...Then convert the image into a Data? object...
             let imageData: Data? = UIImageJPEGRepresentation(image, 1.0)
             // ...Then if Data? is not nil, launch the Google Upload
@@ -67,6 +77,13 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                         // let downloadURL = metadata!.downloadURL
                     }
                 }
+                uploadTask.observe(.progress, handler: { snapshot in
+                    if let progress = snapshot.progress {
+                        let progressFloat: Float = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
+                        //self.progressView.progress = progressFloat
+                    }
+                })
+                
             }
         }
         
@@ -79,6 +96,15 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePicker.delegate = self
         // Set the present class as the delegate for the ui text view for item description
         itemDescription.delegate = self
+        
+        // Define border for the text view
+        let myBorderColor = UIColor.lightGray
+        itemDescription.layer.borderColor = myBorderColor.cgColor
+        itemDescription.layer.borderWidth = 1.0
+        itemDescription.layer.cornerRadius = 5.0
+        
+        // Set a default image for the item
+        self.itemToBeLogged.image = imageOfItem.image
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +120,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             // imageOfItem is the outlet to the view!
             self.imageOfItem.contentMode = .scaleAspectFit
             self.imageOfItem.image = pickedImage
+            
+            //set the image in the item to be logged object
+            self.itemToBeLogged.image = pickedImage
             
         }
         // Dismiss the image picker
