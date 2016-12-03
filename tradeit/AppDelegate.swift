@@ -14,7 +14,9 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    // MARK: Properties
+    
     override init() {
         // Configure the Firebase Application
         FIRApp.configure()
