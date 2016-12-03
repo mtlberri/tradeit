@@ -73,14 +73,15 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                         print("error occured when trying to upload...")
                     } else {
                         print("image uploaded successfully!")
-                        // Get the download url from the metadata
-                        // let downloadURL = metadata!.downloadURL
                     }
                 }
+                
+                // currently does not work.... (progress does not go up to the end..) bug Firebase? 
                 uploadTask.observe(.progress, handler: { snapshot in
                     if let progress = snapshot.progress {
-                        let progressFloat: Float = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
-                        //self.progressView.progress = progressFloat
+                        let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                        self.progressView.progress = Float(percentComplete)
+                        print("Upload progressed: percent complete = \(percentComplete)")
                     }
                 })
                 
