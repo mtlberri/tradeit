@@ -11,6 +11,10 @@
 		86C6DA136ECD78A491A397FD /* Pods_tradeit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB99383F6B51C1F1323E5E /* Pods_tradeit.framework */; };
 		B7352ED71DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
 		B7352ED81DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
+		B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
+		B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
+		B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */; };
+		B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */; };
 		B789D4221DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B789D4231DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113821DD7AB1C002DFA2F /* AppDelegate.swift */; };
@@ -39,6 +43,8 @@
 		9BBCFB09A854C040C4FF5ECE /* Pods-tradeit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeit/Pods-tradeit.debug.xcconfig"; sourceTree = "<group>"; };
 		ABD5F7E24ADB950610FDF054 /* Pods-tradeitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeitTests/Pods-tradeitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
+		B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B789D4211DD7D939001AD480 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B791137F1DD7AB1C002DFA2F /* tradeit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79113821DD7AB1C002DFA2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +100,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B75467001DF360A900ABB7EB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		B79113761DD7AB1C002DFA2F = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +131,7 @@
 		B79113811DD7AB1C002DFA2F /* tradeit */ = {
 			isa = PBXGroup;
 			children = (
+				B75467001DF360A900ABB7EB /* View */,
 				B7F7DAC51DE5261B001319C3 /* Controller */,
 				B7F7DAC41DE525C6001319C3 /* Model */,
 				B79113821DD7AB1C002DFA2F /* AppDelegate.swift */,
@@ -150,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				B79113841DD7AB1C002DFA2F /* FirstViewController.swift */,
+				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B79113861DD7AB1C002DFA2F /* SecondViewController.swift */,
 			);
 			name = Controller;
@@ -362,7 +378,9 @@
 				B789D4221DD7D939001AD480 /* Item.swift in Sources */,
 				B79113871DD7AB1C002DFA2F /* SecondViewController.swift in Sources */,
 				B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */,
+				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* FirstViewController.swift in Sources */,
+				B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +389,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B789D4231DD7D939001AD480 /* Item.swift in Sources */,
+				B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
+				B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
