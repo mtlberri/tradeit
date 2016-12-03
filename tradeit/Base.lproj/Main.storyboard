@@ -126,9 +126,6 @@
                                     <action selector="postItemButtonPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="9EX-2i-OCX"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stuff" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
-                                <rect key="frame" x="120" y="218" width="174" height="300"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Item description ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ywg-tV-4Ta">
                                 <rect key="frame" x="20" y="50" width="374" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,6 +141,12 @@
                                     <constraint firstAttribute="width" constant="150" id="jk6-Fo-VQU"/>
                                 </constraints>
                             </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stuff" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
+                                <rect key="frame" x="20" y="193" width="374" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="VGk-T3-Sbd"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -152,12 +155,12 @@
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="30" id="AxJ-Jk-iAL"/>
                             <constraint firstItem="LOu-Vz-FDW" firstAttribute="top" secondItem="GCr-nU-KiJ" secondAttribute="bottom" constant="10" id="BHB-d2-pgh"/>
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="DFG-5F-jGy"/>
-                            <constraint firstItem="GBL-Lu-DAn" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="100" id="Gih-UA-y0m"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" id="GMa-nm-uUB"/>
                             <constraint firstItem="Ywg-tV-4Ta" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="HQN-kP-GvS"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="PLG-c1-vHv" secondAttribute="bottom" constant="20" id="N26-L3-n9c"/>
                             <constraint firstItem="GCr-nU-KiJ" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Rnf-qy-wBJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GBL-Lu-DAn" secondAttribute="trailing" constant="100" id="fri-UA-lA6"/>
                             <constraint firstItem="PLG-c1-vHv" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="kKs-rV-0EO"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="GBL-Lu-DAn" secondAttribute="leading" id="mc7-Ts-za5"/>
                             <constraint firstItem="PLG-c1-vHv" firstAttribute="top" secondItem="LOu-Vz-FDW" secondAttribute="bottom" constant="20" id="o8l-sZ-Crj"/>
                         </constraints>
                     </view>
@@ -171,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1109" y="406"/>
+            <point key="canvasLocation" x="1108.6956521739132" y="405.97826086956525"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
