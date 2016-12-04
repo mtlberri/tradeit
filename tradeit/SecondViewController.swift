@@ -40,10 +40,11 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         item.key = dbRef.childByAutoId().key
         print("Item key is set to \(item.key!)")
         
-        // Create the NSDictionary for transfer to Firebase DB
-        let itemDictionary: NSDictionary = [
-            "description": item.description ?? "",
+        // Create the Dictionary for transfer to Firebase DB
+        let itemDictionary: [String: Any] = [
             "key": item.key!,
+            "description": item.description ?? "",
+            "imagePath": "",
             "tags": item.tags ?? ["items"]
         ]
         // Create the child item that will be updated in the DB
@@ -73,10 +74,20 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                         print("error occured when trying to upload...")
                     } else {
                         print("image uploaded successfully!")
+                        
+                        self.dbRef.updateChildValues(["\(item.key!)/imagePath": item.imagePath!], withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
+                            if error != nil {
+                                print("Oops error during Firbase update of imagePath for key: \(ref.key)")
+                            } else {
+                               print("Update of item in Firebase DB completed! At reference key: \(ref.key), for imagePath \(item.imagePath!)")
+                            }
+                            
+                        })
+                        
                     }
                 }
                 
-                // currently does not work.... (progress does not go up to the end..) bug Firebase? 
+                // Upload Task observer and status bar update
                 uploadTask.observe(.progress, handler: { snapshot in
                     if let progress = snapshot.progress {
                         let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)

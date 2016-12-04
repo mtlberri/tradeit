@@ -157,9 +157,8 @@ class ItemsCollectionViewController: UICollectionViewController {
                     itemToAdd.key = elementNSDictionary["key"] as? String
                     itemToAdd.description = elementNSDictionary["description"] as? String
                     itemToAdd.tags = elementNSDictionary["description"] as? [String]
-                    // To be added later in Firebase model
-                    //itemToAdd.imagePath = elementNSDictionary["imagePath"] as? String
-                    print("For item \(itemToAdd.description): Successfully set properties: key, description, tags")
+                    itemToAdd.imagePath = elementNSDictionary["imagePath"] as? String
+                    print("For item \(itemToAdd.description): Successfully set properties: key, description, tags, imagePath")
                     
                     // Download the image and assign it to the itemToAdd object
                     let itemImageRef = self.imagesRef.child("\(itemToAdd.key!).jpg")
