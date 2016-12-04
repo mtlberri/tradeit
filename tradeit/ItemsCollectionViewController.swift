@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "ItemCell"
 
@@ -41,6 +42,14 @@ extension ItemsCollectionViewController : UICollectionViewDelegateFlowLayout {
 class ItemsCollectionViewController: UICollectionViewController {
 
     
+    // MARK: Properties
+    var itemsArray = [Item]()
+    
+    // Firebase database ref
+    var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
+    // Firebase storage reference
+    let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +59,10 @@ class ItemsCollectionViewController: UICollectionViewController {
 
 
         // Do any additional setup after loading the view.
+        // Go get the Firebase data
+        buildItemsArray()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +90,8 @@ class ItemsCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 8
+        print("There will be \(self.itemsArray.count) cells")
+        return self.itemsArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,8 +99,8 @@ class ItemsCollectionViewController: UICollectionViewController {
     
         // Configure the cell
         cell.backgroundColor = UIColor.white
-        cell.imageView.image = #imageLiteral(resourceName: "stuff")
-        
+        cell.imageView.image = itemsArray[indexPath.row].image
+        print("Returning Cell number: \(indexPath.row)")
         return cell
     }
 
@@ -120,5 +134,63 @@ class ItemsCollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    // MARK: My Methods
+    
+    func buildItemsArray() -> Void {
+        
+        // read Firebase data once and fill the itemsArray based on data retrieved
+        dbRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let firebaseNSDictionary = snapshot.value as? NSDictionary
+            
+            if let dictionary = firebaseNSDictionary {
+                
+                for element in dictionary {
+                    
+                    print("Entering the loop to create itemToAdd based on firebase element:")
+                    print(element.value)
+                    let elementNSDictionary = element.value as! NSDictionary
+                    
+                    let itemToAdd = Item()
+                    // Populate the itemToAddd
+                    itemToAdd.key = elementNSDictionary["key"] as? String
+                    itemToAdd.description = elementNSDictionary["description"] as? String
+                    itemToAdd.tags = elementNSDictionary["description"] as? [String]
+                    // To be added later in Firebase model
+                    //itemToAdd.imagePath = elementNSDictionary["imagePath"] as? String
+                    print("For item \(itemToAdd.description): Successfully set properties: key, description, tags")
+                    
+                    // Download the image and assign it to the itemToAdd object
+                    let itemImageRef = self.imagesRef.child("\(itemToAdd.key!).jpg")
+                    // Download image in memory with a max size allowed of 1MB (1*1024*1024 bytes)
+                    itemImageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
+                        if ( error != nil ) {
+                            print("Oops error occured in the download of item image: \(itemToAdd.key!).jpg")
+                        } else {
+                            // Create an image based on the data downloaded and assign it to the item image
+                            itemToAdd.image = UIImage(data: data!)
+                            print("For item \(itemToAdd.description): Successfully downloaded image: \(itemToAdd.key!).jpg")
+                            
+                            self.collectionView?.reloadData()
+                            print("For item \(itemToAdd.description): Collection view reloading ordered")
+                        }
+                        
+                    })
+                    
+                    self.itemsArray.append(itemToAdd)
+                    print("For item \(itemToAdd.description): Appended the item to the itemsArray")
+                    self.collectionView?.reloadData()
+                    print("For item \(itemToAdd.description): Collection view reloading ordered")
+
+                }
+            }
+        })
+        { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
+    }
 
 }
