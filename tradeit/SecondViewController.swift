@@ -66,9 +66,16 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             // ...Then convert the image into a Data? object...
             let imageData: Data? = UIImageJPEGRepresentation(image, 1.0)
+            
+            
+            
             // ...Then if Data? is not nil, launch the Google Upload
             if let data = imageData {
-                let uploadTask = itemToBeLoggedImageRef.put(data, metadata: nil) { metadata, error in
+                
+                // Get the optimized version of the image data
+                let optimizedData = optimizeImageData(data);
+                
+                let uploadTask = itemToBeLoggedImageRef.put(optimizedData!, metadata: nil) { metadata, error in
                     if (error != nil) {
                         // Uh-oh, an error occured!
                         print("error occured when trying to upload...")
@@ -99,6 +106,26 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         }
         
+    }
+    
+    // Function optimizing the compression of the image data depending on its size
+    func optimizeImageData(_ originalImageData: Data) -> Data? {
+        let optimizedImageData: Data?
+        let originalSize: Float = Float(originalImageData.count) / 1024.0
+        print("Original Image data size: \(originalSize)")
+        var optimizedSize = originalSize
+        
+        // if size < 1000KB
+        if originalSize < 1000.0 {
+            optimizedImageData = originalImageData
+            print("Image data size kept as-is: \(originalSize)")
+        } else {
+            // Compress at 0.1
+            optimizedImageData = UIImageJPEGRepresentation(UIImage(data: originalImageData)!, 0.1)
+            optimizedSize = Float(optimizedImageData!.count) / 1024.0
+            print("Image data size optimized by compression ratio 0.1: \(optimizedSize)")
+        }
+        return optimizedImageData
     }
     
     // MARK: override of View Controller basic functions
@@ -133,10 +160,14 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             self.imageOfItem.contentMode = .scaleAspectFit
             self.imageOfItem.image = pickedImage
             
+            
+            
             //set the image in the item to be logged object
             self.itemToBeLogged.image = pickedImage
             
         }
+        
+        
         // Dismiss the image picker
         dismiss(animated: true, completion: nil)
     }
