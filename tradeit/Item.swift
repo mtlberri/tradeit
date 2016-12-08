@@ -14,8 +14,13 @@ class Item {
     
     // Image
     var image: UIImage?
-    
-    // Image path
+    // Image path (in Google Cloud Storage) - starting at /images/
     var imagePath: String?
+    
+    // Image thumbnail
+    var imageTumbnail: UIImage?
+    // Image thumbnail path (in Google Cloud Storage) - starting at /images/
+    var imageThumbnailPath: String?
+
     
 }
