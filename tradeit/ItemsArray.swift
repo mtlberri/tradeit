@@ -4,8 +4,8 @@ import Firebase
 class ItemsArray: NSObject {
     // content (array itself)
     var content: [Item] = []
-    // to monitor when metadata init process is completed (depending on FB data reading) ("dynamic" enables observation)
-    dynamic var metadataInitCompleted = false
+    // to monitor when thumbnails uploads are completed (depending on data downloading) ("dynamic" enables observation)
+    dynamic var numberOfThumbnailsDownloaded = 0
     
     // Initializer
     init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
@@ -48,18 +48,13 @@ class ItemsArray: NSObject {
                     print("For item \(itemToAppend.key): Appended the item to the itemsArray.content")
                     
                 }
-                print("Items Array metadata initialization is now completed! with \(self.content.count) elements")
-                self.metadataInitCompleted = true
-                print("TEST")
-                // Calling the escaping completion handler after init(), passing value true
+                // Calling the escaping completion handler after init() completed
+                print("Calling the escaping completion handler after ItemsArray init() completed")
                 completionHandler()
-                
             }
+
         })
-        { (error) in
-            print("Oops, following errror occured while trying to build ItemsArray object metadata from FB: \(error.localizedDescription)")
-        }
-        
+
     }
     
 }
