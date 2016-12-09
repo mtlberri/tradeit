@@ -8,7 +8,7 @@ class ItemsArray: NSObject {
     dynamic var metadataInitCompleted = false
     
     // Initializer
-    init(withMetadataFromFBRef ref: FIRDatabaseReference) {
+    init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
         
         // Call up to NSObject initializer
         super.init()
@@ -50,6 +50,9 @@ class ItemsArray: NSObject {
                 }
                 print("Items Array metadata initialization is now completed! with \(self.content.count) elements")
                 self.metadataInitCompleted = true
+                print("TEST")
+                // Calling the escaping completion handler after init(), passing value true
+                completionHandler()
                 
             }
         })
@@ -57,7 +60,6 @@ class ItemsArray: NSObject {
             print("Oops, following errror occured while trying to build ItemsArray object metadata from FB: \(error.localizedDescription)")
         }
         
-        
-    } // END of init()
+    }
     
 }

@@ -14,12 +14,15 @@ class FirstViewController: UIViewController {
     var myContext = 0
     let testRef: FIRDatabaseReference! = FIRDatabase.database().reference()
     var testItemsArray: ItemsArray!
-    
+    var arrayInitialized = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.testItemsArray = ItemsArray(withMetadataFromFBRef: testRef)
+        self.testItemsArray = ItemsArray(withMetadataFromFBRef: testRef) { () -> Void in
+            // self.arrayInitialized = initCompleted
+            print("Completion handler called!")
+        }
         
         // Put an observer on the items array "initComplted" key
         testItemsArray.addObserver(self, forKeyPath: "metadataInitCompleted", options: .new, context: &myContext)
