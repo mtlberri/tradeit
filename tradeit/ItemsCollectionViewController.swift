@@ -117,6 +117,7 @@ class ItemsCollectionViewController: UICollectionViewController {
     
         // Configure the cell
         cell.backgroundColor = UIColor.blue
+        cell.itemDescription.text = self.itemsArray.content[indexPath.row].description ?? "No Description Available"
         // cell.imageView.image = itemsArray[indexPath.row].image
         print("Returning Cell number: \(indexPath.row)")
         return cell
