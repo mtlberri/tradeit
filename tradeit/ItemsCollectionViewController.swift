@@ -155,5 +155,11 @@ class ItemsCollectionViewController: UICollectionViewController {
     
     // MARK: My Methods
 
+    
+    // De-Initialization
+    deinit {
+        print("Removing obserbver on Items Array 'numberOfThumbnailsDownloaded'")
+        self.itemsArray.removeObserver(self, forKeyPath: "numberOfThumbnailsDownloaded")
+    }
 
 }
