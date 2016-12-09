@@ -1,11 +1,3 @@
-//
-//  SecondViewController.swift
-//  tradeit
-//
-//  Created by Joffrey Armellini on 2016-11-12.
-//  Copyright © 2016 Joffrey Armellini. All rights reserved.
-//
-
 import UIKit
 import Firebase
 
@@ -37,23 +29,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     // Method posting the item to be logged in firebase
     func postItemInFirebase (_ item: Item) {
         
-        item.key = dbRef.childByAutoId().key
-        print("Item key is set to \(item.key!)")
-        
-        // Create the Dictionary for transfer to Firebase DB
-        let itemDictionary: [String: Any] = [
-            "key": item.key!,
-            "description": item.description ?? "",
-            "imagePath": "",
-            "tags": item.tags ?? ["items"]
-        ]
-        // Create the child item that will be updated in the DB
-        let childUpdate = ["\(item.key!)": itemDictionary]
-        
-        // Push a NSDictionary entry in Firebase
-        dbRef.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
-            print("Loading of item in Firebase DB completed! At reference key: \(ref.key)...")
-        })
+        /*
         
         // Upload the image to Google Storage
         // If the image is not nil...
@@ -105,7 +81,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
             }
         }
-        
+       */
     }
     
     // Function optimizing the compression of the image data depending on its size
@@ -200,7 +176,14 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func postItemButtonPressed(_ sender: UIButton) {
         // Print message when button pressed
         print("'Post item!' button pressed")
-        postItemInFirebase(itemToBeLogged)
+        // Upload the item and use the completion block to know if error
+        self.itemToBeLogged.uploadMetadata(atFBRef: self.dbRef) { (error) in
+            if error == nil {
+                print("View Controller says: Yup I confirm, upload successful!")
+            } else {
+                print("View Controller says: Yup I confirm, upload failed!")
+            }
+        }
       
     }
 

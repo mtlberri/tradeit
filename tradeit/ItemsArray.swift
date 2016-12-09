@@ -7,7 +7,7 @@ class ItemsArray: NSObject {
     // to monitor when thumbnails uploads are completed (depending on data downloading) ("dynamic" enables observation)
     dynamic var numberOfThumbnailsDownloaded = 0
     
-    // Initializer
+    // MARK: Initializer
     init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
         
         // Call up to NSObject initializer
@@ -55,6 +55,12 @@ class ItemsArray: NSObject {
 
         })
 
+    }
+    
+    // MARK: Methods
+    // Method to load thumbnails
+    func loadThumbnails() -> Void {
+        
     }
     
 }
