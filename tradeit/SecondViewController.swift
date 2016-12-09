@@ -26,8 +26,6 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Methods
-
-    
     // Function optimizing the compression of the image data depending on its size
     func optimizeImageData(_ originalImageData: Data) -> Data? {
         let optimizedImageData: Data?
@@ -80,14 +78,9 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             self.imageOfItem.contentMode = .scaleAspectFit
             self.imageOfItem.image = pickedImage
             
-            
-            
             //set the image in the item to be logged object
             self.itemToBeLogged.image = pickedImage
-            
         }
-        
-        
         // Dismiss the image picker
         dismiss(animated: true, completion: nil)
     }
@@ -140,7 +133,6 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
   
         }
-            
         // Upload Task observer and status bar update
         uploadTask?.observe(.progress, handler: { snapshot in
             if let progress = snapshot.progress {
@@ -150,6 +142,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         })
         
+        // Create the Thumbnail and Upload it
       
     }
 

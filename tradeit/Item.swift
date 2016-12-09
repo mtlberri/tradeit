@@ -69,16 +69,16 @@ class Item {
         var uploadTask: FIRStorageUploadTask?
         
         // Check if image is not nil, and if its data conversion is not nil,
-        if let imageToUpload = self.image, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0) {
+        if let imageToUpload = self.image, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0), let itemKey = self.key {
             
-                print("All conditions OK to start upload of Full Size image of item \(self.key)")
-                uploadTask = ref.put(dataToUpload, metadata: nil) { (metadata, error) in
+                print("All conditions OK to start upload of Full Size image of item \(itemKey)")
+                uploadTask = ref.child("\(itemKey).jpg").put(dataToUpload, metadata: nil) { (metadata, error) in
                         if error == nil {
-                            print("Item method says: Upload of Full Size Image \(self.key) in Firebase Storage successfully completed!")
+                            print("Item method says: Upload of Full Size Image \(itemKey) in Firebase Storage successfully completed!")
                             // Completion block with error nil
                             completion(error)
                         } else {
-                            print("Item method says: Upload of Full Size Image \(self.key) in Firebase Storage failed!")
+                            print("Item method says: Upload of Full Size Image \(itemKey) in Firebase Storage failed!")
                             print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
                             // Completion block with error
                             completion(error)
