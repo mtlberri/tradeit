@@ -27,7 +27,7 @@ class Item {
     // MARK : Methods
     
     // Method to post item METADATA in Firebase
-    func uploadMetadata (atFBRef ref: FIRDatabaseReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
+    func uploadMetadata (atFBDBRef ref: FIRDatabaseReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
         
         // Go create a auto child Id and get corresponding key
         self.key = ref.childByAutoId().key
@@ -46,15 +46,11 @@ class Item {
         
         // Create the child item that will be updated in the Firebase DB
         let childUpdate = ["\(self.key!)": dic]
-        print("Child update that is going to be pushed in Firebase is:")
-        print(childUpdate)
-     
-        
         
         // Update the entry in Firebase
         ref.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
             if error == nil {
-                print("Item method says: Upload of item \(self.key) in Firebase DB successfully completed!")
+                print("Item method says: Upload of item METADATA \(self.key) in Firebase DB successfully completed!")
                 // Completion block with error nil
                 completion(error)
             } else {
@@ -64,10 +60,33 @@ class Item {
                 completion(error)
             }
         })
-
         
+    }
+    
+    // Method to upload the full size picture in Firebase Storage
+    func uploadFullSizePicture (atFBStorageRef ref: FIRStorageReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
         
+        var uploadTask: FIRStorageUploadTask?
         
+        // Check if image is not nil, and if its data conversion is not nil,
+        if let imageToUpload = self.image, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0) {
+            
+                print("All conditions OK to start upload of Full Size image of item \(self.key)")
+                uploadTask = ref.put(dataToUpload, metadata: nil) { (metadata, error) in
+                        if error == nil {
+                            print("Item method says: Upload of Full Size Image \(self.key) in Firebase Storage successfully completed!")
+                            // Completion block with error nil
+                            completion(error)
+                        } else {
+                            print("Item method says: Upload of Full Size Image \(self.key) in Firebase Storage failed!")
+                            print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
+                            // Completion block with error
+                            completion(error)
+                        }
+                }
+        
+        }
+        return uploadTask
     }
     
 }

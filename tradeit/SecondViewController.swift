@@ -26,63 +26,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Methods
-    // Method posting the item to be logged in firebase
-    func postItemInFirebase (_ item: Item) {
-        
-        /*
-        
-        // Upload the image to Google Storage
-        // If the image is not nil...
-        if let image = item.image {
-            
-            // Create a ref to the exact location where to upload the picture
-            item.imagePath = "\(item.key!).jpg"
-            let itemToBeLoggedImageRef = imagesRef.child(item.imagePath!)
-            print("...corresponding image will be stored at: \(item.imagePath!)")
-            
-            // ...Then convert the image into a Data? object...
-            let imageData: Data? = UIImageJPEGRepresentation(image, 1.0)
-            
-            
-            
-            // ...Then if Data? is not nil, launch the Google Upload
-            if let data = imageData {
-                
-                // Get the optimized version of the image data
-                let optimizedData = optimizeImageData(data);
-                
-                let uploadTask = itemToBeLoggedImageRef.put(optimizedData!, metadata: nil) { metadata, error in
-                    if (error != nil) {
-                        // Uh-oh, an error occured!
-                        print("error occured when trying to upload...")
-                    } else {
-                        print("image uploaded successfully!")
-                        
-                        self.dbRef.updateChildValues(["\(item.key!)/imagePath": item.imagePath!], withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
-                            if error != nil {
-                                print("Oops error during Firbase update of imagePath for key: \(ref.key)")
-                            } else {
-                               print("Update of item in Firebase DB completed! At reference key: \(ref.key), for imagePath \(item.imagePath!)")
-                            }
-                            
-                        })
-                        
-                    }
-                }
-                
-                // Upload Task observer and status bar update
-                uploadTask.observe(.progress, handler: { snapshot in
-                    if let progress = snapshot.progress {
-                        let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
-                        self.progressView.progress = Float(percentComplete)
-                        print("Upload progressed: percent complete = \(percentComplete)")
-                    }
-                })
-                
-            }
-        }
-       */
-    }
+
     
     // Function optimizing the compression of the image data depending on its size
     func optimizeImageData(_ originalImageData: Data) -> Data? {
@@ -176,14 +120,36 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func postItemButtonPressed(_ sender: UIButton) {
         // Print message when button pressed
         print("'Post item!' button pressed")
-        // Upload the item and use the completion block to know if error
-        self.itemToBeLogged.uploadMetadata(atFBRef: self.dbRef) { (error) in
+        
+        // Upload the item METADA and use the completion block to know if error
+        self.itemToBeLogged.uploadMetadata(atFBDBRef: self.dbRef) { (error) in
             if error == nil {
-                print("View Controller says: Yup I confirm, upload successful!")
+                print("View Controller says: Yup I confirm, upload of METADATA successful!")
             } else {
-                print("View Controller says: Yup I confirm, upload failed!")
+                print("View Controller says: Yup I confirm, upload of METADATA failed!")
             }
         }
+        
+        // Upload Full Size Image
+        let uploadTask = self.itemToBeLogged.uploadFullSizePicture(atFBStorageRef: self.imagesRef) { (error) in
+            
+            if error == nil {
+                print("View Controller says: Yup I confirm, upload of Full Size Image successful!")
+            } else {
+                print("View Controller says: Yup I confirm, upload of Full Size Image failed!")
+            }
+  
+        }
+            
+        // Upload Task observer and status bar update
+        uploadTask?.observe(.progress, handler: { snapshot in
+            if let progress = snapshot.progress {
+                let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                self.progressView.progress = Float(percentComplete)
+                print("Upload progressed: percent complete = \(percentComplete)")
+            }
+        })
+        
       
     }
 
