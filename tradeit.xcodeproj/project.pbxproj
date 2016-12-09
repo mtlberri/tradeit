@@ -11,6 +11,8 @@
 		86C6DA136ECD78A491A397FD /* Pods_tradeit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB99383F6B51C1F1323E5E /* Pods_tradeit.framework */; };
 		B7352ED71DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
 		B7352ED81DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
+		B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */; };
+		B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */; };
 		B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
 		B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
 		B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */; };
@@ -43,6 +45,7 @@
 		9BBCFB09A854C040C4FF5ECE /* Pods-tradeit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeit/Pods-tradeit.debug.xcconfig"; sourceTree = "<group>"; };
 		ABD5F7E24ADB950610FDF054 /* Pods-tradeitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeitTests/Pods-tradeitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsArray.swift; sourceTree = "<group>"; };
 		B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
 		B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B789D4211DD7D939001AD480 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				B789D4211DD7D939001AD480 /* Item.swift */,
+				B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -380,6 +384,7 @@
 				B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */,
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* FirstViewController.swift in Sources */,
+				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 				B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +397,7 @@
 				B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
+				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
