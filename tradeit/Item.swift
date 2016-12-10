@@ -2,9 +2,14 @@ import Foundation
 import UIKit
 import Firebase
 
+// For use in the image upload method
 enum ImageKind {
     case original
     case thumbnail
+}
+// For use in the thumbnail creation method
+enum ThumbnailCreationError: Error {
+    case failed
 }
 
 class Item {
@@ -136,7 +141,7 @@ class Item {
     }
     
     // Method to create the thumbnail
-    func createThumbnail() -> Bool {
+    func createThumbnail (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
         
         print("Creation of thumbnail starts...")
         // Print original image data size
@@ -151,13 +156,90 @@ class Item {
             self.imageTumbnail = compressedImage
             print("Thumbnail of item \(self.key) successfully created!")
             print("Thumbnail image data size is: \(Float(compressedImageData.count) / 1024.0)")
-            return true
+            // No error passed to the completion block
+            completion(nil)
         } else {
             print("Thumbnail of item \(self.key) creation failed")
-            return false
+            // Error passed to the completion handler
+            completion(ThumbnailCreationError.failed)
         }
     }
     
+    // Wrap-Up Method for overall upload
+    func upload (withFBDBRef refD: FIRDatabaseReference, andFBStorageRef refS: FIRStorageReference, withCompletionBlock completion: @escaping (_ errorsArray: [Error?]) -> Void) -> FIRStorageUploadTask? {
+        
+        var overallErrorsArray: [Error?] = []
+        let originalImageUploadTask: FIRStorageUploadTask?
+        
+        // Tracker of completed tasks
+        let totalNumberOfTasks = 4
+        var completedTasks: [String] = [] {
+            didSet {
+                print("The following task are completed: \(completedTasks)")
+                print("\(completedTasks.count) / \(totalNumberOfTasks)")
+                
+                if completedTasks.count == totalNumberOfTasks {
+                    // Completion Handler is passed the array of Errors?
+                    completion(overallErrorsArray)
+                }
+                
+            }
+        }
+        
+        
+        // TASK#1: Upload the item METADA and use the completion block to know if error
+        self.uploadMetadata(atFBDBRef: refD) { (error) in
+            // Add the completed task to the tracker
+            completedTasks.append("Upload of Item METADATA")
+            if error == nil {
+                // Do nothing (no error)
+            } else {
+                // Append the error to the overall errors array
+                overallErrorsArray.append(error)
+            }
+        }
+        
+        
+        // TASK#2: Upload Original Image (and sync image path in corresponding Firebase DB)
+        originalImageUploadTask = self.uploadImage(kind: .original, atFBStorageRef: refS, syncedWithFBDRRef: refD) { (error) in
+            // Add the completed task to the tracker
+            completedTasks.append("Upload Original Image")
+            if error == nil {
+                // Do nothing (no error)
+            } else {
+                // Append the error to the overall errors array
+                overallErrorsArray.append(error)
+            }
+        }
+        
+        // TASK#3: Create the Thumbnail (Need to add some error management in there!)
+        self.createThumbnail() { (error) in
+            // Add the completed task to the tracker
+            completedTasks.append("Create Thumbnail")
+            if error == nil {
+                // Do nothing (no error)
+            } else {
+                // Append the error to the overall errors array
+                overallErrorsArray.append(error)
+            }
+        }
+        
+        // TASK#4: Upload Thumbnail (Warning because I do not use the returned upload task - but that is itentional so OK)
+        // Add the completed task to the tracker
+        completedTasks.append("Upload Thumbnail")
+        let thumbnailUploadTask = self.uploadImage(kind: .thumbnail, atFBStorageRef: refS, syncedWithFBDRRef: refD) { (error) in
+            if error == nil {
+                // Do nothing (no error)
+            } else {
+                // Append the error to the overall errors array
+                overallErrorsArray.append(error)
+            }
+        }
+        
+        // Return the upload task of the original image
+        return originalImageUploadTask
+        
+    }
     
     
     

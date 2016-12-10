@@ -115,25 +115,16 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         // Print message when button pressed
         print("'Post item!' button pressed")
         
-        // Upload the item METADA and use the completion block to know if error
-        self.itemToBeLogged.uploadMetadata(atFBDBRef: self.dbRef) { (error) in
-            if error == nil {
-                print("View Controller says: Yup I confirm, upload of METADATA successful!")
-            } else {
-                print("View Controller says: Yup I confirm, upload of METADATA failed!")
-            }
+        // Upload the item to be logged (completion block with output erroros of the full upload process)
+        let uploadTask = self.itemToBeLogged.upload(withFBDBRef: self.dbRef, andFBStorageRef: self.imagesRef) { (errorsArray) in
+            
+            //Do some with the array of errors
+            print("Overall upload task has completed with \(errorsArray.count) errors. Errors being:")
+            print(errorsArray)
+            
         }
         
-        // Upload Original Image (and sync image path in corresponding Firebase DB)
-        let uploadTask = self.itemToBeLogged.uploadImage(kind: .original, atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
-            
-            if error == nil {
-                print("View Controller says: Yup I confirm, upload of \(ImageKind.original) Image successful!")
-            } else {
-                print("View Controller says: Yup I confirm, upload of \(ImageKind.original) Image failed!")
-            }
-  
-        }
+        
         // Upload Task observer and status bar update
         uploadTask?.observe(.progress, handler: { snapshot in
             if let progress = snapshot.progress {
@@ -143,25 +134,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         })
         
-        // Create the Thumbnail
-        var thumbnailCreationSuccess = false
-        thumbnailCreationSuccess = self.itemToBeLogged.createThumbnail()
-        if thumbnailCreationSuccess {
-            print("View Controller says: Yup I confirm, creation of Thumbnail successful!")
-        } else {
-            print("View Controller says: Yup I confirm, creation of Thumbnail failed!")
-        }
-        
-        // Upload Thumbnail
-        self.itemToBeLogged.uploadImage(kind: .thumbnail, atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
-            
-            if error == nil {
-                print("View Controller says: Yup I confirm, upload of \(ImageKind.thumbnail) Image successful!")
-            } else {
-                print("View Controller says: Yup I confirm, upload of \(ImageKind.thumbnail) Image failed!")
-            }
-        }
-        
+
         
     }
 
