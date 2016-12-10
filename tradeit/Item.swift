@@ -279,18 +279,18 @@ class Item {
                     case .original:
                         // Set the origial image on the item
                         self.image = UIImage(data: data!)
-                        print("\(kind) image has been downloaded for item \(self.key)")
+                        print("At Item level: \(kind) image has been downloaded for item \(self.key)")
                         // completion block called with error nil
                         completion(error)
                     case.thumbnail:
                         // Set the thumbnail image on the item
                         self.imageTumbnail = UIImage(data: data!)
-                        print("\(kind) image has been downloaded for item \(self.key)")
+                        print("At Item level: \(kind) image has been downloaded for item \(self.key)")
                         // completion block called with error nil
                         completion(error)
                     }
                 } else {
-                    print("Huh-Oh Error while downloading \(kind) image \(self.key)")
+                    print("At Item level: Huh-Oh Error while downloading \(kind) image \(self.key)")
                     // completion block called with error
                     completion(error)
                 }

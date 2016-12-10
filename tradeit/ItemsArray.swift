@@ -72,11 +72,11 @@ class ItemsArray: NSObject {
             item.downloadImage(kind: .thumbnail, atFBStorageRef: refS) { (error) in
                 
                 if error == nil {
-                    print("Image Thumbnail \(item.key) successfully downloaded")
+                    print("At Items Array level: One Image Thumbnail \(item.key) successfully downloaded")
                     // Completion of unit called with error nil
                     completionOfUnite(error)
                 } else {
-                    print("Image Thumbnail \(item.key) failed download")
+                    print("At Items Array level: One Image Thumbnail \(item.key) failed download")
                     // Completion of unit called with error
                     completionOfUnite(error)
                 }
