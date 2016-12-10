@@ -3,7 +3,7 @@ import Firebase
 
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
-class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: Properties
     // Create and initialized the item object
@@ -26,33 +26,12 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Methods
-    // Function optimizing the compression of the image data depending on its size
-    func optimizeImageData(_ originalImageData: Data) -> Data? {
-        let optimizedImageData: Data?
-        let originalSize: Float = Float(originalImageData.count) / 1024.0
-        print("Original Image data size: \(originalSize)")
-        var optimizedSize = originalSize
-        
-        // if size < 1000KB
-        if originalSize < 1000.0 {
-            optimizedImageData = originalImageData
-            print("Image data size kept as-is: \(originalSize)")
-        } else {
-            // Compress at 0.1
-            optimizedImageData = UIImageJPEGRepresentation(UIImage(data: originalImageData)!, 0.1)
-            optimizedSize = Float(optimizedImageData!.count) / 1024.0
-            print("Image data size optimized by compression ratio 0.1: \(optimizedSize)")
-        }
-        return optimizedImageData
-    }
     
     // MARK: override of View Controller basic functions
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the present class as the delegate for the image picker
         imagePicker.delegate = self
-        // Set the present class as the delegate for the ui text view for item description
-        itemDescription.delegate = self
         
         // Define border for the text view
         let myBorderColor = UIColor.lightGray
@@ -90,13 +69,6 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: UITextViewDelegate Methods
-    func textViewDidChange(_ textView: UITextView) {
-        // set the text from the text view into the item description
-        self.itemToBeLogged.description = textView.text
-        print("text view did change!")
-    }
-    
     // MARK: Actions
     // Action called when the "Choose image button is pressed"
     @IBAction func chooseImagePressed(_ sender: UIButton) {
@@ -114,14 +86,18 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         // Print message when button pressed
         print("'Post item!' button pressed")
+        // Get the text for descritpion 
+        self.itemToBeLogged.description = self.itemDescription.text
+        print("Just captured description into item to be logged: \(self.itemToBeLogged.description)")
         
         // Upload the item to be logged (completion block with output erroros of the full upload process)
         let uploadTask = self.itemToBeLogged.upload(withFBDBRef: self.dbRef, andFBStorageRef: self.imagesRef) { (errorsArray) in
             
             //Do some with the array of errors
-            print("Overall upload task has completed with \(errorsArray.count) errors. Errors being:")
+            print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
             print(errorsArray)
-            
+            print("Finished, so Dismiss the View!")
+            // Function to be implemented....
         }
         
         
