@@ -137,7 +137,7 @@ class ItemsCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
     
         // Configure the cell
-        cell.backgroundColor = UIColor.blue
+        //cell.backgroundColor = UIColor.blue
         cell.itemDescription.text = self.itemsArray.content[indexPath.row].description ?? "No Description Available"
         cell.imageView.image = self.itemsArray.content[indexPath.row].imageTumbnail
         print("Returning Cell number: \(indexPath.row)")

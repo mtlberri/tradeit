@@ -6,6 +6,7 @@ class ItemDisplayViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemDescription: UITextView!
+    @IBOutlet weak var progressView: UIProgressView!
     
     // MARK: Properties
     var itemToDisplay: Item?
@@ -22,17 +23,27 @@ class ItemDisplayViewController: UIViewController {
         self.itemDescription.text = self.itemToDisplay?.description
         
         print("Start loading of item image")
-        self.itemToDisplay?.downloadImage(kind: .original, atFBStorageRef: imagesRef) { error in
+        let downloadTask = self.itemToDisplay?.downloadImage(kind: .original, atFBStorageRef: imagesRef) { error in
             // completion block
             if error == nil {
-                print("item image downloaded successfully!")
-                print("set the image in the view!")
+                print("At view controller level: item image downloaded successfully!")
+                print("set the image in the view! (and hide progress bar)")
                 self.itemImage.image = self.itemToDisplay?.image
+                self.progressView.isHidden = true
             } else {
                 print("item image download failed with error: \(error)")
             }
             
         }
+        
+        // Monitoring download progress
+        downloadTask?.observe(.progress, handler: { snapshot in
+            if let progress = snapshot.progress {
+                let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                self.progressView.progress = Float(percentComplete)
+                print("Upload progressed: percent complete = \(percentComplete)")
+            }
+        })
         
         
     }
