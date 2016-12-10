@@ -247,5 +247,66 @@ class Item {
     
     
     
+    // Method to download an image of the item from Firebase Storage (whatever the kind of image enum ImageKind)
+    func downloadImage (kind: ImageKind, atFBStorageRef refS: FIRStorageReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageDownloadTask? {
+        
+        print("Entering the download of image \(kind) \(self.key)")
+        var downloadTask: FIRStorageDownloadTask?
+        var imagePathAtStake: String?
+        
+        // Look at the kind of image to download and assign the image path at stake to dedicated variable
+        switch kind {
+        case .original:
+            imagePathAtStake = self.imagePath
+        case .thumbnail:
+            imagePathAtStake = self.imageThumbnailPath
+        }
+        
+        // Check if image path is not nil
+        if let path = imagePathAtStake, let itemKey = self.key {
+            
+            print("All conditions OK to start download of \(kind) image of item \(itemKey)")
+            
+            let imageRef: FIRStorageReference = refS.child("\(path)")
+            print("Download reference is using path: \(path)")
+            
+            // Download data in memory with max size 10MB (10 * 1024 * 1024 bytes)
+            downloadTask = imageRef.data(withMaxSize: 10 * 1024 * 1024) { (data, error) in
+                
+                if error == nil {
+                    // set the image on the item at stake
+                    switch kind {
+                    case .original:
+                        // Set the origial image on the item
+                        self.image = UIImage(data: data!)
+                        print("\(kind) image has been downloaded for item \(self.key)")
+                        // completion block called with error nil
+                        completion(error)
+                    case.thumbnail:
+                        // Set the thumbnail image on the item
+                        self.imageTumbnail = UIImage(data: data!)
+                        print("\(kind) image has been downloaded for item \(self.key)")
+                        // completion block called with error nil
+                        completion(error)
+                    }
+                } else {
+                    print("Huh-Oh Error while downloading \(kind) image \(self.key)")
+                    // completion block called with error
+                    completion(error)
+                }
+            }
+            
+        }
+        // Return download task
+        return downloadTask
+        
+        
+    }
+    
+
+    
+    
+    
+    
     
 }

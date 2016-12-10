@@ -59,7 +59,30 @@ class ItemsArray: NSObject {
     
     // MARK: Methods
     // Method to load thumbnails
-    func loadThumbnails() -> Void {
+    func loadThumbnails (atFBStorageRef refS: FIRStorageReference, withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
+        
+        print("Entering the method to load thumbnails")
+        
+        // For every item of the array, load the thumbnail (if exisitng) and call the unitary completion block to alert upon completion
+        for item in self.content {
+            print("Entering the loop for item \(item.key)")
+            
+            // Download image of the item
+            // Warning because download task returned is no used (OK - no problem)
+            item.downloadImage(kind: .thumbnail, atFBStorageRef: refS) { (error) in
+                
+                if error == nil {
+                    print("Image Thumbnail \(item.key) successfully downloaded")
+                    // Completion of unit called with error nil
+                    completionOfUnite(error)
+                } else {
+                    print("Image Thumbnail \(item.key) failed download")
+                    // Completion of unit called with error
+                    completionOfUnite(error)
+                }
+            }
+    
+        }
         
     }
     

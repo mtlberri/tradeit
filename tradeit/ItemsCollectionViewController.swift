@@ -59,18 +59,39 @@ class ItemsCollectionViewController: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-
-
-        // Do any additional setup after loading the view.
+        print("Starting Initialization of itemsArray")
         // Initialize the items array
         self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
             print("Completion handler of items array init() called...")
             print("...Ordering to re-load the view!")
             self.collectionView?.reloadData()
             
-        // Put an observer on the items array "numberOfThumbnailsDownloaded" key
-        self.itemsArray.addObserver(self, forKeyPath: "numberOfThumbnailsDownloaded", options: .new, context: &self.myContext)
+            // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
+            self.itemsArray.loadThumbnails(atFBStorageRef: self.imagesRef) { (error) in
+                if error == nil {
+                    print("Thumbnail downloaded without error: Reload the view!")
+                    self.collectionView?.reloadData()
+                } else {
+                    print("Thumbnail downloaded with error: Reload the view anyway!")
+                    self.collectionView?.reloadData()
+                }
+                
+                
+            }
+            
+            
+            
+            
+            
+            // Put an observer on the items array "numberOfThumbnailsDownloaded" key
+            self.itemsArray.addObserver(self, forKeyPath: "numberOfThumbnailsDownloaded", options: .new, context: &self.myContext)
+            
+            
         }
+        
+        
+        
+
         
     }
     
@@ -116,9 +137,9 @@ class ItemsCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
     
         // Configure the cell
-        cell.backgroundColor = UIColor.blue
+        //cell.backgroundColor = UIColor.blue
         cell.itemDescription.text = self.itemsArray.content[indexPath.row].description ?? "No Description Available"
-        // cell.imageView.image = itemsArray[indexPath.row].image
+        cell.imageView.image = self.itemsArray.content[indexPath.row].imageTumbnail
         print("Returning Cell number: \(indexPath.row)")
         return cell
     }
