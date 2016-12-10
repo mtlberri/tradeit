@@ -13,7 +13,11 @@ class ItemDisplayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        print("Display item data in the view")
+        self.itemImage.image = self.itemToDisplay?.image
+        self.itemDescription.text = self.itemToDisplay?.description
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
