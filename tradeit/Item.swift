@@ -2,10 +2,14 @@ import Foundation
 import UIKit
 import Firebase
 
+enum ImageKind {
+    case original
+    case thumbnail
+}
+
 class Item {
     
     // MARK : Properties
-    
     // METADATA
     // Item key (Firebase key)
     var key: String?
@@ -69,20 +73,43 @@ class Item {
     }
     
     // Method to upload the full size picture in Firebase Storage
-    func uploadFullSizePicture (atFBStorageRef refS: FIRStorageReference, syncedWithFBDRRef refD: FIRDatabaseReference ,withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
+    func uploadImage (kind: ImageKind, atFBStorageRef refS: FIRStorageReference, syncedWithFBDRRef refD: FIRDatabaseReference ,withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
         
         var uploadTask: FIRStorageUploadTask?
+        var imageAtStake: UIImage?
+        
+        // Look at the kind of image to upload and assign the image at stake to dedicated variable
+        switch kind {
+        case .original:
+            imageAtStake = self.image
+        case .thumbnail:
+            imageAtStake = self.imageTumbnail
+        }
         
         // Check if image is not nil, and if its data conversion is not nil,
-        if let imageToUpload = self.image, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0), let itemKey = self.key {
+        if let imageToUpload = imageAtStake, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0), let itemKey = self.key {
             
-                print("All conditions OK to start upload of Full Size image of item \(itemKey)")
-                let myImagePath = "\(itemKey).jpg"
+                print("All conditions OK to start upload of \(kind) image of item \(itemKey)")
+            
+                // the image path depends on the kind of image
+                var myImagePath: String = ""
+                switch kind {
+                case .original:
+                    myImagePath = "\(itemKey).jpg"
+                case .thumbnail:
+                    myImagePath = "\(itemKey)_thumbnail.jpg"
+                }
+            
                 uploadTask = refS.child(myImagePath).put(dataToUpload, metadata: nil) { (metadata, error) in
                         if error == nil {
-                            print("Item method says: Upload of Full Size Image \(itemKey) in Firebase Storage successfully completed!")
-                            // Now that upload is complete, Set the path for full size image
-                            self.imagePath = myImagePath
+                            print("Item method says: Upload of \(kind) image \(itemKey) in Firebase Storage successfully completed!")
+                            // Now that upload is complete, Set the path for image (depending on kind)
+                            switch kind {
+                            case .original:
+                                self.imagePath = myImagePath
+                            case .thumbnail:
+                                self.imageThumbnailPath = myImagePath
+                            }
                             // And load that update into Firebase DB
                             self.uploadMetadata(atFBDBRef: refD) { error in
                                 if error == nil {
@@ -94,7 +121,7 @@ class Item {
                             // Completion block with error nil
                             completion(error)
                         } else {
-                            print("Item method says: Upload of Full Size Image \(itemKey) in Firebase Storage failed!")
+                            print("Item method says: Upload of \(kind) Image \(itemKey) in Firebase Storage failed!")
                             print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
                             // Completion block with error
                             completion(error)

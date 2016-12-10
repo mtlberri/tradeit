@@ -125,12 +125,12 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         
         // Upload Full Size Image (and sync image path in corresponding Firebase DB)
-        let uploadTask = self.itemToBeLogged.uploadFullSizePicture(atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
+        let uploadTask = self.itemToBeLogged.uploadImage(kind: .original, atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
             
             if error == nil {
-                print("View Controller says: Yup I confirm, upload of Full Size Image successful!")
+                print("View Controller says: Yup I confirm, upload of \(ImageKind.original) Image successful!")
             } else {
-                print("View Controller says: Yup I confirm, upload of Full Size Image failed!")
+                print("View Controller says: Yup I confirm, upload of \(ImageKind.original) Image failed!")
             }
   
         }
