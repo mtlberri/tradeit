@@ -119,12 +119,14 @@ class Item {
                             self.uploadMetadata(atFBDBRef: refD) { error in
                                 if error == nil {
                                     print("Successfully updated the synced Firebase DB Ref \(itemKey) with image path \(myImagePath)")
+                                    //Completion Block, error nil
+                                    completion(error)
                                 } else {
                                     print("Failed to update the synced Firebase DB Ref \(itemKey) with image path \(myImagePath)")
+                                    //Completion Block, error
+                                    completion(error)
                                 }
                             }
-                            // Completion block with error nil
-                            completion(error)
                         } else {
                             print("Item method says: Upload of \(kind) Image \(itemKey) in Firebase Storage failed!")
                             print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
@@ -132,7 +134,7 @@ class Item {
                             completion(error)
                         }
                 }
-        
+            
         }
         // Return upload task
         return uploadTask
@@ -225,9 +227,9 @@ class Item {
         }
         
         // TASK#4: Upload Thumbnail (Warning because I do not use the returned upload task - but that is itentional so OK)
-        // Add the completed task to the tracker
-        completedTasks.append("Upload Thumbnail")
         let thumbnailUploadTask = self.uploadImage(kind: .thumbnail, atFBStorageRef: refS, syncedWithFBDRRef: refD) { (error) in
+            // Add the completed task to the tracker
+            completedTasks.append("Upload Thumbnail")
             if error == nil {
                 // Do nothing (no error)
             } else {
