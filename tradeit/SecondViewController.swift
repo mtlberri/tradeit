@@ -111,6 +111,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     // Action called when "Post item button pressed"
     @IBAction func postItemButtonPressed(_ sender: UIButton) {
+        
         // Print message when button pressed
         print("'Post item!' button pressed")
         
@@ -123,8 +124,8 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         }
         
-        // Upload Full Size Image
-        let uploadTask = self.itemToBeLogged.uploadFullSizePicture(atFBStorageRef: self.imagesRef) { (error) in
+        // Upload Full Size Image (and sync image path in corresponding Firebase DB)
+        let uploadTask = self.itemToBeLogged.uploadFullSizePicture(atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
             
             if error == nil {
                 print("View Controller says: Yup I confirm, upload of Full Size Image successful!")
@@ -142,8 +143,18 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         })
         
-        // Create the Thumbnail and Upload it
-      
+        // Create the Thumbnail
+        var thumbnailCreationSuccess = false
+        thumbnailCreationSuccess = self.itemToBeLogged.createThumbnail()
+        if thumbnailCreationSuccess {
+            print("View Controller says: Yup I confirm, creation of Thumbnail successful!")
+        } else {
+            print("View Controller says: Yup I confirm, creation of Thumbnail failed!")
+        }
+        
+        
+        
+        
     }
 
     
