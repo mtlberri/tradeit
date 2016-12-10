@@ -72,7 +72,7 @@ class Item {
         
     }
     
-    // Method to upload the full size picture in Firebase Storage
+    // Method to upload an image of the item in Firebase Storage (whatever the kind of image enum ImageKind)
     func uploadImage (kind: ImageKind, atFBStorageRef refS: FIRStorageReference, syncedWithFBDRRef refD: FIRDatabaseReference ,withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
         
         var uploadTask: FIRStorageUploadTask?
@@ -129,7 +129,10 @@ class Item {
                 }
         
         }
+        // Return upload task
         return uploadTask
+
+        
     }
     
     // Method to create the thumbnail

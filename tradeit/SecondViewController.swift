@@ -124,7 +124,7 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
         }
         
-        // Upload Full Size Image (and sync image path in corresponding Firebase DB)
+        // Upload Original Image (and sync image path in corresponding Firebase DB)
         let uploadTask = self.itemToBeLogged.uploadImage(kind: .original, atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
             
             if error == nil {
@@ -152,7 +152,15 @@ class SecondViewController: UIViewController, UIImagePickerControllerDelegate, U
             print("View Controller says: Yup I confirm, creation of Thumbnail failed!")
         }
         
-        
+        // Upload Thumbnail
+        self.itemToBeLogged.uploadImage(kind: .thumbnail, atFBStorageRef: self.imagesRef, syncedWithFBDRRef: self.dbRef) { (error) in
+            
+            if error == nil {
+                print("View Controller says: Yup I confirm, upload of \(ImageKind.thumbnail) Image successful!")
+            } else {
+                print("View Controller says: Yup I confirm, upload of \(ImageKind.thumbnail) Image failed!")
+            }
+        }
         
         
     }
