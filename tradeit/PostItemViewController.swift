@@ -3,7 +3,7 @@ import Firebase
 
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
-class SecondViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: Properties
     // Create and initialized the item object

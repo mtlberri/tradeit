@@ -1,7 +1,7 @@
 import UIKit
 import Firebase
 
-class FirstViewController: UIViewController {
+class BrowseCategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

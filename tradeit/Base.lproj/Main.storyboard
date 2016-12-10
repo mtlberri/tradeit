@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First View Controller-->
+        <!--Browse Categories View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="BrowseCategoriesViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -91,6 +91,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="1qN-Lt-WZL" id="t8u-cA-Ga4"/>
                                     <outlet property="itemDescription" destination="JeV-VJ-Q5k" id="QOE-w6-X9Y"/>
+                                    <segue destination="VyR-xi-dDQ" kind="show" id="MfX-C1-M2j"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -114,10 +115,58 @@
             </objects>
             <point key="canvasLocation" x="2789.8550724637685" y="-320.38043478260875"/>
         </scene>
+        <!--Item Display-->
+        <scene sceneID="W6F-mN-b6z">
+            <objects>
+                <viewController id="VyR-xi-dDQ" customClass="ItemDisplayViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OCk-qf-mor"/>
+                        <viewControllerLayoutGuide type="bottom" id="hQ5-zR-LD1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XTk-jy-4Vc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Test" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kWs-SL-bbf">
+                                <rect key="frame" x="20" y="477" width="374" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="R79-eu-rXe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="srH-0K-m5U">
+                                <rect key="frame" x="20" y="84" width="374" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="MXp-vU-tt1"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hQ5-zR-LD1" firstAttribute="top" secondItem="kWs-SL-bbf" secondAttribute="bottom" constant="10" id="6QX-DD-HV7"/>
+                            <constraint firstItem="srH-0K-m5U" firstAttribute="leading" secondItem="XTk-jy-4Vc" secondAttribute="leadingMargin" id="CVJ-dC-vdk"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="kWs-SL-bbf" secondAttribute="leading" id="MAG-Uf-5fC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kWs-SL-bbf" secondAttribute="trailing" id="O4A-0h-VH3"/>
+                            <constraint firstItem="srH-0K-m5U" firstAttribute="top" secondItem="OCk-qf-mor" secondAttribute="bottom" constant="20" id="YmW-oV-lCC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="srH-0K-m5U" secondAttribute="trailing" id="bVq-hw-KXg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Item Display" id="G7B-dY-gPG"/>
+                    <connections>
+                        <outlet property="itemDescription" destination="kWs-SL-bbf" id="zBT-4C-Fec"/>
+                        <outlet property="itemImage" destination="srH-0K-m5U" id="A4g-qM-GDu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nn8-bf-WyO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3563.7681159420295" y="-320.38043478260875"/>
+        </scene>
         <!--Post item-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="PostItemViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
