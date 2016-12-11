@@ -19,6 +19,12 @@ class ItemDisplayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Define border for the text view
+        let myBorderColor = UIColor.lightGray
+        self.itemDescription.layer.borderColor = myBorderColor.cgColor
+        self.itemDescription.layer.borderWidth = 0.5
+        
+        
         print("Display item description in the view")
         self.itemDescription.text = self.itemToDisplay?.description
         

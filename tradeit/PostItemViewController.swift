@@ -36,8 +36,7 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
         // Define border for the text view
         let myBorderColor = UIColor.lightGray
         itemDescription.layer.borderColor = myBorderColor.cgColor
-        itemDescription.layer.borderWidth = 1.0
-        itemDescription.layer.cornerRadius = 5.0
+        itemDescription.layer.borderWidth = 0.5
         
         // Set a default image for the item
         self.itemToBeLogged.image = imageOfItem.image
