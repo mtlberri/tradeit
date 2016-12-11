@@ -4,8 +4,6 @@ import Firebase
 class ItemsArray: NSObject {
     // content (array itself)
     var content: [Item] = []
-    // to monitor when thumbnails uploads are completed (depending on data downloading) ("dynamic" enables observation)
-    dynamic var numberOfThumbnailsDownloaded = 0
     
     // MARK: Initializer
     init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {

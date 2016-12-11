@@ -79,28 +79,12 @@ class ItemsCollectionViewController: UICollectionViewController {
                 
             }
             
-            
-            
-            
-            
-            // Put an observer on the items array "numberOfThumbnailsDownloaded" key
-            self.itemsArray.addObserver(self, forKeyPath: "numberOfThumbnailsDownloaded", options: .new, context: &self.myContext)
-            
-            
         }
         
         
         
 
         
-    }
-    
-    //override the observer function
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        print("Observer triggered!")
-        if context == &myContext {
-            print("new number of thumbnail(s) downloaded is: \(change?[NSKeyValueChangeKey.newKey])")
-        }
     }
     
 
@@ -164,11 +148,6 @@ class ItemsCollectionViewController: UICollectionViewController {
     
     // MARK: My Methods
 
-    
-    // De-Initialization
-    deinit {
-        print("Removing obserbver on Items Array 'numberOfThumbnailsDownloaded'")
-        self.itemsArray.removeObserver(self, forKeyPath: "numberOfThumbnailsDownloaded")
-    }
+
 
 }

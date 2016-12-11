@@ -90,14 +90,46 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
         self.itemToBeLogged.description = self.itemDescription.text
         print("Just captured description into item to be logged: \(self.itemToBeLogged.description)")
         
+        
+        
+        /////////////////
+        
+        
+        /////////////////
+        
+        
+        
+        
         // Upload the item to be logged (completion block with output erroros of the full upload process)
+        // 
         let uploadTask = self.itemToBeLogged.upload(withFBDBRef: self.dbRef, andFBStorageRef: self.imagesRef) { (errorsArray) in
             
             //Do some with the array of errors
             print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
             print(errorsArray)
-            print("Finished, so Dismiss the View!")
-            // Function to be implemented....
+         
+            /////////////
+            
+             let alertController = UIAlertController(title: "Post Complete!", message: "Your item has just been posted", preferredStyle: .alert)
+             // Configure the default action
+             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { alertAction in
+                 //Do somehting when OK button pressed
+                 print("Default Action 'OK' has just been pressed")
+                 
+                 // Go "itemPostedSegue"
+                 print("Perform Segue 'itemPostedSegue'")
+                 self.performSegue(withIdentifier: "itemPostedSegue", sender: self)
+                 
+             })
+             // Add the default action to the alert controller
+             alertController.addAction(defaultAction)
+             
+             // Present the alert controller
+             self.present(alertController, animated: true, completion: nil)
+            
+            /////////////
+            
+         
         }
         
         
@@ -109,8 +141,7 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
                 print("Upload progressed: percent complete = \(percentComplete)")
             }
         })
-        
-
+       //
         
     }
 
