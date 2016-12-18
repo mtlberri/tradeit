@@ -4,11 +4,9 @@ import Firebase
 class ItemsArray: NSObject {
     // content (array itself)
     var content: [Item] = []
-    // to monitor when metadata init process is completed (depending on FB data reading) ("dynamic" enables observation)
-    dynamic var metadataInitCompleted = false
     
-    // Initializer
-    init(withMetadataFromFBRef ref: FIRDatabaseReference) {
+    // MARK: Initializer
+    init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
         
         // Call up to NSObject initializer
         super.init()
@@ -48,16 +46,42 @@ class ItemsArray: NSObject {
                     print("For item \(itemToAppend.key): Appended the item to the itemsArray.content")
                     
                 }
-                print("Items Array metadata initialization is now completed! with \(self.content.count) elements")
-                self.metadataInitCompleted = true
-                
+                // Calling the escaping completion handler after init() completed
+                print("Calling the escaping completion handler after ItemsArray init() completed")
+                completionHandler()
             }
+
         })
-        { (error) in
-            print("Oops, following errror occured while trying to build ItemsArray object metadata from FB: \(error.localizedDescription)")
+
+    }
+    
+    // MARK: Methods
+    // Method to load thumbnails
+    func loadThumbnails (atFBStorageRef refS: FIRStorageReference, withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
+        
+        print("Entering the method to load thumbnails")
+        
+        // For every item of the array, load the thumbnail (if exisitng) and call the unitary completion block to alert upon completion
+        for item in self.content {
+            print("Entering the loop for item \(item.key)")
+            
+            // Download image of the item
+            // Warning because download task returned is no used (OK - no problem)
+            item.downloadImage(kind: .thumbnail, atFBStorageRef: refS) { (error) in
+                
+                if error == nil {
+                    print("At Items Array level: One Image Thumbnail \(item.key) successfully downloaded")
+                    // Completion of unit called with error nil
+                    completionOfUnite(error)
+                } else {
+                    print("At Items Array level: One Image Thumbnail \(item.key) failed download")
+                    // Completion of unit called with error
+                    completionOfUnite(error)
+                }
+            }
+    
         }
         
-        
-    } // END of init()
+    }
     
 }

@@ -37,13 +37,16 @@ extension ItemsCollectionViewController : UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-///////////////////////////////////////////////////////
 
 class ItemsCollectionViewController: UICollectionViewController {
-
     
     // MARK: Properties
-    var itemsArray = [Item]()
+    
+    // Context var for KVO observer
+    var myContext = 0
+    
+    // Items Array
+    var itemsArray: ItemsArray!
     
     // Firebase database ref
     var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
@@ -56,14 +59,34 @@ class ItemsCollectionViewController: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-
-
-        // Do any additional setup after loading the view.
-        // Go get the Firebase data
-        buildItemsArray()
+        print("Starting Initialization of itemsArray")
+        // Initialize the items array
+        self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
+            print("Completion handler of items array init() called...")
+            print("...Ordering to re-load the view!")
+            self.collectionView?.reloadData()
+            
+            // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
+            self.itemsArray.loadThumbnails(atFBStorageRef: self.imagesRef) { (error) in
+                if error == nil {
+                    print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
+                    self.collectionView?.reloadData()
+                } else {
+                    print("At Collection View level: Thumbnail downloaded with error: Reload the view anyway!")
+                    self.collectionView?.reloadData()
+                }
+                
+                
+            }
+            
+        }
         
+        
+        
+
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -90,106 +113,41 @@ class ItemsCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        print("There will be \(self.itemsArray.count) cells")
-        return self.itemsArray.count
+        print("There will be \(self.itemsArray.content.count) cells")
+        return self.itemsArray.content.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
     
         // Configure the cell
-        cell.backgroundColor = UIColor.white
-        cell.imageView.image = itemsArray[indexPath.row].image
+        //cell.backgroundColor = UIColor.blue
+        cell.itemDescription.text = self.itemsArray.content[indexPath.row].description ?? "No Description Available"
+        cell.imageView.image = self.itemsArray.content[indexPath.row].imageTumbnail
         print("Returning Cell number: \(indexPath.row)")
         return cell
     }
 
     // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    // When item selected
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("Item selected at row: \(indexPath.row)")
+        
+        // create a Item Display view controller with selected item in it
+        let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDisplay") as! ItemDisplayViewController
+        destinationViewController.itemToDisplay = self.itemsArray.content[indexPath.row]
+        
+        print("destination view controller ready! Now being pushed by the navigation controller...")
+        // Present the destination view controller
+        self.navigationController?.pushViewController(destinationViewController, animated: true)
+        
     }
-    */
+    
     
     // MARK: My Methods
-    
-    func buildItemsArray() -> Void {
-        
-        // read Firebase data once and fill the itemsArray based on data retrieved
-        dbRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let firebaseNSDictionary = snapshot.value as? NSDictionary
-            
-            if let dictionary = firebaseNSDictionary {
-                
-                for element in dictionary {
-                    
-                    print("Entering the loop to create itemToAdd based on firebase element:")
-                    print(element.value)
-                    let elementNSDictionary = element.value as! NSDictionary
-                    
-                    let itemToAdd = Item()
-                    // Populate the itemToAddd
-                    itemToAdd.key = elementNSDictionary["key"] as? String
-                    itemToAdd.description = elementNSDictionary["description"] as? String
-                    itemToAdd.tags = elementNSDictionary["description"] as? [String]
-                    itemToAdd.imagePath = elementNSDictionary["imagePath"] as? String
-                    print("For item \(itemToAdd.description): Successfully set properties: key, description, tags, imagePath")
-                    
-                    // Download the image and assign it to the itemToAdd object
-                    let itemImageRef = self.imagesRef.child("\(itemToAdd.key!).jpg")
-                    // Download image in memory with a max size allowed of 1MB (1*1024*1024 bytes)
-                    itemImageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
-                        if ( error != nil ) {
-                            print("Oops error occured in the download of item image: \(itemToAdd.key!).jpg")
-                        } else {
-                            // Create an image based on the data downloaded and assign it to the item image
-                            itemToAdd.image = UIImage(data: data!)
-                            print("For item \(itemToAdd.description): Successfully downloaded image: \(itemToAdd.key!).jpg")
-                            
-                            self.collectionView?.reloadData()
-                            print("For item \(itemToAdd.description): Collection view reloading ordered")
-                        }
-                        
-                    })
-                    
-                    self.itemsArray.append(itemToAdd)
-                    print("For item \(itemToAdd.description): Appended the item to the itemsArray")
-                    self.collectionView?.reloadData()
-                    print("For item \(itemToAdd.description): Collection view reloading ordered")
 
-                }
-            }
-        })
-        { (error) in
-            print(error.localizedDescription)
-        }
-        
-        
-    }
+
 
 }
