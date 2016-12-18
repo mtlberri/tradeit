@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4D181894E7186D633FFE4E1D /* Pods_tradeitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF072D78F180C6FF486E671A /* Pods_tradeitTests.framework */; };
 		86C6DA136ECD78A491A397FD /* Pods_tradeit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB99383F6B51C1F1323E5E /* Pods_tradeit.framework */; };
+		B72DE4F81E074832004BD84F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72DE4F71E074832004BD84F /* ProfileViewController.swift */; };
+		B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72DE4F71E074832004BD84F /* ProfileViewController.swift */; };
 		B7352ED71DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
 		B7352ED81DD7B595007FF712 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */; };
 		B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */; };
@@ -46,6 +48,7 @@
 		9095A0095679E3A26F5D03D5 /* Pods-tradeitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tradeitTests/Pods-tradeitTests.release.xcconfig"; sourceTree = "<group>"; };
 		9BBCFB09A854C040C4FF5ECE /* Pods-tradeit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeit/Pods-tradeit.debug.xcconfig"; sourceTree = "<group>"; };
 		ABD5F7E24ADB950610FDF054 /* Pods-tradeitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeitTests/Pods-tradeitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B72DE4F71E074832004BD84F /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsArray.swift; sourceTree = "<group>"; };
 		B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDisplayViewController.swift; sourceTree = "<group>"; };
@@ -172,8 +175,9 @@
 			isa = PBXGroup;
 			children = (
 				B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */,
-				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */,
+				B72DE4F71E074832004BD84F /* ProfileViewController.swift */,
+				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */,
 			);
 			name = Controller;
@@ -389,6 +393,7 @@
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
+				B72DE4F81E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7392BE11DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 			);
@@ -402,6 +407,7 @@
 				B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
+				B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 			);

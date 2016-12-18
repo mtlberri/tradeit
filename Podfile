@@ -9,6 +9,8 @@ target 'tradeit' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI/Auth'
+  pod 'FirebaseUI/Google'
 
   target 'tradeitTests' do
     inherit! :search_paths
@@ -16,6 +18,8 @@ target 'tradeit' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
+    pod 'FirebaseUI/Auth'
+    pod 'FirebaseUI/Google'
   end
 
 end

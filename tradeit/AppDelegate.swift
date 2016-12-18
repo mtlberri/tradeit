@@ -9,6 +9,9 @@
 import UIKit
 // Import my Firebase SDK
 import Firebase
+// Import Firebase Auth UI
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,12 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // MARK: Properties
+
     
     override init() {
         // Configure the Firebase Application
         FIRApp.configure()
+        
+    }
+    
+    // FUI Auth: a call to handle the URL that your application receives at the end of the Google authentication process
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+        }
+        // other URL handling goes here.
+        return false
     }
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         return true

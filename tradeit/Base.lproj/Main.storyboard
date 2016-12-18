@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -183,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOu-Vz-FDW">
-                                <rect key="frame" x="170.66666666666666" y="635" width="73" height="30"/>
+                                <rect key="frame" x="171" y="635" width="73" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="Suh-m6-TFG"/>
                                 </constraints>
@@ -243,12 +244,11 @@
                         <outlet property="itemDescription" destination="Ywg-tV-4Ta" id="mFR-jU-Gep"/>
                         <outlet property="postItemButton" destination="LOu-Vz-FDW" id="xRB-ll-eSW"/>
                         <outlet property="progressView" destination="PLG-c1-vHv" id="TFx-dN-7jz"/>
-                        <segue destination="49e-Tb-3d3" kind="show" identifier="itemPostedSegue" id="kqh-vw-Nup"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1108.6956521739132" y="501.35869565217394"/>
+            <point key="canvasLocation" x="1109" y="392"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -263,11 +263,72 @@
                     <connections>
                         <segue destination="pS1-ac-0f3" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="bwU-cz-VM7" kind="relationship" relationship="viewControllers" id="6RS-rR-L8E"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="bEs-Vg-lb6">
+            <objects>
+                <viewController id="bwU-cz-VM7" customClass="ProfileViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w65-3h-eHQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="ChF-aj-Ugf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4VV-4z-zB8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNU-a9-GBZ">
+                                <rect key="frame" x="347" y="70" width="47" height="30"/>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signInPressed:" destination="bwU-cz-VM7" eventType="touchUpInside" id="LBr-cH-jny"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="User Name" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RW8-es-QAW">
+                                <rect key="frame" x="107" y="120" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="53V-a1-D3H"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdX-MH-ged">
+                                <rect key="frame" x="13" y="70" width="60" height="30"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOutPressed:" destination="bwU-cz-VM7" eventType="touchUpInside" id="MI2-EI-W1P"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uNU-a9-GBZ" firstAttribute="centerY" secondItem="XdX-MH-ged" secondAttribute="centerY" id="4WV-b7-go3"/>
+                            <constraint firstItem="XdX-MH-ged" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leadingMargin" constant="-7" id="CwX-bv-WiM"/>
+                            <constraint firstItem="RW8-es-QAW" firstAttribute="top" secondItem="w65-3h-eHQ" secondAttribute="bottom" constant="100" id="DnN-K4-KkT"/>
+                            <constraint firstItem="RW8-es-QAW" firstAttribute="centerX" secondItem="4VV-4z-zB8" secondAttribute="centerX" id="eWo-qu-jdg"/>
+                            <constraint firstItem="uNU-a9-GBZ" firstAttribute="top" secondItem="w65-3h-eHQ" secondAttribute="bottom" constant="50" id="edu-c8-AXq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uNU-a9-GBZ" secondAttribute="trailing" id="xzD-Ot-01h"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="first" id="4JS-rS-fbY"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="signInButton" destination="uNU-a9-GBZ" id="C3t-0u-3W4"/>
+                        <outlet property="signOutButton" destination="XdX-MH-ged" id="Z3o-Ve-n2h"/>
+                        <outlet property="userName" destination="RW8-es-QAW" id="TMO-ea-nP2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsk-XV-bW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1109" y="1080"/>
         </scene>
         <!--Browse-->
         <scene sceneID="Dkr-68-Qxe">
@@ -275,7 +336,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pS1-ac-0f3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GOe-u2-FEj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GOe-u2-FEj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

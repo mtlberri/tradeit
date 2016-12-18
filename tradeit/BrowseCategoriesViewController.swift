@@ -1,19 +1,21 @@
 import UIKit
-import Firebase
 
-class BrowseCategoriesViewController: UIViewController {
+class BrowseCategoriesViewController: UIViewController{
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+
 
 }
 

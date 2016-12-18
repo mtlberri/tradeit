@@ -100,7 +100,7 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
         
         
         // Upload the item to be logged (completion block with output erroros of the full upload process)
-        // 
+        //
         let uploadTask = self.itemToBeLogged.upload(withFBDBRef: self.dbRef, andFBStorageRef: self.imagesRef) { (errorsArray) in
             
             //Do some with the array of errors
@@ -112,20 +112,18 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
              let alertController = UIAlertController(title: "Post Complete!", message: "Your item has just been posted", preferredStyle: .alert)
              // Configure the default action
              let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { alertAction in
-                 //Do somehting when OK button pressed
-                 print("Default Action 'OK' has just been pressed")
-                 
-                 // Go "itemPostedSegue"
-                 print("Perform Segue 'itemPostedSegue'")
-                 self.performSegue(withIdentifier: "itemPostedSegue", sender: self)
-                 
+             //Do somehting when OK button pressed
+             print("Default Action 'OK' has just been pressed")
+             
+             
+             
              })
              // Add the default action to the alert controller
              alertController.addAction(defaultAction)
              
              // Present the alert controller
              self.present(alertController, animated: true, completion: nil)
-            
+         
             /////////////
             
          
