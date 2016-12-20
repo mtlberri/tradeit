@@ -9,6 +9,10 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var numberOfItems: UITextField!
+    @IBOutlet weak var numberOfLikes: UITextField!
+    @IBOutlet weak var profileDescription: UITextView!
     
     // MARK: Properties
     // Firebase Auth UI instance
@@ -44,7 +48,7 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
                 self.signOutButton.isHidden = false
                 
             } else {
-                print("Please Sign In")
+                print("No User Signed In")
                 
                 // Set the user property back to nil
                 self.user = nil
