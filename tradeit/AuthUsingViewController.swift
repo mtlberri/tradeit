@@ -3,6 +3,7 @@ import Firebase
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 
+
 // Auth Using class that is used to gather general behaviour for any view controller wanting to use Auth from Firebase (those view controllers would then sub-class present AuthUsing class)
 
 // Would use the inherited user property, and extend the methods observing if user signed in or out
@@ -19,6 +20,9 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
     let providers: [FUIAuthProvider] = [FUIGoogleAuth()]
     // Identity of the user
     var user: FIRUser?
+    // ref to the user in FIRDB
+    var userRefDB: FIRDatabaseReference?
+    
     
     // MARK: Methods
     override func viewDidLoad() {
@@ -56,15 +60,16 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
 
         
         // Update the user in Firebase
-        let userRef = FIRDatabase.database().reference().child("users/\(user.uid)")
+        self.userRefDB = FIRDatabase.database().reference().child("users/\(user.uid)")
         
         // Create dictionary for update
         let userDetails: [String: String] = ["displayName": user.displayName ?? "",
                            "email": user.email ?? "",
-                           "photoURL": user.photoURL?.absoluteString ?? ""
+                           "photoURL": user.photoURL?.absoluteString ?? "",
+                           "profileDescription": "Hi! my name is \(user.displayName ?? "")."
         ]
-        // Update USer details in Firebase
-        userRef.updateChildValues(userDetails) { (error: Error?, ref: FIRDatabaseReference) -> Void in
+        // Update User details in Firebase
+        self.userRefDB!.updateChildValues(userDetails) { (error: Error?, ref: FIRDatabaseReference) -> Void in
             // Completion block
             if error == nil {
                 print("user details have been successfully udpated in Firebase")
@@ -73,6 +78,7 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
             }
             
         }
+        
         
     }
     

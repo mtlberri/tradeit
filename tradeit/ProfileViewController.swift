@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import SDWebImage
 
 class ProfileViewController: AuthUsingViewController {
 
@@ -51,16 +52,30 @@ class ProfileViewController: AuthUsingViewController {
         
     }
 
-    // Extend the methods from super class AuthUsingViewController
+    // Custyomize the methods from superclass AuthUsingViewController
     // User Observed Signed In
     override func userObservedSignedIn (_ user: FIRUser) -> Void {
         
         super.userObservedSignedIn(user)
         
-        self.userName.text = user.displayName
         // Hide the Sign In Button, show Sign Out
         self.signInButton.isHidden = true
         self.signOutButton.isHidden = false
+        
+        // Customize the profile view
+        
+        self.userName.text = user.displayName
+        // Go get some profile details of the user from FIRDB and customize the view with it
+        self.userRefDB?.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
+            let value = snapshot.value as? NSDictionary
+            let profileDescription = value?["profileDescription"] as? String ?? ""
+            self.profileDescription.text = profileDescription
+        }
+        
+        // Set User Profile photo
+        if self.user?.photoURL != nil {
+            self.profileImage.sd_setImage(with: self.user?.photoURL!)
+        }
         
     }
     
@@ -69,10 +84,16 @@ class ProfileViewController: AuthUsingViewController {
         
         super.userObservedSignedOut()
         
+        // Reset all elements of the view
+        
         self.userName.text = "No User Signed In"
         // Hide the Sign Out Button, show Sign In
         self.signInButton.isHidden = false
         self.signOutButton.isHidden = true
+        
+        self.profileDescription.text = ""
+        self.profileImage.image = nil
+        
         
     }
     
