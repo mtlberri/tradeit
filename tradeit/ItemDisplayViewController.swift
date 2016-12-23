@@ -29,7 +29,7 @@ class ItemDisplayViewController: UIViewController {
         self.itemDescription.text = self.itemToDisplay?.description
         
         print("Start loading of item image")
-        let downloadTask = self.itemToDisplay?.downloadImage(kind: .original, atFBStorageRef: imagesRef) { error in
+        let downloadTask = self.itemToDisplay?.downloadImage(kind: .original) { error in
             // completion block
             if error == nil {
                 print("At view controller level: item image downloaded successfully!")

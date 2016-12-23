@@ -193,7 +193,7 @@
                                     <action selector="postItemButtonPressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="9EX-2i-OCX"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Item description ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ywg-tV-4Ta">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Item ..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ywg-tV-4Ta">
                                 <rect key="frame" x="0.0" y="480" width="414" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -208,7 +208,7 @@
                                     <constraint firstAttribute="width" constant="150" id="jk6-Fo-VQU"/>
                                 </constraints>
                             </progressView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ball" translatesAutoresizingMaskIntoConstraints="NO" id="GBL-Lu-DAn">
                                 <rect key="frame" x="0.0" y="20" width="414" height="450"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="450" id="VGk-T3-Sbd"/>
@@ -414,7 +414,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="default" width="3872" height="2592"/>
+        <image name="ball" width="720" height="720"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>

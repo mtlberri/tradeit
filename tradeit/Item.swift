@@ -18,6 +18,8 @@ class Item {
     // METADATA
     // Item key (Firebase key)
     var key: String?
+    // Item Owner UID
+    var ownerUID: String!
     // Description of the item being traded
     var description: String?
     // Tags to search for that item
@@ -31,16 +33,20 @@ class Item {
     var image: UIImage?
     // Image thumbnail
     var imageTumbnail: UIImage?
+    
+    // Firebase refs
+    let refD = FIRDatabase.database().reference()
+    let refS = FIRStorage.storage().reference().child("images")
 
 
     // MARK : Methods
     
     // Method to post item METADATA in Firebase
-    func uploadMetadata (atFBDBRef ref: FIRDatabaseReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
+    func uploadMetadata (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
         
         // If no key, Go create a auto child Id and get corresponding key (else just keep existing key for that item)
         if self.key == nil {
-            self.key = ref.childByAutoId().key
+            self.key = refD.childByAutoId().key
             print("Item key is created in prep of METADATA upload: \(self.key)")
         } else {
             print("Item key is already existing and re-used for METADATA update: \(self.key)")
@@ -50,6 +56,7 @@ class Item {
         // Create a Dictionary for transfer to Firebase DB
         let dic: [String: Any] = [
             "key": self.key!,
+            "owner": self.ownerUID,
             "description": self.description ?? "",
             "tags": self.tags ?? ["items"],
             "imagePath": self.imagePath ?? "",
@@ -58,11 +65,13 @@ class Item {
         print("Created the following Dictionary in prep of upload:")
         print(dic)
         
-        // Create the child item that will be updated in the Firebase DB
-        let childUpdate = ["\(self.key!)": dic]
+        // Create the child item that will be updated in the Firebase DB. Atomic update at two locations: items, and userItems.
+        let childUpdate = ["items": dic,
+                           "users/\(self.ownerUID)/userItems": dic
+                           ]
         
         // Update the entry in Firebase
-        ref.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
+        refD.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
             if error == nil {
                 print("Item method says: Upload of item METADATA \(self.key!) in Firebase DB successfully completed!")
                 // Completion block with error nil
@@ -78,7 +87,7 @@ class Item {
     }
     
     // Method to upload an image of the item in Firebase Storage (whatever the kind of image enum ImageKind)
-    func uploadImage (kind: ImageKind, atFBStorageRef refS: FIRStorageReference, syncedWithFBDRRef refD: FIRDatabaseReference ,withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
+    func uploadImage (kind: ImageKind, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageUploadTask? {
         
         var uploadTask: FIRStorageUploadTask?
         var imageAtStake: UIImage?
@@ -105,7 +114,7 @@ class Item {
                     myImagePath = "\(itemKey)_thumbnail.jpg"
                 }
             
-                uploadTask = refS.child(myImagePath).put(dataToUpload, metadata: nil) { (metadata, error) in
+                uploadTask = self.refS.child(myImagePath).put(dataToUpload, metadata: nil) { (metadata, error) in
                         if error == nil {
                             print("Item method says: Upload of \(kind) image \(itemKey) in Firebase Storage successfully completed!")
                             // Now that upload is complete, Set the path for image (depending on kind)
@@ -116,7 +125,7 @@ class Item {
                                 self.imageThumbnailPath = myImagePath
                             }
                             // And load that update into Firebase DB
-                            self.uploadMetadata(atFBDBRef: refD) { error in
+                            self.uploadMetadata() { error in
                                 if error == nil {
                                     print("Successfully updated the synced Firebase DB Ref \(itemKey) with image path \(myImagePath)")
                                     //Completion Block, error nil
@@ -168,7 +177,7 @@ class Item {
     }
     
     // Wrap-Up Method for overall upload
-    func upload (withFBDBRef refD: FIRDatabaseReference, andFBStorageRef refS: FIRStorageReference, withCompletionBlock completion: @escaping (_ errorsArray: [Error?]) -> Void) -> FIRStorageUploadTask? {
+    func upload (withCompletionBlock completion: @escaping (_ errorsArray: [Error?]) -> Void) -> FIRStorageUploadTask? {
         
         var overallErrorsArray: [Error?] = []
         let originalImageUploadTask: FIRStorageUploadTask?
@@ -190,7 +199,7 @@ class Item {
         
         
         // TASK#1: Upload the item METADA and use the completion block to know if error
-        self.uploadMetadata(atFBDBRef: refD) { (error) in
+        self.uploadMetadata() { (error) in
             // Add the completed task to the tracker
             completedTasks.append("Upload of Item METADATA")
             if error == nil {
@@ -203,7 +212,7 @@ class Item {
         
         
         // TASK#2: Upload Original Image (and sync image path in corresponding Firebase DB)
-        originalImageUploadTask = self.uploadImage(kind: .original, atFBStorageRef: refS, syncedWithFBDRRef: refD) { (error) in
+        originalImageUploadTask = self.uploadImage(kind: .original) { (error) in
             // Add the completed task to the tracker
             completedTasks.append("Upload Original Image")
             if error == nil {
@@ -227,7 +236,7 @@ class Item {
         }
         
         // TASK#4: Upload Thumbnail (Warning because I do not use the returned upload task - but that is itentional so OK)
-        let thumbnailUploadTask = self.uploadImage(kind: .thumbnail, atFBStorageRef: refS, syncedWithFBDRRef: refD) { (error) in
+        let thumbnailUploadTask = self.uploadImage(kind: .thumbnail) { (error) in
             // Add the completed task to the tracker
             completedTasks.append("Upload Thumbnail")
             if error == nil {
@@ -248,7 +257,7 @@ class Item {
     
     
     // Method to download an image of the item from Firebase Storage (whatever the kind of image enum ImageKind)
-    func downloadImage (kind: ImageKind, atFBStorageRef refS: FIRStorageReference, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageDownloadTask? {
+    func downloadImage (kind: ImageKind, withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> FIRStorageDownloadTask? {
         
         print("Entering the download of image \(kind) \(self.key)")
         var downloadTask: FIRStorageDownloadTask?
@@ -267,7 +276,7 @@ class Item {
             
             print("All conditions OK to start download of \(kind) image of item \(itemKey)")
             
-            let imageRef: FIRStorageReference = refS.child("\(path)")
+            let imageRef: FIRStorageReference = self.refS.child("\(path)")
             print("Download reference is using path: \(path)")
             
             // Download data in memory with max size 10MB (10 * 1024 * 1024 bytes)
@@ -291,6 +300,7 @@ class Item {
                     }
                 } else {
                     print("At Item level: Huh-Oh Error while downloading \(kind) image \(self.key)")
+                    print("At item level, error is: \(error?.localizedDescription)")
                     // completion block called with error
                     completion(error)
                 }

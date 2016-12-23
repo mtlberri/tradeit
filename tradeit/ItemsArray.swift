@@ -35,6 +35,14 @@ class ItemsArray: NSObject {
                     
                     // Populate the itemToAppend with FB Database element values
                     itemToAppend.key = elementNSDictionary["key"] as? String
+                    // SHOULD ADD ITEM OWNER HERE
+                    if elementNSDictionary["ownerUID"] != nil {
+                       itemToAppend.ownerUID = elementNSDictionary["ownerUID"] as! String
+                    } else {
+                        itemToAppend.ownerUID = "no owner found from FIRDB"
+                    }
+
+                    
                     itemToAppend.description = elementNSDictionary["description"] as? String
                     itemToAppend.tags = elementNSDictionary["description"] as? [String]
                     itemToAppend.imagePath = elementNSDictionary["imagePath"] as? String
@@ -67,7 +75,7 @@ class ItemsArray: NSObject {
             
             // Download image of the item
             // Warning because download task returned is no used (OK - no problem)
-            item.downloadImage(kind: .thumbnail, atFBStorageRef: refS) { (error) in
+            item.downloadImage(kind: .thumbnail) { (error) in
                 
                 if error == nil {
                     print("At Items Array level: One Image Thumbnail \(item.key) successfully downloaded")

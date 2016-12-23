@@ -3,7 +3,7 @@ import Firebase
 
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
-class PostItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: Properties
     // Create and initialized the item object
@@ -96,52 +96,79 @@ class PostItemViewController: UIViewController, UIImagePickerControllerDelegate,
         
         /////////////////
         
-        
-        
-        
-        // Upload the item to be logged (completion block with output erroros of the full upload process)
-        //
-        let uploadTask = self.itemToBeLogged.upload(withFBDBRef: self.dbRef, andFBStorageRef: self.imagesRef) { (errorsArray) in
+        // Check if the user is signed in to enable upload
+        if let currentUser = self.user {
             
-            //Do some with the array of errors
-            print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
-            print(errorsArray)
-         
-            /////////////
+            // Set the owner on the Item
+            self.itemToBeLogged.ownerUID = currentUser.uid 
             
-             let alertController = UIAlertController(title: "Post Complete!", message: "Your item has just been posted", preferredStyle: .alert)
-             // Configure the default action
-             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { alertAction in
-             //Do somehting when OK button pressed
-             print("Default Action 'OK' has just been pressed")
-             
-             
-             
-             })
-             // Add the default action to the alert controller
-             alertController.addAction(defaultAction)
-             
-             // Present the alert controller
-             self.present(alertController, animated: true, completion: nil)
-         
-            /////////////
+            // Upload the item to be logged (completion block with output erroros of the full upload process)
+            //
+            let uploadTask = self.itemToBeLogged.upload() { (errorsArray) in
+                
+                //Do some with the array of errors
+                print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
+                print(errorsArray)
+                
+                /////////////
+                
+                let alertController = UIAlertController(title: "Post Complete!", message: "Your item has just been posted", preferredStyle: .alert)
+                // Configure the default action
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { alertAction in
+                    //Do somehting when OK button pressed
+                    print("Default Action 'OK' has just been pressed")
+                    
+                    
+                    
+                })
+                // Add the default action to the alert controller
+                alertController.addAction(defaultAction)
+                
+                // Present the alert controller
+                self.present(alertController, animated: true, completion: nil)
+                
+                /////////////
+                
+                
+            }
             
-         
+            
+            // Upload Task observer and status bar update
+            uploadTask?.observe(.progress, handler: { snapshot in
+                if let progress = snapshot.progress {
+                    let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                    self.progressView.progress = Float(percentComplete)
+                    print("Upload progressed: percent complete = \(percentComplete)")
+                }
+            })
+            //
+            
+            
+            
+        } else {
+            print("User is not signed in so cannot post item")
         }
         
         
-        // Upload Task observer and status bar update
-        uploadTask?.observe(.progress, handler: { snapshot in
-            if let progress = snapshot.progress {
-                let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
-                self.progressView.progress = Float(percentComplete)
-                print("Upload progressed: percent complete = \(percentComplete)")
-            }
-        })
-       //
-        
+
     }
 
+    // Customization of the AuthUsingViewController methods
+    
+    override func userObservedSignedIn(_ user: FIRUser) {
+        super.userObservedSignedIn(user)
+        
+        // customize if required
+        
+        
+    }
+    
+    override func userObservedSignedOut() {
+        super.userObservedSignedOut()
+        
+        // customize if required
+    }
+    
     
 
 }
