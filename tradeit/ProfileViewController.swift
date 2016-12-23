@@ -104,6 +104,8 @@ class ProfileViewController: AuthUsingViewController {
         self.signOutButton.isHidden = true
         
         self.profileDescription.text = ""
+        self.numberOfItems.text = ""
+        self.numberOfLikes.text = ""
         self.profileImage.image = nil
         
         
