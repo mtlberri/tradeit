@@ -14,16 +14,25 @@ class ProfileViewController: AuthUsingViewController {
     @IBOutlet weak var profileDescription: UITextView!
     
 
+    // MARK: Properties
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //
         
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+    
+        print("Profile View will appear!")
+        
+        // Refresh the number of items of the user
+        self.refreshNumberOfItemsOfUser()
         
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,11 +80,14 @@ class ProfileViewController: AuthUsingViewController {
             let profileDescription = value?["profileDescription"] as? String ?? ""
             self.profileDescription.text = profileDescription
         }
-        
         // Set User Profile photo
         if self.user?.photoURL != nil {
             self.profileImage.sd_setImage(with: self.user?.photoURL!)
         }
+        // Refresh the number of items
+        self.refreshNumberOfItemsOfUser()
+        
+        
         
     }
     
@@ -94,6 +106,28 @@ class ProfileViewController: AuthUsingViewController {
         self.profileDescription.text = ""
         self.profileImage.image = nil
         
+        
+    }
+    
+    // Refresh the number of items of the user
+    func refreshNumberOfItemsOfUser () -> Void {
+        // If the user is connected, the userRefDB should be not nil (because it is set by logic in the AuthUsingViewController)
+        if self.userRefDB != nil {
+            
+            self.userRefDB!.child("userItems").observeSingleEvent(of: .value, with: { snapshot in
+                print("userItems snapshot has been taken")
+                let userItemsDictionary = snapshot.value as? NSDictionary
+                let nb = userItemsDictionary?.count
+                if nb != nil {
+                    self.numberOfItems.text = String(nb!)
+                } else {
+                    self.numberOfItems.text = "0"
+                }
+                print("Number of items of the user has been refreshed")
+                
+            })
+            
+        }
         
     }
     
