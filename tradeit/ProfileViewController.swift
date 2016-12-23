@@ -19,13 +19,16 @@ class ProfileViewController: AuthUsingViewController {
     
     // MARK: Properties
     
+    let profileCollectionViewCOntroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "itemsCollectionStoryboardID") as! ItemsCollectionViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Customize the profile collection view
         
         // Set-up the profile collection view
+        self.profileCollectionView.delegate = self.profileCollectionViewCOntroller
+        self.profileCollectionView.dataSource = self.profileCollectionViewCOntroller
         
+        self.profileCollectionViewCOntroller.viewDidLoad()
         
     }
     
@@ -35,6 +38,9 @@ class ProfileViewController: AuthUsingViewController {
         
         // Refresh the number of items of the user
         self.refreshNumberOfItemsOfUser()
+        
+        // Reload the profile collection view
+        self.profileCollectionView.reloadData()
         
     }
     
