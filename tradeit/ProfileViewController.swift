@@ -13,6 +13,10 @@ class ProfileViewController: AuthUsingViewController {
     @IBOutlet weak var numberOfLikes: UITextField!
     @IBOutlet weak var profileDescription: UITextView!
 
+    
+    @IBOutlet weak var profileCollectionView: UICollectionView!
+    
+    
     // MARK: Properties
     
     override func viewDidLoad() {
@@ -22,6 +26,7 @@ class ProfileViewController: AuthUsingViewController {
         
         // Set-up the profile collection view
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +35,6 @@ class ProfileViewController: AuthUsingViewController {
         
         // Refresh the number of items of the user
         self.refreshNumberOfItemsOfUser()
-        
         
     }
     
