@@ -17,9 +17,9 @@ class Item {
     // MARK : Properties
     // METADATA
     // Item key (Firebase key)
-    var key: String?
+    var key: String
     // Item Owner UID
-    var ownerUID: String!
+    var ownerUID: String
     // Description of the item being traded
     var description: String?
     // Tags to search for that item
@@ -34,29 +34,30 @@ class Item {
     // Image thumbnail
     var imageTumbnail: UIImage?
     
-    // Firebase refs
-    let refD = FIRDatabase.database().reference()
-    let refS = FIRStorage.storage().reference().child("images")
+    // Firebase refs (Type properties)
+    static let refD = FIRDatabase.database().reference()
+    static let refS = FIRStorage.storage().reference().child("images")
 
 
+    // INIT
+    init(key: String, ownerUID: String) {
+        self.key = key
+        self.ownerUID = ownerUID
+    }
+    
     // MARK : Methods
     
     // Method to post item METADATA in Firebase
     func uploadMetadata (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
         
         // If no key, Go create a auto child Id and get corresponding key (else just keep existing key for that item)
-        if self.key == nil {
-            self.key = refD.childByAutoId().key
-            print("Item key is created in prep of METADATA upload: \(self.key)")
-        } else {
-            print("Item key is already existing and re-used for METADATA update: \(self.key)")
-        }
+        print("Item key is: \(self.key)")
         
         
         // Create a Dictionary for transfer to Firebase DB
         let dic: [String: Any] = [
-            "key": self.key!,
-            "owner": self.ownerUID,
+            "key": self.key,
+            "ownerUID": self.ownerUID,
             "description": self.description ?? "",
             "tags": self.tags ?? ["items"],
             "imagePath": self.imagePath ?? "",
@@ -71,9 +72,9 @@ class Item {
                            ]
         
         // Update the entry in Firebase
-        refD.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
+        Item.refD.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
             if error == nil {
-                print("Item method says: Upload of item METADATA \(self.key!) in Firebase DB successfully completed!")
+                print("Item method says: Upload of item METADATA \(self.key) in Firebase DB successfully completed!")
                 // Completion block with error nil
                 completion(error)
             } else {
@@ -101,22 +102,22 @@ class Item {
         }
         
         // Check if image is not nil, and if its data conversion is not nil,
-        if let imageToUpload = imageAtStake, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0), let itemKey = self.key {
+        if let imageToUpload = imageAtStake, let dataToUpload = UIImageJPEGRepresentation(imageToUpload, 1.0) {
             
-                print("All conditions OK to start upload of \(kind) image of item \(itemKey)")
+                print("All conditions OK to start upload of \(kind) image of item \(self.key)")
             
                 // the image path depends on the kind of image
                 var myImagePath: String = ""
                 switch kind {
                 case .original:
-                    myImagePath = "\(itemKey).jpg"
+                    myImagePath = "\(self.key).jpg"
                 case .thumbnail:
-                    myImagePath = "\(itemKey)_thumbnail.jpg"
+                    myImagePath = "\(self.key)_thumbnail.jpg"
                 }
             
-                uploadTask = self.refS.child(myImagePath).put(dataToUpload, metadata: nil) { (metadata, error) in
+                uploadTask = Item.refS.child(myImagePath).put(dataToUpload, metadata: nil) { (metadata, error) in
                         if error == nil {
-                            print("Item method says: Upload of \(kind) image \(itemKey) in Firebase Storage successfully completed!")
+                            print("Item method says: Upload of \(kind) image \(self.key) in Firebase Storage successfully completed!")
                             // Now that upload is complete, Set the path for image (depending on kind)
                             switch kind {
                             case .original:
@@ -127,17 +128,17 @@ class Item {
                             // And load that update into Firebase DB
                             self.uploadMetadata() { error in
                                 if error == nil {
-                                    print("Successfully updated the synced Firebase DB Ref \(itemKey) with image path \(myImagePath)")
+                                    print("Successfully updated the synced Firebase DB Ref \(self.key) with image path \(myImagePath)")
                                     //Completion Block, error nil
                                     completion(error)
                                 } else {
-                                    print("Failed to update the synced Firebase DB Ref \(itemKey) with image path \(myImagePath)")
+                                    print("Failed to update the synced Firebase DB Ref \(self.key) with image path \(myImagePath)")
                                     //Completion Block, error
                                     completion(error)
                                 }
                             }
                         } else {
-                            print("Item method says: Upload of \(kind) Image \(itemKey) in Firebase Storage failed!")
+                            print("Item method says: Upload of \(kind) Image \(self.key) in Firebase Storage failed!")
                             print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
                             // Completion block with error
                             completion(error)
@@ -272,11 +273,11 @@ class Item {
         }
         
         // Check if image path is not nil
-        if let path = imagePathAtStake, let itemKey = self.key {
+        if let path = imagePathAtStake {
             
-            print("All conditions OK to start download of \(kind) image of item \(itemKey)")
+            print("All conditions OK to start download of \(kind) image of item \(self.key)")
             
-            let imageRef: FIRStorageReference = self.refS.child("\(path)")
+            let imageRef: FIRStorageReference = Item.refS.child("\(path)")
             print("Download reference is using path: \(path)")
             
             // Download data in memory with max size 10MB (10 * 1024 * 1024 bytes)

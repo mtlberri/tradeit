@@ -67,7 +67,7 @@ class ItemsCollectionViewController: UICollectionViewController {
             self.collectionView?.reloadData()
             
             // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
-            self.itemsArray.loadThumbnails(atFBStorageRef: self.imagesRef) { (error) in
+            self.itemsArray.loadThumbnails() { (error) in
                 if error == nil {
                     print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
                     self.collectionView?.reloadData()

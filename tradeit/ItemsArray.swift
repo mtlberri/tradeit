@@ -26,32 +26,33 @@ class ItemsArray: NSObject {
                     
                     print("Entering the loop to create 'ItemsArray' object based on firebase element:")
                     print(element.value)
-                    
+
                     // element NSDictionary
                     let elementNSDictionary = element.value as! NSDictionary
                     
-                    // new Item object
-                    let itemToAppend = Item()
+                    // Check that the FIR data present the minimum valid data to create an Item object (key and ownerUID)
+                    let elementDataValid: Bool = elementNSDictionary["key"] != nil && elementNSDictionary["ownerUID"] != nil
                     
-                    // Populate the itemToAppend with FB Database element values
-                    itemToAppend.key = elementNSDictionary["key"] as? String
-                    // SHOULD ADD ITEM OWNER HERE
-                    if elementNSDictionary["ownerUID"] != nil {
-                       itemToAppend.ownerUID = elementNSDictionary["ownerUID"] as! String
-                    } else {
-                        itemToAppend.ownerUID = "no owner found from FIRDB"
-                    }
+                    if elementDataValid {
+                        
+                        // init the item to append
+                        let itemToAppend = Item(key: elementNSDictionary["key"] as! String, ownerUID: elementNSDictionary["ownerUID"] as! String)
+                        
+                        // Set other item properties when available
+                        itemToAppend.description = elementNSDictionary["description"] as? String
+                        itemToAppend.tags = elementNSDictionary["tags"] as? [String]
+                        itemToAppend.imagePath = elementNSDictionary["imagePath"] as? String
+                        itemToAppend.imageThumbnailPath = elementNSDictionary["imageThumbnailPath"] as? String
+                        print("For item \(itemToAppend.key): Successfully set properties: key, description, tags, imagePath, imageThumbnailPath")
+                        
+                        // Append the item to the array
+                        self.content.append(itemToAppend)
+                        print("For item \(itemToAppend.key): Appended the item to the itemsArray.content")
 
+                    } else {
+                        print("No Valid data from FIRDB to create an Item")
+                    }
                     
-                    itemToAppend.description = elementNSDictionary["description"] as? String
-                    itemToAppend.tags = elementNSDictionary["description"] as? [String]
-                    itemToAppend.imagePath = elementNSDictionary["imagePath"] as? String
-                    itemToAppend.imageThumbnailPath = elementNSDictionary["imageThumbnailPath"] as? String
-                    print("For item \(itemToAppend.key): Successfully set properties: key, description, tags, imagePath, imageThumbnailPath")
-                    
-                    // Append the item to the array
-                    self.content.append(itemToAppend)
-                    print("For item \(itemToAppend.key): Appended the item to the itemsArray.content")
                     
                 }
                 // Calling the escaping completion handler after init() completed
@@ -65,7 +66,7 @@ class ItemsArray: NSObject {
     
     // MARK: Methods
     // Method to load thumbnails
-    func loadThumbnails (atFBStorageRef refS: FIRStorageReference, withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
+    func loadThumbnails (withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
         
         print("Entering the method to load thumbnails")
         

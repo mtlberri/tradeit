@@ -6,13 +6,6 @@ import Firebase
 class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: Properties
-    // Create and initialized the item object
-    let itemToBeLogged = Item()
-    // Firebase database ref
-    var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
-    // Firebase storage reference
-    let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
-    // Image Picker of the view controller
     let imagePicker = UIImagePickerController()    
     
     // MARK: Outlets
@@ -38,8 +31,6 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
         itemDescription.layer.borderColor = myBorderColor.cgColor
         itemDescription.layer.borderWidth = 0.5
         
-        // Set a default image for the item
-        self.itemToBeLogged.image = imageOfItem.image
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,9 +46,6 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
             // imageOfItem is the outlet to the view!
             self.imageOfItem.contentMode = .scaleAspectFit
             self.imageOfItem.image = pickedImage
-            
-            //set the image in the item to be logged object
-            self.itemToBeLogged.image = pickedImage
         }
         // Dismiss the image picker
         dismiss(animated: true, completion: nil)
@@ -85,12 +73,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
         
         // Print message when button pressed
         print("'Post item!' button pressed")
-        // Get the text for descritpion 
-        self.itemToBeLogged.description = self.itemDescription.text
-        print("Just captured description into item to be logged: \(self.itemToBeLogged.description)")
-        
-        
-        
+
         /////////////////
         
         
@@ -98,13 +81,20 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
         
         // Check if the user is signed in to enable upload
         if let currentUser = self.user {
+            print("user is connected so the posting process can start")
             
-            // Set the owner on the Item
-            self.itemToBeLogged.ownerUID = currentUser.uid 
+            // Init an item object
+            let newItemKey: String = Item.refD.childByAutoId().key
+            let newItemOwnerUID: String = currentUser.uid
+            let newItem = Item(key: newItemKey, ownerUID: newItemOwnerUID)
+            print("An Item object has juste been created with key \(newItemKey) and ownerUID \(newItemOwnerUID)")
+            
+            // Customize the item with the elements from the view
+            newItem.description = self.itemDescription.text
             
             // Upload the item to be logged (completion block with output erroros of the full upload process)
             //
-            let uploadTask = self.itemToBeLogged.upload() { (errorsArray) in
+            let uploadTask = newItem.upload() { (errorsArray) in
                 
                 //Do some with the array of errors
                 print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
