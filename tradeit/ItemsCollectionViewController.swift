@@ -48,8 +48,8 @@ class ItemsCollectionViewController: UICollectionViewController {
     // Items Array
     var itemsArray: ItemsArray!
     
-    // Firebase database ref
-    var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference()
+    // Firebase database ref to Root/items
+    var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference().child("items")
     // Firebase storage reference
     let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
     

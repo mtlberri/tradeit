@@ -91,6 +91,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
             
             // Customize the item with the elements from the view
             newItem.description = self.itemDescription.text
+            newItem.image = self.imageOfItem.image
             
             // Upload the item to be logged (completion block with output erroros of the full upload process)
             //

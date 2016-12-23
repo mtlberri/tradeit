@@ -50,10 +50,6 @@ class Item {
     // Method to post item METADATA in Firebase
     func uploadMetadata (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
         
-        // If no key, Go create a auto child Id and get corresponding key (else just keep existing key for that item)
-        print("Item key is: \(self.key)")
-        
-        
         // Create a Dictionary for transfer to Firebase DB
         let dic: [String: Any] = [
             "key": self.key,
@@ -67,8 +63,8 @@ class Item {
         print(dic)
         
         // Create the child item that will be updated in the Firebase DB. Atomic update at two locations: items, and userItems.
-        let childUpdate = ["items": dic,
-                           "users/\(self.ownerUID)/userItems": dic
+        let childUpdate = ["items/\(self.key)": dic,
+                           "users/\(self.ownerUID)/userItems/\(self.key)": dic
                            ]
         
         // Update the entry in Firebase
