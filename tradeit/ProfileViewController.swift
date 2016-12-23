@@ -12,14 +12,15 @@ class ProfileViewController: AuthUsingViewController {
     @IBOutlet weak var numberOfItems: UITextField!
     @IBOutlet weak var numberOfLikes: UITextField!
     @IBOutlet weak var profileDescription: UITextView!
-    
 
     // MARK: Properties
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //
+        // Customize the profile collection view
+        
+        // Set-up the profile collection view
         
     }
     

@@ -46,7 +46,7 @@ class ItemsCollectionViewController: UICollectionViewController {
     var myContext = 0
     
     // Items Array
-    var itemsArray: ItemsArray!
+    var itemsArray: ItemsArray?
     
     // Firebase database ref to Root/items
     var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference().child("items")
@@ -67,7 +67,7 @@ class ItemsCollectionViewController: UICollectionViewController {
             self.collectionView?.reloadData()
             
             // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
-            self.itemsArray.loadThumbnails() { (error) in
+            self.itemsArray?.loadThumbnails() { (error) in
                 if error == nil {
                     print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
                     self.collectionView?.reloadData()
@@ -113,8 +113,8 @@ class ItemsCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        print("There will be \(self.itemsArray.content.count) cells")
-        return self.itemsArray.content.count
+        print("There will be \(self.itemsArray?.content.count) cells")
+        return self.itemsArray?.content.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -122,8 +122,8 @@ class ItemsCollectionViewController: UICollectionViewController {
     
         // Configure the cell
         //cell.backgroundColor = UIColor.blue
-        cell.itemDescription.text = self.itemsArray.content[indexPath.row].description ?? "No Description Available"
-        cell.imageView.image = self.itemsArray.content[indexPath.row].imageTumbnail
+        cell.itemDescription.text = self.itemsArray?.content[indexPath.row].description ?? "No Description Available"
+        cell.imageView.image = self.itemsArray?.content[indexPath.row].imageTumbnail
         print("Returning Cell number: \(indexPath.row)")
         return cell
     }
@@ -137,7 +137,7 @@ class ItemsCollectionViewController: UICollectionViewController {
         
         // create a Item Display view controller with selected item in it
         let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDisplay") as! ItemDisplayViewController
-        destinationViewController.itemToDisplay = self.itemsArray.content[indexPath.row]
+        destinationViewController.itemToDisplay = self.itemsArray?.content[indexPath.row]
         
         print("destination view controller ready! Now being pushed by the navigation controller...")
         // Present the destination view controller
