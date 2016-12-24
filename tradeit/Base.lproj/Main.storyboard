@@ -314,7 +314,7 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="User Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qck-rE-LZv">
-                                <rect key="frame" x="20" y="220" width="374" height="100"/>
+                                <rect key="frame" x="0.0" y="220" width="414" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="FPs-tR-C6D"/>
@@ -353,7 +353,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0h4-5K-Uyv">
-                                <rect key="frame" x="20" y="330" width="374" height="362"/>
+                                <rect key="frame" x="0.0" y="330" width="414" height="362"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="q6s-wd-GzD">
                                     <size key="itemSize" width="200" height="200"/>
@@ -363,7 +363,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="pze-eu-3QZ" customClass="ItemCollectionViewCell" customModule="tradeit" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -408,7 +408,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0h4-5K-Uyv" firstAttribute="top" secondItem="Qck-rE-LZv" secondAttribute="bottom" constant="10" id="099-wR-2bQ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Qck-rE-LZv" secondAttribute="trailing" id="2Ud-bD-6AL"/>
+                            <constraint firstAttribute="trailing" secondItem="Qck-rE-LZv" secondAttribute="trailing" id="2Ud-bD-6AL"/>
                             <constraint firstItem="uNU-a9-GBZ" firstAttribute="centerY" secondItem="XdX-MH-ged" secondAttribute="centerY" id="4WV-b7-go3"/>
                             <constraint firstItem="Rbs-GN-5xi" firstAttribute="leading" secondItem="CdD-eD-sTC" secondAttribute="trailing" constant="20" id="8ej-94-ULl"/>
                             <constraint firstItem="RW8-es-QAW" firstAttribute="top" secondItem="prb-Zw-0si" secondAttribute="bottom" constant="10" id="9rE-sY-sqw"/>
@@ -417,8 +417,8 @@
                             <constraint firstItem="RW8-es-QAW" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leadingMargin" id="DMK-El-sA8"/>
                             <constraint firstItem="prb-Zw-0si" firstAttribute="top" secondItem="w65-3h-eHQ" secondAttribute="bottom" constant="50" id="Eya-Xe-BYz"/>
                             <constraint firstItem="cir-TD-hNZ" firstAttribute="top" secondItem="Rbs-GN-5xi" secondAttribute="bottom" constant="5" id="Fdh-PE-H8O"/>
-                            <constraint firstItem="0h4-5K-Uyv" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leadingMargin" id="Rgx-8S-ujE"/>
-                            <constraint firstItem="Qck-rE-LZv" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leadingMargin" id="T0Y-Rb-5N8"/>
+                            <constraint firstItem="0h4-5K-Uyv" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leading" id="Rgx-8S-ujE"/>
+                            <constraint firstItem="Qck-rE-LZv" firstAttribute="leading" secondItem="4VV-4z-zB8" secondAttribute="leading" id="T0Y-Rb-5N8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rbs-GN-5xi" secondAttribute="trailing" constant="20" id="bdP-2G-b9f"/>
                             <constraint firstItem="uNU-a9-GBZ" firstAttribute="top" secondItem="w65-3h-eHQ" secondAttribute="bottom" id="edu-c8-AXq"/>
                             <constraint firstItem="cir-TD-hNZ" firstAttribute="centerX" secondItem="Rbs-GN-5xi" secondAttribute="centerX" id="fhg-BT-Xin"/>
@@ -427,7 +427,7 @@
                             <constraint firstItem="CdD-eD-sTC" firstAttribute="top" secondItem="prb-Zw-0si" secondAttribute="top" id="mvx-RG-oco"/>
                             <constraint firstItem="ChF-aj-Ugf" firstAttribute="top" secondItem="0h4-5K-Uyv" secondAttribute="bottom" id="tdk-kg-R6p"/>
                             <constraint firstItem="Qck-rE-LZv" firstAttribute="top" secondItem="RW8-es-QAW" secondAttribute="bottom" constant="10" id="uuo-Q3-JTI"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0h4-5K-Uyv" secondAttribute="trailing" id="wJa-zD-AbL"/>
+                            <constraint firstAttribute="trailing" secondItem="0h4-5K-Uyv" secondAttribute="trailing" id="wJa-zD-AbL"/>
                             <constraint firstItem="Rbs-GN-5xi" firstAttribute="top" secondItem="prb-Zw-0si" secondAttribute="top" id="xj1-Is-t8M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uNU-a9-GBZ" secondAttribute="trailing" id="xzD-Ot-01h"/>
                         </constraints>

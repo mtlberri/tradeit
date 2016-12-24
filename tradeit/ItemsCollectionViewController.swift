@@ -48,42 +48,27 @@ class ItemsCollectionViewController: UICollectionViewController {
     // Items Array
     var itemsArray: ItemsArray?
     
-    // Firebase database ref to Root/items
+    // Firebase database ref to the items to be displayed in the collection view
     var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference().child("items")
-    // Firebase storage reference
-    let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        print("Starting Initialization of itemsArray")
-        // Initialize the items array
-        self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
-            print("Completion handler of items array init() called...")
-            print("...Ordering to re-load the view!")
-            self.collectionView?.reloadData()
-            
-            // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
-            self.itemsArray?.loadThumbnails() { (error) in
-                if error == nil {
-                    print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
-                    self.collectionView?.reloadData()
-                } else {
-                    print("At Collection View level: Thumbnail downloaded with error: Reload the view anyway!")
-                    self.collectionView?.reloadData()
-                }
-                
-                
+        print("ItemsCV did load!")
+        // do some
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("ItemsCV will appear!")
+        
+        if self.itemsArray == nil {
+            print("ItemsCV: Please go init the array of items because it is not existing yet. And reload data upon completion of each unit.")
+            self.initItemsArray() {
+                self.collectionView?.reloadData()
             }
-            
+        } else {
+            print("ItemsCV: No need to init the array of items because it is existing already")
         }
-        
-        
-        
-
         
     }
     
@@ -92,16 +77,6 @@ class ItemsCollectionViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -148,6 +123,31 @@ class ItemsCollectionViewController: UICollectionViewController {
     
     // MARK: My Methods
 
-
+    // Method to load th itemsArray
+    func initItemsArray (withUnitCompletionBlock unitCompletion: @escaping () -> Void) -> Void {
+        
+        // Initialize the items array
+        self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
+            print("Metadat of the items array has been loaded!")
+            print("...Ordering to re-load the view!")
+            // Invoke unitCompletion when present controller is used for another collectionView (so that this later can reload)
+            unitCompletion()
+            // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
+            self.itemsArray?.loadThumbnails() { (error) in
+                if error == nil {
+                    print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
+                    unitCompletion()
+                } else {
+                    print("At Collection View level: Thumbnail downloaded with error: Reload the view anyway!")
+                    unitCompletion()
+                }
+                
+                
+            }
+            
+        }
+        
+        
+    }
 
 }

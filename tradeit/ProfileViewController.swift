@@ -19,28 +19,41 @@ class ProfileViewController: AuthUsingViewController {
     
     // MARK: Properties
     
+    // A ItemsCollectionViewController that will be used as delegate and data source for the profile collection view
     let profileCollectionViewCOntroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "itemsCollectionStoryboardID") as! ItemsCollectionViewController
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Profile View Did Load!")
         
-        // Set-up the profile collection view
+        // Set-up the profile collection view delegate and data source
         self.profileCollectionView.delegate = self.profileCollectionViewCOntroller
         self.profileCollectionView.dataSource = self.profileCollectionViewCOntroller
         
-        self.profileCollectionViewCOntroller.viewDidLoad()
+    
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-    
-        print("Profile View will appear!")
+
+        // MOVE THOSE THINGS IN THE USER OBSERVERVED SINGED IN
         
-        // Refresh the number of items of the user
-        self.refreshNumberOfItemsOfUser()
         
-        // Reload the profile collection view
-        self.profileCollectionView.reloadData()
+        print("Profile Collection View Will Appear! Please go init the array of items if not already existing")
+        
+        // If the controller array of items is nil, then go init it customize the view upon completion
+        
+        if self.profileCollectionViewCOntroller.itemsArray == nil {
+            self.profileCollectionViewCOntroller.initItemsArray {
+                
+                self.profileCollectionView.reloadData()
+                
+                // Set the number of items in the view
+                self.numberOfItems.text = String(describing: self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)
+                
+            }
+        }
         
     }
     
@@ -95,8 +108,7 @@ class ProfileViewController: AuthUsingViewController {
         if self.user?.photoURL != nil {
             self.profileImage.sd_setImage(with: self.user?.photoURL!)
         }
-        // Refresh the number of items
-        self.refreshNumberOfItemsOfUser()
+
         
         
         
@@ -122,29 +134,11 @@ class ProfileViewController: AuthUsingViewController {
         
     }
     
-    // Refresh the number of items of the user
-    func refreshNumberOfItemsOfUser () -> Void {
-        // If the user is connected, the userRefDB should be not nil (because it is set by logic in the AuthUsingViewController)
-        if self.userRefDB != nil {
-            
-            self.userRefDB!.child("userItems").observeSingleEvent(of: .value, with: { snapshot in
-                print("userItems snapshot has been taken")
-                let userItemsDictionary = snapshot.value as? NSDictionary
-                let nb = userItemsDictionary?.count
-                if nb != nil {
-                    self.numberOfItems.text = String(nb!)
-                } else {
-                    self.numberOfItems.text = "0"
-                }
-                print("Number of items of the user has been refreshed")
-                
-            })
-            
-        }
-        
-    }
-    
     
 
 
 }
+
+
+
+
