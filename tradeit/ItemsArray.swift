@@ -37,13 +37,10 @@ class ItemsArray: NSObject {
                         
                         // init the item to append
                         let itemToAppend = Item(key: elementNSDictionary["key"] as! String, ownerUID: elementNSDictionary["ownerUID"] as! String)
+ 
+                        // update the item to append metadat based on the elementNSDictionary
+                        itemToAppend.updateMetadataUsingNSDictionary(elementNSDictionary)         
                         
-                        // Set other item properties when available
-                        itemToAppend.description = elementNSDictionary["description"] as? String
-                        itemToAppend.tags = elementNSDictionary["tags"] as? [String]
-                        itemToAppend.imagePath = elementNSDictionary["imagePath"] as? String
-                        itemToAppend.imageThumbnailPath = elementNSDictionary["imageThumbnailPath"] as? String
-                        print("For item \(itemToAppend.key): Successfully set properties: key, description, tags, imagePath, imageThumbnailPath")
                         
                         // Append the item to the array
                         self.content.append(itemToAppend)

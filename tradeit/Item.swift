@@ -15,6 +15,7 @@ enum ThumbnailCreationError: Error {
 class Item {
     
     // MARK : Properties
+    
     // METADATA
     // Item key (Firebase key)
     var key: String
@@ -39,13 +40,13 @@ class Item {
     static let refS = FIRStorage.storage().reference().child("images")
 
 
-    // INIT
+    // Initialization method
     init(key: String, ownerUID: String) {
         self.key = key
         self.ownerUID = ownerUID
     }
     
-    // MARK : Methods
+    // MARK: Upload Methods
     
     // Method to post item METADATA in Firebase
     func uploadMetadata (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
@@ -148,30 +149,7 @@ class Item {
         
     }
     
-    // Method to create the thumbnail
-    func createThumbnail (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
-        
-        print("Creation of thumbnail starts...")
-        // Print original image data size
-        if let originalImage = self.image, let originalImageData = UIImageJPEGRepresentation(originalImage, 1.0) {
-            print("Original image data size is: \(Float(originalImageData.count) / 1024.0)")
-        }
-        
-        // Check that: image is existing, can be compressed 0.0 into data object, and that it can be converted back in an image
-        if let originalImage = self.image, let compressedImageData = UIImageJPEGRepresentation(originalImage, 0.0), let compressedImage = UIImage(data:compressedImageData)  {
-            
-            // set the compressed image in the object dedicated property
-            self.imageTumbnail = compressedImage
-            print("Thumbnail of item \(self.key) successfully created!")
-            print("Thumbnail image data size is: \(Float(compressedImageData.count) / 1024.0)")
-            // No error passed to the completion block
-            completion(nil)
-        } else {
-            print("Thumbnail of item \(self.key) creation failed")
-            // Error passed to the completion handler
-            completion(ThumbnailCreationError.failed)
-        }
-    }
+
     
     // Wrap-Up Method for overall upload
     func upload (withCompletionBlock completion: @escaping (_ errorsArray: [Error?]) -> Void) -> FIRStorageUploadTask? {
@@ -250,7 +228,7 @@ class Item {
     }
     
     
-    
+    // MARK: Download methods
     
     
     // Method to download an image of the item from Firebase Storage (whatever the kind of image enum ImageKind)
@@ -311,6 +289,55 @@ class Item {
     }
     
 
+    // MARK: Other methods
+    
+    // Method to create the thumbnail
+    func createThumbnail (withCompletionBlock completion: @escaping (_ error: Error?) -> Void) -> Void {
+        
+        print("Creation of thumbnail starts...")
+        // Print original image data size
+        if let originalImage = self.image, let originalImageData = UIImageJPEGRepresentation(originalImage, 1.0) {
+            print("Original image data size is: \(Float(originalImageData.count) / 1024.0)")
+        }
+        
+        // Check that: image is existing, can be compressed 0.0 into data object, and that it can be converted back in an image
+        if let originalImage = self.image, let compressedImageData = UIImageJPEGRepresentation(originalImage, 0.0), let compressedImage = UIImage(data:compressedImageData)  {
+            
+            // set the compressed image in the object dedicated property
+            self.imageTumbnail = compressedImage
+            print("Thumbnail of item \(self.key) successfully created!")
+            print("Thumbnail image data size is: \(Float(compressedImageData.count) / 1024.0)")
+            // No error passed to the completion block
+            completion(nil)
+        } else {
+            print("Thumbnail of item \(self.key) creation failed")
+            // Error passed to the completion handler
+            completion(ThumbnailCreationError.failed)
+        }
+    }
+    
+    // Method to update item metadata based on a NSDictionary (most of the time coming from a FIRDB Snapshot)
+    func updateMetadataUsingNSDictionary(_ dic: NSDictionary) -> Void {
+        
+        // Check that the NSDictionary is corresponding to the item (same key)
+        if let dicKey = dic["key"] as? String, dicKey == self.key {
+            
+            
+            // Update the item metadata based on the dic
+            self.description = dic["description"] as? String
+            self.tags = dic["tags"] as? [String]
+            self.imagePath = dic["imagePath"] as? String
+            self.imageThumbnailPath = dic["imageThumbnailPath"] as? String
+            print("For item \(self.key): Successfully update metadata: description, tags, imagePath, imageThumbnailPath")
+            
+            
+        } else {
+            print("Error: app tried to update item metadata based on a NSDictionary that does not have the same key as the item")
+        }
+
+        
+        
+    }
     
     
     
