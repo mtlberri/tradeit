@@ -37,13 +37,66 @@ class ProfileViewController: AuthUsingViewController {
     }
     
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    
+    // MARK: Custyomization of methods from superclass AuthUsingViewController
+    // User Observed Signed In (If User Signed In: Invoked at least a first time at View Will Appear)
+    override func userObservedSignedIn (_ user: FIRUser) -> Void {
+        super.userObservedSignedIn(user)
+        
+        // set the profileCV data source FIRDB ref to the appropriate location based on the current user (userRefDB will be set at that point by AuthUsingViewController super method just above
+        self.profileCollectionViewCOntroller.dbRef = self.userRefDB!.child("userItems")
+        
+        
+        // Init Items Array if required (if nil) and reload collection view
+        self.initItemsArrayIfRequiredAndReloadCollectionView()
+        
+        
+        // Hide the Sign In Button, show Sign Out
+        self.signInButton.isHidden = true
+        self.signOutButton.isHidden = false
+        
+        // Customize the profile view
+        
+        self.userName.text = user.displayName
+        // Go get some profile details of the user from FIRDB and customize the view with it
+        self.userRefDB?.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
+            let value = snapshot.value as? NSDictionary
+            let profileDescription = value?["profileDescription"] as? String ?? ""
+            self.profileDescription.text = profileDescription
+        }
+        // Set User Profile photo
+        if self.user?.photoURL != nil {
+            self.profileImage.sd_setImage(with: self.user?.photoURL!)
+        }
+        
+        
+        
     }
     
-
-    // MARK: Methods
+    // User Observed Signed Out (If User Signed Out: Invoked at least a first time at View Will Appear)
+    override func userObservedSignedOut () -> Void {
+        
+        super.userObservedSignedOut()
+        
+        // Reset all elements of the view
+        
+        self.userName.text = "No User Signed In"
+        // Hide the Sign Out Button, show Sign In
+        self.signInButton.isHidden = false
+        self.signOutButton.isHidden = true
+        
+        self.profileDescription.text = ""
+        self.numberOfItems.text = ""
+        self.numberOfLikes.text = ""
+        self.profileImage.image = nil
+        
+        
+    }
+    
+    
+        // MARK: Other Methods
+    
     
     // Method checking if the array of items needs to be initialized, and doing so if required (while refreshing the Profile Collection View
     func initItemsArrayIfRequiredAndReloadCollectionView () -> Void {
@@ -92,58 +145,7 @@ class ProfileViewController: AuthUsingViewController {
         
     }
 
-    // MARK: Custyomization of methods from superclass AuthUsingViewController
-    // User Observed Signed In (If User Signed In: Invoked at least a first time at View Will Appear)
-    override func userObservedSignedIn (_ user: FIRUser) -> Void {
-        
-        super.userObservedSignedIn(user)
-        
-        
-        // Init Items Array if required (if nil) and reload collection view
-        self.initItemsArrayIfRequiredAndReloadCollectionView()
-        
-        
-        // Hide the Sign In Button, show Sign Out
-        self.signInButton.isHidden = true
-        self.signOutButton.isHidden = false
-        
-        // Customize the profile view
-        
-        self.userName.text = user.displayName
-        // Go get some profile details of the user from FIRDB and customize the view with it
-        self.userRefDB?.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
-            let value = snapshot.value as? NSDictionary
-            let profileDescription = value?["profileDescription"] as? String ?? ""
-            self.profileDescription.text = profileDescription
-        }
-        // Set User Profile photo
-        if self.user?.photoURL != nil {
-            self.profileImage.sd_setImage(with: self.user?.photoURL!)
-        }
 
-        
-        
-    }
-    
-    // User Observed Signed Out (If User Signed Out: Invoked at least a first time at View Will Appear)
-    override func userObservedSignedOut () -> Void {
-        
-        super.userObservedSignedOut()
-        
-        // Reset all elements of the view
-        
-        self.userName.text = "No User Signed In"
-        // Hide the Sign Out Button, show Sign In
-        self.signInButton.isHidden = false
-        self.signOutButton.isHidden = true
-        
-        self.profileDescription.text = ""
-        self.numberOfItems.text = ""
-        self.numberOfLikes.text = ""
-        self.profileImage.image = nil
-        
-        
-    }
     
     
 
