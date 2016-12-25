@@ -128,14 +128,16 @@ class ItemsCollectionViewController: UICollectionViewController {
     // Method to load th itemsArray
     func initItemsArray (withUnitCompletionBlock unitCompletion: @escaping () -> Void) -> Void {
         
-        // Initialize the items array
-        self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
+        // Initialize the items array (so it will not be nil anymore from there on)
+        self.itemsArray = ItemsArray()
+        // Download the metadata of the items array
+        self.itemsArray?.downloadMetadata(withMetadataFromFBRef: self.dbRef) { () -> Void in
             print("Metadat of the items array has been loaded!")
             print("...calling the unitCompletion Block!")
             // Invoke unitCompletion when present controller is used for another collectionView (so that this later can reload)
             unitCompletion()
             // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
-            self.itemsArray?.loadThumbnails() { (error) in
+            self.itemsArray?.downloadThumbnails() { (error) in
                 if error == nil {
                     print("At Collection View level: One Thumbnail downloaded without error: calling the unitCompletion Block!")
                     unitCompletion()

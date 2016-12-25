@@ -5,11 +5,9 @@ class ItemsArray: NSObject {
     // content (array itself)
     var content: [Item] = []
     
-    // MARK: Initializer
-    init(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
-        
-        // Call up to NSObject initializer
-        super.init()
+    // MARK: Download Items Array Metadada
+    func downloadMetadata(withMetadataFromFBRef ref: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
+
         
         // read Firebase data once and fill the content based on data retrieved
         
@@ -62,8 +60,8 @@ class ItemsArray: NSObject {
     }
     
     // MARK: Methods
-    // Method to load thumbnails
-    func loadThumbnails (withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
+    // Method to download thumbnails
+    func downloadThumbnails (withUnitaryThumbnailUploadCompletionBlock completionOfUnite: @escaping (_ error: Error?) -> Void) -> Void {
         
         print("Entering the method to load thumbnails")
         
