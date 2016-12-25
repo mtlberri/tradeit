@@ -46,9 +46,7 @@ class ProfileViewController: AuthUsingViewController {
         
         // set the profileCV data source FIRDB ref to the appropriate location based on the current user (userRefDB will be set at that point by AuthUsingViewController super method just above
         self.profileCollectionViewCOntroller.dbRef = self.userRefDB!.child("userItems")
-        
-        
-        // Init Items Array if required (if nil) and reload collection view
+        // Using the appropriate FIRDBRef: Init Items Array if required (if nil) and reload collection view
         self.initItemsArrayIfRequiredAndReloadCollectionView()
         
         
@@ -72,6 +70,8 @@ class ProfileViewController: AuthUsingViewController {
         
         
         
+        
+        
     }
     
     // User Observed Signed Out (If User Signed Out: Invoked at least a first time at View Will Appear)
@@ -91,6 +91,9 @@ class ProfileViewController: AuthUsingViewController {
         self.numberOfLikes.text = ""
         self.profileImage.image = nil
         
+        self.profileCollectionViewCOntroller.itemsArray = nil
+        // Reload the Profile Collection View to wipe out the items that were displayed (data source being empty at that point)
+        self.profileCollectionView.reloadData()
         
     }
     
@@ -112,6 +115,7 @@ class ProfileViewController: AuthUsingViewController {
                 self.profileCollectionView.reloadData()
                 
                 // Set the number of items in the view
+                print("Set the number of items of the user: \(self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)")
                 self.numberOfItems.text = String(describing: self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)
                 
             }
