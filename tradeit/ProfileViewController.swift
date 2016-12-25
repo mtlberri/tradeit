@@ -4,7 +4,7 @@ import SDWebImage
 
 class ProfileViewController: AuthUsingViewController {
 
-    // Mark: Outlets
+    // MARK: Outlets
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var userName: UITextField!
@@ -31,29 +31,8 @@ class ProfileViewController: AuthUsingViewController {
         self.profileCollectionView.delegate = self.profileCollectionViewCOntroller
         self.profileCollectionView.dataSource = self.profileCollectionViewCOntroller
         
+        
     
-        
-    }
-    
-    // Customize the View will appear from the superclass AuthUsingViewController
-    override func viewWillAppear(_ animated: Bool) {
-        
-        // Call the view will appear method from superclass AuthUsingViewController
-        super.viewWillAppear(true)
-
-        
-        // If the data source array of items is nil, then go init it customize the view upon completion
-        if self.profileCollectionViewCOntroller.itemsArray == nil {
-            
-            self.profileCollectionViewCOntroller.initItemsArray {
-                
-                self.profileCollectionView.reloadData()
-                
-                // Set the number of items in the view
-                self.numberOfItems.text = String(describing: self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)
-                
-            }
-        }
         
     }
     
@@ -64,6 +43,34 @@ class ProfileViewController: AuthUsingViewController {
     }
     
 
+    // MARK: Methods
+    
+    // Method checking if the array of items needs to be initialized, and doing so if required (while refreshing the Profile Collection View
+    func initItemsArrayIfRequiredAndReloadCollectionView () -> Void {
+        
+        // If the data source array of items is nil, then go init it and customize the view upon completion
+        if self.profileCollectionViewCOntroller.itemsArray == nil {
+            
+            print("ProfileCV: data source array of items is nil, so go init it.")
+            
+            self.profileCollectionViewCOntroller.initItemsArray {
+                
+                print("Profile CV: Reload the View!")
+                self.profileCollectionView.reloadData()
+                
+                // Set the number of items in the view
+                self.numberOfItems.text = String(describing: self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)
+                
+            }
+        
+        } else {
+            print("ProfileCV: data source array of items is not nil, so no need to init it.")
+        }
+        
+    }
+    
+    
+    // Sign in button pressed
     @IBAction func signInPressed(_ sender: Any) {
         print("Sign In button pressed")
         
@@ -72,7 +79,7 @@ class ProfileViewController: AuthUsingViewController {
         self.present(authViewController!, animated: true, completion: nil)
     }
     
-    
+    // sign out button pressed
     @IBAction func signOutPressed(_ sender: Any) {
         print("Sign Out Button pressed!")
         
@@ -85,11 +92,16 @@ class ProfileViewController: AuthUsingViewController {
         
     }
 
-    // Custyomize the methods from superclass AuthUsingViewController
-    // User Observed Signed In
+    // MARK: Custyomization of methods from superclass AuthUsingViewController
+    // User Observed Signed In (If User Signed In: Invoked at least a first time at View Will Appear)
     override func userObservedSignedIn (_ user: FIRUser) -> Void {
         
         super.userObservedSignedIn(user)
+        
+        
+        // Init Items Array if required (if nil) and reload collection view
+        self.initItemsArrayIfRequiredAndReloadCollectionView()
+        
         
         // Hide the Sign In Button, show Sign Out
         self.signInButton.isHidden = true
@@ -111,10 +123,9 @@ class ProfileViewController: AuthUsingViewController {
 
         
         
-        
     }
     
-    // User Observed Signed Out
+    // User Observed Signed Out (If User Signed Out: Invoked at least a first time at View Will Appear)
     override func userObservedSignedOut () -> Void {
         
         super.userObservedSignedOut()

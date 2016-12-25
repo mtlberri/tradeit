@@ -65,6 +65,7 @@ class ItemsCollectionViewController: UICollectionViewController {
         if self.itemsArray == nil {
             print("ItemsCV: Please go init the array of items because it is not existing yet. And reload data upon completion of each unit.")
             self.initItemsArray() {
+                print("ItemsCV: Reload the view!")
                 self.collectionView?.reloadData()
             }
         } else {
@@ -130,16 +131,16 @@ class ItemsCollectionViewController: UICollectionViewController {
         // Initialize the items array
         self.itemsArray = ItemsArray(withMetadataFromFBRef: self.dbRef) { () -> Void in
             print("Metadat of the items array has been loaded!")
-            print("...Ordering to re-load the view!")
+            print("...calling the unitCompletion Block!")
             // Invoke unitCompletion when present controller is used for another collectionView (so that this later can reload)
             unitCompletion()
             // Then download the thumbnails, with completion block called each time an individual thumbnail download completed
             self.itemsArray?.loadThumbnails() { (error) in
                 if error == nil {
-                    print("At Collection View level: One Thumbnail downloaded without error: Reload the view!")
+                    print("At Collection View level: One Thumbnail downloaded without error: calling the unitCompletion Block!")
                     unitCompletion()
                 } else {
-                    print("At Collection View level: Thumbnail downloaded with error: Reload the view anyway!")
+                    print("At Collection View level: Thumbnail downloaded with error: calling the unitCompletion Block!")
                     unitCompletion()
                 }
                 
