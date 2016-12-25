@@ -61,6 +61,7 @@ class ItemsCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("ItemsCV will appear!")
         
+        
         if self.itemsArray == nil {
             print("ItemsCV: Please go init the array of items because it is not existing yet. And reload data upon completion of each unit.")
             self.initItemsArray() {

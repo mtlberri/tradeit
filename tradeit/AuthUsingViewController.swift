@@ -35,6 +35,12 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
         let kFirebaseTermsOfService = URL(string: "https://firebase.google.com/terms/")!
         authUI?.tosurl = kFirebaseTermsOfService
         
+        
+    }
+    
+    // Set the user sign in status observer in the view will appear (recommended practice)
+    override func viewWillAppear(_ animated: Bool) {
+    
         // Observe the status of commection of the user
         self.handle = FIRAuth.auth()?.addStateDidChangeListener() { (auth, observedUser) in
             //
@@ -48,8 +54,17 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
             
         }
         
+    }
+    
+    // Remove the user sign in status observer in the view did disappear (recommended practice)
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        if self.handle != nil {
+            FIRAuth.auth()?.removeStateDidChangeListener(self.handle!)
+        }
         
     }
+    
     
     // Method called when user signed in
     func userObservedSignedIn (_ user: FIRUser) -> Void {
@@ -99,13 +114,6 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
         
     }
     
-    deinit {
-        // remove handle observer (if any)
-        if self.handle != nil {
-            FIRAuth.auth()?.removeStateDidChangeListener(self.handle!)
-        }
-        
-    }
     
     
 }

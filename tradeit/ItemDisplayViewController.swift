@@ -11,9 +11,6 @@ class ItemDisplayViewController: UIViewController {
     // MARK: Properties
     var itemToDisplay: Item?
     
-    // Firebase storage reference
-    let imagesRef = FIRStorage.storage().reference(forURL: "gs://tradeit-99edf.appspot.com/").child("images")
-    
     // MARK: METHODS
     
     override func viewDidLoad() {

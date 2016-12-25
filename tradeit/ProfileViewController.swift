@@ -35,16 +35,16 @@ class ProfileViewController: AuthUsingViewController {
         
     }
     
+    // Customize the View will appear from the superclass AuthUsingViewController
     override func viewWillAppear(_ animated: Bool) {
+        
+        // Call the view will appear method from superclass AuthUsingViewController
+        super.viewWillAppear(true)
 
-        // MOVE THOSE THINGS IN THE USER OBSERVERVED SINGED IN
         
-        
-        print("Profile Collection View Will Appear! Please go init the array of items if not already existing")
-        
-        // If the controller array of items is nil, then go init it customize the view upon completion
-        
+        // If the data source array of items is nil, then go init it customize the view upon completion
         if self.profileCollectionViewCOntroller.itemsArray == nil {
+            
             self.profileCollectionViewCOntroller.initItemsArray {
                 
                 self.profileCollectionView.reloadData()
