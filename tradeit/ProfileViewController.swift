@@ -90,6 +90,7 @@ class ProfileViewController: AuthUsingViewController {
         self.numberOfItems.text = ""
         self.numberOfLikes.text = ""
         self.profileImage.image = nil
+        //
         
         self.profileCollectionViewCOntroller.itemsArray = nil
         // Reload the Profile Collection View to wipe out the items that were displayed (data source being empty at that point)
