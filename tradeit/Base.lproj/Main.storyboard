@@ -117,7 +117,7 @@
         <!--Item Display-->
         <scene sceneID="W6F-mN-b6z">
             <objects>
-                <viewController storyboardIdentifier="ItemDisplay" id="VyR-xi-dDQ" customClass="ItemDisplayViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemDisplay" title="Item Display" id="VyR-xi-dDQ" customClass="ItemDisplayViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OCk-qf-mor"/>
                         <viewControllerLayoutGuide type="bottom" id="hQ5-zR-LD1"/>
@@ -475,7 +475,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v4l-Sm-Abe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="first" id="4JS-rS-fbY"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vgT-WL-Io1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vgT-WL-Io1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -487,6 +487,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="th5-fP-M6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1108.6956521739132" y="1087.5"/>
+        </scene>
+        <!--Profile Item Display-->
+        <scene sceneID="8QI-eq-CRa">
+            <objects>
+                <viewController storyboardIdentifier="ProfileItemDisplay" title="Profile Item Display" id="Ybv-hD-KqA" customClass="ProfileItemDisplayViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dFa-wy-gpJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="OG7-54-EM2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hBg-tL-qmf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Test Profile Item" translatesAutoresizingMaskIntoConstraints="NO" id="0um-cH-5fK">
+                                <rect key="frame" x="0.0" y="536" width="414" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="5vp-i8-Fc7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FJD-4h-6cv">
+                                <rect key="frame" x="0.0" y="40" width="414" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="WtP-pY-flK"/>
+                                </constraints>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.0099999997764825821" translatesAutoresizingMaskIntoConstraints="NO" id="SAy-gA-wyO">
+                                <rect key="frame" x="132" y="239" width="150" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="2Jb-Sl-rMn"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FJD-4h-6cv" firstAttribute="leading" secondItem="hBg-tL-qmf" secondAttribute="leading" id="3kv-gp-BO3"/>
+                            <constraint firstAttribute="trailing" secondItem="FJD-4h-6cv" secondAttribute="trailing" id="3sL-2U-bbk"/>
+                            <constraint firstItem="OG7-54-EM2" firstAttribute="top" secondItem="0um-cH-5fK" secondAttribute="bottom" id="9OV-Hv-xYY"/>
+                            <constraint firstItem="SAy-gA-wyO" firstAttribute="centerY" secondItem="FJD-4h-6cv" secondAttribute="centerY" id="Cil-4o-68R"/>
+                            <constraint firstAttribute="trailing" secondItem="0um-cH-5fK" secondAttribute="trailing" id="Lyr-4E-thA"/>
+                            <constraint firstItem="SAy-gA-wyO" firstAttribute="centerX" secondItem="FJD-4h-6cv" secondAttribute="centerX" id="cNd-kf-gei"/>
+                            <constraint firstAttribute="leading" secondItem="0um-cH-5fK" secondAttribute="leading" id="eJP-Zu-aiv"/>
+                            <constraint firstItem="FJD-4h-6cv" firstAttribute="top" secondItem="dFa-wy-gpJ" secondAttribute="bottom" constant="20" id="sYm-ub-Ihd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile Item Display" id="A8v-o5-Zbq"/>
+                    <connections>
+                        <outlet property="itemDescription" destination="0um-cH-5fK" id="mZW-W6-0EX"/>
+                        <outlet property="itemImage" destination="FJD-4h-6cv" id="ido-iX-r3a"/>
+                        <outlet property="progressView" destination="SAy-gA-wyO" id="l20-Ei-jVb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a8m-84-82b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2700" y="1087.5"/>
         </scene>
     </scenes>
     <resources>

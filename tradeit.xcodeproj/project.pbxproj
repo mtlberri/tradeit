@@ -23,6 +23,8 @@
 		B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */; };
 		B77AE1B21E09FA4100C28DB6 /* AuthUsingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */; };
 		B77AE1B31E09FA4100C28DB6 /* AuthUsingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */; };
+		B77E93CF1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E93CE1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift */; };
+		B77E93D01E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77E93CE1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift */; };
 		B789D4221DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B789D4231DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113821DD7AB1C002DFA2F /* AppDelegate.swift */; };
@@ -57,6 +59,7 @@
 		B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
 		B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUsingViewController.swift; sourceTree = "<group>"; };
+		B77E93CE1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileItemDisplayViewController.swift; sourceTree = "<group>"; };
 		B789D4211DD7D939001AD480 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B791137F1DD7AB1C002DFA2F /* tradeit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79113821DD7AB1C002DFA2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -178,10 +181,11 @@
 			isa = PBXGroup;
 			children = (
 				B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */,
+				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */,
 				B72DE4F71E074832004BD84F /* ProfileViewController.swift */,
-				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */,
+				B77E93CE1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift */,
 				B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */,
 			);
 			name = Controller;
@@ -397,6 +401,7 @@
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
+				B77E93CF1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
 				B72DE4F81E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7392BE11DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B77AE1B21E09FA4100C28DB6 /* AuthUsingViewController.swift in Sources */,
@@ -416,6 +421,7 @@
 				B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
+				B77E93D01E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -115,19 +115,29 @@ class ItemsCollectionViewController: UICollectionViewController {
         
         print("CVDelegate: Item selected at row: \(indexPath.row)")
         
-        // create a Item Display view controller with selected item in it
-        let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDisplay") as! ItemDisplayViewController
-        destinationViewController.itemToDisplay = self.itemsArray?.content[indexPath.row]
-        
-        print("CVDelegate: destination view controller ready! Now being pushed by the parent navigation controller of the VC using the delegate")
-        
-        // if in the contect of the ItemsCollectionViewController:
-        if self.foreignViewControllerUsingDataSourceAndDelegate == nil {
+        // Switch on the view controller using the present object as delegate
+        switch self.foreignViewControllerUsingDataSourceAndDelegate {
+        case nil:
+            print("CVDelegate: foreignViewControllerUsingDataSourceAndDelegate is nil")
+            // create a Item Display view controller with selected item in it
+            let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDisplay") as! ItemDisplayViewController
+            destinationViewController.itemToDisplay = self.itemsArray?.content[indexPath.row]
+            print("CV Delegate: Item Display destination view controller ready! Now being pushed by the navigation controller for display")
             // Present the destination view controller
             self.navigationController?.pushViewController(destinationViewController, animated: true)
-        } else {
-            // Else, if in the context of a foreign view controller using present object as Delegate
+        case is ProfileViewController:
+            print("CVDelegate: foreignViewControllerUsingDataSourceAndDelegate is of Type ProfileViewController")
+            // create a Profile Item Display view controller with selected item in it
+            let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileItemDisplay") as! ProfileItemDisplayViewController
+            destinationViewController.itemToDisplay = self.itemsArray?.content[indexPath.row]
+            
+            print("CV Delegate: Profile Item Display destination view controller ready! Now being pushed by the navigation controller for display")
+            // Present the destination view controller
             self.foreignViewControllerUsingDataSourceAndDelegate?.navigationController?.pushViewController(destinationViewController, animated: true)
+            
+        default:
+            print("CVDelegate: foreignViewControllerUsingDataSourceAndDelegate else so went to default case")
+            
         }
 
         
