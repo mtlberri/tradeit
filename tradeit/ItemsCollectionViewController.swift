@@ -51,6 +51,9 @@ class ItemsCollectionViewController: UICollectionViewController {
     // Firebase database ref to the items to be displayed in the collection view
     var dbRef: FIRDatabaseReference! = FIRDatabase.database().reference().child("items")
     
+    //
+    var foreignViewControllerUsingDataSourceAndDelegate: UIViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ItemsCV did load!")
@@ -110,15 +113,23 @@ class ItemsCollectionViewController: UICollectionViewController {
     // When item selected
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("Item selected at row: \(indexPath.row)")
+        print("CVDelegate: Item selected at row: \(indexPath.row)")
         
         // create a Item Display view controller with selected item in it
         let destinationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemDisplay") as! ItemDisplayViewController
         destinationViewController.itemToDisplay = self.itemsArray?.content[indexPath.row]
         
-        print("destination view controller ready! Now being pushed by the navigation controller...")
-        // Present the destination view controller
-        self.navigationController?.pushViewController(destinationViewController, animated: true)
+        print("CVDelegate: destination view controller ready! Now being pushed by the parent navigation controller of the VC using the delegate")
+        
+        // if in the contect of the ItemsCollectionViewController:
+        if self.foreignViewControllerUsingDataSourceAndDelegate == nil {
+            // Present the destination view controller
+            self.navigationController?.pushViewController(destinationViewController, animated: true)
+        } else {
+            // Else, if in the context of a foreign view controller using present object as Delegate
+            self.foreignViewControllerUsingDataSourceAndDelegate?.navigationController?.pushViewController(destinationViewController, animated: true)
+        }
+
         
     }
     

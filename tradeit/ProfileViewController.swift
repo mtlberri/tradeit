@@ -31,8 +31,8 @@ class ProfileViewController: AuthUsingViewController {
         self.profileCollectionView.delegate = self.profileCollectionViewCOntroller
         self.profileCollectionView.dataSource = self.profileCollectionViewCOntroller
         
-        
-    
+        // set the present view controller as the foreign VC on the delegate
+        self.profileCollectionViewCOntroller.foreignViewControllerUsingDataSourceAndDelegate = self
         
     }
     
