@@ -20,7 +20,7 @@ class ProfileViewController: AuthUsingViewController {
     // MARK: Properties
     
     // A ItemsCollectionViewController that will be used as delegate and data source for the profile collection view
-    let profileCollectionViewCOntroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "itemsCollectionStoryboardID") as! ItemsCollectionViewController
+    let profileCollectionViewDataSourceAndDelegate = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "itemsCollectionStoryboardID") as! ItemsCollectionViewController
 
     
     override func viewDidLoad() {
@@ -28,11 +28,11 @@ class ProfileViewController: AuthUsingViewController {
         print("Profile View Did Load!")
         
         // Set-up the profile collection view delegate and data source
-        self.profileCollectionView.delegate = self.profileCollectionViewCOntroller
-        self.profileCollectionView.dataSource = self.profileCollectionViewCOntroller
+        self.profileCollectionView.delegate = self.profileCollectionViewDataSourceAndDelegate
+        self.profileCollectionView.dataSource = self.profileCollectionViewDataSourceAndDelegate
         
         // set the present view controller as the foreign VC on the delegate
-        self.profileCollectionViewCOntroller.foreignViewControllerUsingDataSourceAndDelegate = self
+        self.profileCollectionViewDataSourceAndDelegate.foreignViewControllerUsingDataSourceAndDelegate = self
         
     }
     
@@ -45,7 +45,7 @@ class ProfileViewController: AuthUsingViewController {
         super.userObservedSignedIn(user)
         
         // set the profileCV data source FIRDB ref to the appropriate location based on the current user (userRefDB will be set at that point by AuthUsingViewController super method just above
-        self.profileCollectionViewCOntroller.dbRef = self.userRefDB!.child("userItems")
+        self.profileCollectionViewDataSourceAndDelegate.dbRef = self.userRefDB!.child("userItems")
         // Using the appropriate FIRDBRef: Init Items Array if required (if nil) and reload collection view
         self.initItemsArrayIfRequiredAndReloadCollectionView()
         
@@ -92,7 +92,7 @@ class ProfileViewController: AuthUsingViewController {
         self.profileImage.image = nil
         //
         
-        self.profileCollectionViewCOntroller.itemsArray = nil
+        self.profileCollectionViewDataSourceAndDelegate.itemsArray = nil
         // Reload the Profile Collection View to wipe out the items that were displayed (data source being empty at that point)
         self.profileCollectionView.reloadData()
         
@@ -106,18 +106,18 @@ class ProfileViewController: AuthUsingViewController {
     func initItemsArrayIfRequiredAndReloadCollectionView () -> Void {
         
         // If the data source array of items is nil, then go init it and customize the view upon completion
-        if self.profileCollectionViewCOntroller.itemsArray == nil {
+        if self.profileCollectionViewDataSourceAndDelegate.itemsArray == nil {
             
             print("ProfileCV: data source array of items is nil, so go init it.")
             
-            self.profileCollectionViewCOntroller.initItemsArray {
+            self.profileCollectionViewDataSourceAndDelegate.initItemsArray {
                 
                 print("Profile CV: Reload the View!")
                 self.profileCollectionView.reloadData()
                 
                 // Set the number of items in the view
-                print("Set the number of items of the user: \(self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)")
-                self.numberOfItems.text = String(describing: self.profileCollectionViewCOntroller.itemsArray?.content.count ?? 0)
+                print("Set the number of items of the user: \(self.profileCollectionViewDataSourceAndDelegate.itemsArray?.content.count ?? 0)")
+                self.numberOfItems.text = String(describing: self.profileCollectionViewDataSourceAndDelegate.itemsArray?.content.count ?? 0)
                 
             }
         
