@@ -56,15 +56,17 @@ class ItemDisplayViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // Action Called when the hook button is pressed
+    @IBAction func hookButtonPressed(_ sender: UIButton) {
+        print("hook button pressed!")
+        
+        // create the hook and upload it...
+        
+        
     }
-    */
+
+    
+    
 
 }

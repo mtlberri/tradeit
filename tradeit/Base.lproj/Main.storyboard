@@ -102,7 +102,7 @@
                     <navigationItem key="navigationItem" id="L4v-nw-NUh">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" id="ECV-un-S1S">
-                            <rect key="frame" x="124.5" y="7" width="165" height="30"/>
+                            <rect key="frame" x="125" y="7" width="165" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -127,10 +127,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Test" translatesAutoresizingMaskIntoConstraints="NO" id="kWs-SL-bbf">
-                                <rect key="frame" x="0.0" y="536" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="586" width="414" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="R79-eu-rXe"/>
+                                    <constraint firstAttribute="height" constant="150" id="R79-eu-rXe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -147,6 +147,13 @@
                                     <constraint firstAttribute="width" constant="150" id="5LJ-q0-bmw"/>
                                 </constraints>
                             </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig2-xG-lFw">
+                                <rect key="frame" x="25" y="546" width="34" height="30"/>
+                                <state key="normal" title="hook"/>
+                                <connections>
+                                    <action selector="hookButtonPressed:" destination="VyR-xi-dDQ" eventType="touchUpInside" id="Fnu-O5-n7J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -158,6 +165,8 @@
                             <constraint firstItem="1vw-Uc-WQx" firstAttribute="centerY" secondItem="srH-0K-m5U" secondAttribute="centerY" id="Pqr-5q-wWE"/>
                             <constraint firstItem="srH-0K-m5U" firstAttribute="top" secondItem="OCk-qf-mor" secondAttribute="bottom" constant="20" id="YmW-oV-lCC"/>
                             <constraint firstAttribute="trailing" secondItem="srH-0K-m5U" secondAttribute="trailing" id="bVq-hw-KXg"/>
+                            <constraint firstItem="ig2-xG-lFw" firstAttribute="leading" secondItem="XTk-jy-4Vc" secondAttribute="leadingMargin" constant="5" id="f9X-mI-UE3"/>
+                            <constraint firstItem="kWs-SL-bbf" firstAttribute="top" secondItem="ig2-xG-lFw" secondAttribute="bottom" constant="10" id="yk7-9L-5TL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Item Display" id="G7B-dY-gPG"/>
