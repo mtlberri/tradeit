@@ -68,7 +68,7 @@ class Item {
                            "users/\(self.ownerUID)/userItems/\(self.key)": dic
                            ]
         
-        // Update the entry in Firebase
+        // Update the entries in Firebase
         Item.refD.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
             if error == nil {
                 print("Item method says: Upload of item METADATA \(self.key) in Firebase DB successfully completed!")
