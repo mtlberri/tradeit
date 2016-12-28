@@ -253,19 +253,56 @@
         <!--Received-->
         <scene sceneID="htC-da-BBb">
             <objects>
-                <tableViewController id="Lln-Qr-sjY" sceneMemberID="viewController">
+                <tableViewController id="Lln-Qr-sjY" customClass="HooksReceivedTableViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUf-LC-5Ia">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AVb-bI-9Al">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HookReceivedCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="HookReceivedCell" rowHeight="80" id="AVb-bI-9Al" customClass="HookReceivedTableViewCell" customModule="tradeit" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AVb-bI-9Al" id="OE0-dA-3wY">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kZW-Bd-lDf">
+                                            <rect key="frame" x="8" y="14" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="Qso-CQ-drW"/>
+                                                <constraint firstAttribute="height" constant="50" id="uz5-nY-3iX"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tD-UM-Gk6">
+                                            <rect key="frame" x="68" y="14" width="261" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xFP-Yh-TZr">
+                                            <rect key="frame" x="339" y="4" width="70" height="70"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="8kw-LK-68N"/>
+                                                <constraint firstAttribute="width" constant="70" id="rYA-LM-2g5"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xFP-Yh-TZr" secondAttribute="trailingMargin" constant="5" id="4HS-Qf-69d"/>
+                                        <constraint firstItem="kZW-Bd-lDf" firstAttribute="centerY" secondItem="OE0-dA-3wY" secondAttribute="centerY" id="God-Rw-pQH"/>
+                                        <constraint firstItem="kZW-Bd-lDf" firstAttribute="leading" secondItem="OE0-dA-3wY" secondAttribute="leadingMargin" id="Kmm-f1-kee"/>
+                                        <constraint firstItem="3tD-UM-Gk6" firstAttribute="leading" secondItem="kZW-Bd-lDf" secondAttribute="trailing" constant="10" id="TRy-Pq-MPn"/>
+                                        <constraint firstItem="3tD-UM-Gk6" firstAttribute="bottom" secondItem="kZW-Bd-lDf" secondAttribute="bottom" id="al2-cA-jkG"/>
+                                        <constraint firstItem="3tD-UM-Gk6" firstAttribute="top" secondItem="kZW-Bd-lDf" secondAttribute="top" id="fhl-cU-FOH"/>
+                                        <constraint firstItem="xFP-Yh-TZr" firstAttribute="centerY" secondItem="OE0-dA-3wY" secondAttribute="centerY" id="uGE-q6-ykz"/>
+                                        <constraint firstItem="xFP-Yh-TZr" firstAttribute="leading" secondItem="3tD-UM-Gk6" secondAttribute="trailing" constant="10" id="zTo-lR-XkW"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="hookedItemImageThumbnail" destination="xFP-Yh-TZr" id="YP0-Yb-OMh"/>
+                                    <outlet property="label" destination="3tD-UM-Gk6" id="K54-P9-0aZ"/>
+                                    <outlet property="senderUserPhoto" destination="kZW-Bd-lDf" id="l2o-Zc-5CH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

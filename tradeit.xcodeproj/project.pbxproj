@@ -34,6 +34,10 @@
 		B791138C1DD7AB1C002DFA2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B791138B1DD7AB1C002DFA2F /* Assets.xcassets */; };
 		B791138F1DD7AB1C002DFA2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B791138D1DD7AB1C002DFA2F /* LaunchScreen.storyboard */; };
 		B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113991DD7AB1C002DFA2F /* tradeitTests.swift */; };
+		B7AE20EB1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */; };
+		B7AE20EC1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */; };
+		B7AE20EE1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */; };
+		B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,8 @@
 		B79113951DD7AB1C002DFA2F /* tradeitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tradeitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79113991DD7AB1C002DFA2F /* tradeitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tradeitTests.swift; sourceTree = "<group>"; };
 		B791139B1DD7AB1C002DFA2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HooksReceivedTableViewController.swift; sourceTree = "<group>"; };
+		B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HookReceivedTableViewCell.swift; sourceTree = "<group>"; };
 		CF072D78F180C6FF486E671A /* Pods_tradeitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -118,6 +124,7 @@
 		B75467001DF360A900ABB7EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */,
 				B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */,
 			);
 			name = View;
@@ -180,6 +187,7 @@
 		B7F7DAC51DE5261B001319C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */,
 				B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */,
 				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
 				B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */,
@@ -398,6 +406,8 @@
 				B789D4221DD7D939001AD480 /* Item.swift in Sources */,
 				B79113871DD7AB1C002DFA2F /* PostItemViewController.swift in Sources */,
 				B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */,
+				B7AE20EB1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */,
+				B7AE20EE1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
@@ -414,11 +424,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B789D4231DD7D939001AD480 /* Item.swift in Sources */,
+				B7AE20EC1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */,
 				B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B77AE1B31E09FA4100C28DB6 /* AuthUsingViewController.swift in Sources */,
 				B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
 				B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */,
+				B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 				B77E93D01E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
