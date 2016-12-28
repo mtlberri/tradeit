@@ -38,6 +38,8 @@
 		B7AE20EC1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */; };
 		B7AE20EE1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */; };
 		B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */; };
+		B7AE20F11E136FBA0099F7C7 /* Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20F01E136FBA0099F7C7 /* Hook.swift */; };
+		B7AE20F21E136FBA0099F7C7 /* Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20F01E136FBA0099F7C7 /* Hook.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,7 @@
 		B791139B1DD7AB1C002DFA2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HooksReceivedTableViewController.swift; sourceTree = "<group>"; };
 		B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HookReceivedTableViewCell.swift; sourceTree = "<group>"; };
+		B7AE20F01E136FBA0099F7C7 /* Hook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hook.swift; sourceTree = "<group>"; };
 		CF072D78F180C6FF486E671A /* Pods_tradeitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -180,6 +183,7 @@
 			children = (
 				B789D4211DD7D939001AD480 /* Item.swift */,
 				B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */,
+				B7AE20F01E136FBA0099F7C7 /* Hook.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -403,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7AE20F11E136FBA0099F7C7 /* Hook.swift in Sources */,
 				B789D4221DD7D939001AD480 /* Item.swift in Sources */,
 				B79113871DD7AB1C002DFA2F /* PostItemViewController.swift in Sources */,
 				B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */,
@@ -433,6 +438,7 @@
 				B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
 				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
+				B7AE20F21E136FBA0099F7C7 /* Hook.swift in Sources */,
 				B77E93D01E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
