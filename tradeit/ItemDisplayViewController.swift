@@ -1,7 +1,7 @@
 import UIKit
 import Firebase
 
-class ItemDisplayViewController: UIViewController {
+class ItemDisplayViewController: AuthUsingViewController {
 
     // MARK: Outlets
     @IBOutlet weak var itemImage: UIImageView!
@@ -61,7 +61,25 @@ class ItemDisplayViewController: UIViewController {
     @IBAction func hookButtonPressed(_ sender: UIButton) {
         print("hook button pressed!")
         
-        // create the hook and upload it...
+        // Check that the itemToDisplay is not nil (shoud not be per design), and that there is a current user signed in
+        if let item = self.itemToDisplay, let signedInUser = self.user {
+            
+            // create the hook (via convenience init) and upload it...
+            let hook = Hook(item, sentByUser: signedInUser)
+            hook.uploadMetadata { error in
+                
+                if error == nil {
+                    print("Item Display VC: Successfully uploaded metadata for the hook \(hook.hookKey)")
+                } else {
+                    print("Item Display VC: Failed to upload metadata for the hook \(hook.hookKey) with error \(error)")
+                }
+                
+            }
+            
+        } else {
+            print("Could not hook item: either item is nil or user not signed in")
+        }
+        
         
         
     }

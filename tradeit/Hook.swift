@@ -23,7 +23,7 @@ class Hook {
     var hookedItemImageThumbnailPath: String?
     var hookedItemImageThumbnail: UIImage?
     
-    // MARK: Initializer
+    // MARK: Designated Initializer
     init(hookKey: String,
         
         senderUserUID: String,
@@ -33,8 +33,8 @@ class Hook {
         
         hookedItemKey: String,
         hookedItemOwnerUID: String,
-        hookedItemImageRef: String?,
-        hookedItemImage: UIImage?
+        hookedItemImageThumbnailPath: String?,
+        hookedItemImageThumbnail: UIImage?
         ) {
         
         self.hookKey = hookKey
@@ -49,8 +49,29 @@ class Hook {
         // Hooked Item
         self.hookedItemKey = hookedItemKey
         self.hookedItemOwnerUID = hookedItemOwnerUID
-        self.hookedItemImageThumbnailPath = hookedItemImageRef
-        self.hookedItemImageThumbnail = hookedItemImage
+        self.hookedItemImageThumbnailPath = hookedItemImageThumbnailPath
+        self.hookedItemImageThumbnail = hookedItemImageThumbnail
+        
+    }
+    
+    // MARK: Convenience Initializer based on Item, and senderUser
+    convenience init (_ item: Item, sentByUser: FIRUser) {
+        
+        // Create the hook key by using childByAutoId on the item/hooks ref
+        let generatedHookKey = Item.refD.child("items/\(item.key)/hooks").childByAutoId().key
+        
+        // Call the designated initializer
+        self.init(hookKey: generatedHookKey,
+                  
+                  senderUserUID: sentByUser.uid,
+                  senderUserDisplayName: sentByUser.displayName ?? "unnamed user",
+                  senderUserPhotoURL: sentByUser.photoURL?.absoluteString,
+                  senderUserPhoto: nil,
+                  
+                  hookedItemKey: item.key,
+                  hookedItemOwnerUID: item.ownerUID,
+                  hookedItemImageThumbnailPath: item.imageThumbnailPath,
+                  hookedItemImageThumbnail: nil)
         
     }
     
@@ -58,6 +79,7 @@ class Hook {
     
     func uploadMetadata(withCompletionBlock completion: @escaping (_ error: Error?) -> Void) ->Void {
         
+        print("Entering the uploadMetadata method for hook \(self.hookKey)")
         // Get the itemUser
         
         // Create a date formatter and customize it
@@ -90,8 +112,8 @@ class Hook {
         
         // Create the child item that will be updated in the Firebase DB. Atomic update at three locations: items, hook sender user, item owner user.
         let childUpdate = ["items/\(self.hookedItemKey)/hooks/\(self.hookKey)": dic,
-                           "users/\(self.hookedItemOwnerUID)/hooksReceived": dic,
-                           "users/\(self.senderUserUID)/hooksSent": dic
+                           "users/\(self.hookedItemOwnerUID)/hooksReceived/\(self.hookKey)": dic,
+                           "users/\(self.senderUserUID)/hooksSent/\(self.hookKey)": dic
                            
         ]
         

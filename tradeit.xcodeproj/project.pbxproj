@@ -17,6 +17,8 @@
 		B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */; };
 		B7392BE11DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */; };
 		B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */; };
+		B74EC52E1E1801560011B136 /* HooksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74EC52D1E1801560011B136 /* HooksArray.swift */; };
+		B74EC52F1E1801560011B136 /* HooksArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74EC52D1E1801560011B136 /* HooksArray.swift */; };
 		B75466FE1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
 		B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */; };
 		B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */; };
@@ -62,6 +64,7 @@
 		B7352ED61DD7B595007FF712 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsArray.swift; sourceTree = "<group>"; };
 		B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDisplayViewController.swift; sourceTree = "<group>"; };
+		B74EC52D1E1801560011B136 /* HooksArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HooksArray.swift; sourceTree = "<group>"; };
 		B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
 		B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUsingViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +187,7 @@
 				B789D4211DD7D939001AD480 /* Item.swift */,
 				B7392BDA1DFA0C4D00CB33B1 /* ItemsArray.swift */,
 				B7AE20F01E136FBA0099F7C7 /* Hook.swift */,
+				B74EC52D1E1801560011B136 /* HooksArray.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -414,6 +418,7 @@
 				B7AE20EB1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */,
 				B7AE20EE1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
+				B74EC52E1E1801560011B136 /* HooksArray.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 				B77E93CF1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
@@ -437,6 +442,7 @@
 				B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B7392BE21DFCAFB500CB33B1 /* ItemDisplayViewController.swift in Sources */,
+				B74EC52F1E1801560011B136 /* HooksArray.swift in Sources */,
 				B7392BDC1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 				B7AE20F21E136FBA0099F7C7 /* Hook.swift in Sources */,
 				B77E93D01E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
