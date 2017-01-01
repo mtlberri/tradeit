@@ -89,7 +89,7 @@ class Hook {
                   
                   hookedItemKey: dic["hookedItemKey"] ?? "hookedItemKeyNotFound",
                   hookedItemOwnerUID: dic["hookedItemOwnerUID"] ?? "hookedItemOwnerUIDNotFound",
-                  hookedItemImageThumbnailPath: dic["hookKey"], // Optional
+                  hookedItemImageThumbnailPath: dic["hookedItemImageThumbnailPath"], // Optional
                   hookedItemImageThumbnail: nil)
         
     }
@@ -178,7 +178,7 @@ class Hook {
                     // completion block called with error nil
                     completion(error)
                     } else {
-                    print("At Hook level: Huh-Oh Error while downloading thumbnail image for hool \(self.hookKey)")
+                    print("At Hook level: Huh-Oh Error while downloading thumbnail image for hook \(self.hookKey)")
                     print("At Hook level, error is: \(error?.localizedDescription)")
                     // completion block called with error
                     completion(error)

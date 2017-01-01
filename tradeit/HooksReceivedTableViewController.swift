@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import SDWebImage
 
 class HooksReceivedTableViewController: UITableViewController {
 
@@ -32,7 +33,7 @@ class HooksReceivedTableViewController: UITableViewController {
             
             
         } else {
-            print("No User signed in... please sign in!")
+            print("HooksReceivedVC: No User signed in... please sign in!")
         }
         
 
@@ -60,9 +61,42 @@ class HooksReceivedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HookReceivedCell", for: indexPath) as! HookReceivedTableViewCell
 
         // Configure the cell...
-        cell.label.text = "Hooked item key is \(self.hooksReceivedArray.content[indexPath.row].hookedItemKey)"
+        // Get the hook object at stake for that cell
+        let hook = self.hooksReceivedArray.content[indexPath.row]
         
+        // Customize the cell
+        
+        // Label
+        cell.label.text = "\(hook.senderUserDisplayName) hooked your item. \(hook.getAgingAsString())"
+        
+        // Sender User Profile photo
+        if hook.senderUserPhotoURL != nil {
+            cell.senderUserPhoto.sd_setImage(with: URL(string: hook.senderUserPhotoURL!))
+        } else {
+            print("HooksReceivedVC: No Sender User Photo Available")
+        }
 
+        
+        // Item hooked image thumbnail
+        
+        // Check if the hooked item image thumbnail needs to be downloaded
+        if hook.hookedItemImageThumbnail == nil {
+            hook.downloadHookedItemImageThumbnail { error in
+                if error == nil {
+                    print("HooksReceivedVC: Successfully downloaded hooked item image thumbnail. Reload View!")
+                    // Completion Block for hooked item image thumbnail
+                    self.tableView.reloadData()
+                } else {
+                    print("HooksReceivedVC: Failed downloading hooked item image thumbnail with error: \(error)")
+                }
+            }
+            
+        } else {
+            print("HooksReceivedVC: hook hooked item image thumbnail already existing")
+        }
+        
+        cell.hookedItemImageThumbnail.image = hook.hookedItemImageThumbnail
+        
         return cell
     }
 
