@@ -16,14 +16,47 @@ class HooksArray {
     var refD: FIRDatabaseReference
     
     
-    
     // Initializer
     init(hooksAtRef ref: FIRDatabaseReference) {
         self.refD = ref
     }
     
     
-    // Observe Child Added and append to the content
+    // Observe Child hooks in Firebase and keep the content in sync, while calling a completion block after each event
+    func observeFirebaseHooks (withBlock: @escaping (_ eventType: HookEventType, _ atIndexPath: IndexPath) -> Void) -> Void {
+        
+        // Observe hook added to Firebase and append to content
+        self.refD.observe(.childAdded, with: { snapshot in
+            
+            
+            print("HooksArray: Observed hook added in Firebase: \(snapshot.value)")
+            // Check if the snapshot convertion to [String: String] is not nil
+            if let dic = snapshot.value as? [String: String] {
+                
+                // Create the hook with convenience initializer
+                let addedHook = Hook(withNSDictionary: dic)
+                print("HooksArray: created the addedHookObject \(addedHook.hookKey)")
+                
+                // Append to the content
+                self.content.append(addedHook)
+                
+                // call withBlock with appropriate arguments
+                withBlock(HookEventType.added, IndexPath(row: self.content.count - 1, section: 0))
+                
+            } else {
+                print("HooksArray: Error with Firebase snapshot conversion into [String: String]")
+            }
+            
+            
+            
+        })
+        
+        
+    }
+    
+    
+    
+    
     
     // Observe Child Removed and remove from content
     
@@ -32,3 +65,14 @@ class HooksArray {
     
     
 }
+
+// Enumeration to list the different types of event for HooksArray content based on Firebase events
+enum HookEventType {
+    
+    case added
+    case removed
+    case updated
+    
+}
+
+

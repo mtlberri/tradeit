@@ -54,6 +54,7 @@ class Hook {
         
     }
     
+    // MARK: Convenience Initializers
     // MARK: Convenience Initializer based on Item, and senderUser
     convenience init (_ item: Item, sentByUser: FIRUser) {
         
@@ -74,6 +75,26 @@ class Hook {
                   hookedItemImageThumbnail: nil)
         
     }
+    
+    // MARK: Convenience Initializer based on NSDictionary (most of the time coming from a Firebase Snapshot
+    convenience init (withNSDictionary dic: [String: String]) {
+        
+        // Call the designated initializer based on the dictionary values
+        self.init(hookKey: dic["hookKey"] ?? "hookKeyNotFound",
+                  
+                  senderUserUID: dic["senderUserUID"] ?? "senderUserUIDNotFound",
+                  senderUserDisplayName: dic["senderUserDisplayName"] ?? "senderUserDisplayNameNotFound",
+                  senderUserPhotoURL: dic["senderUserPhotoURL"], // Optional
+                  senderUserPhoto: nil,
+                  
+                  hookedItemKey: dic["hookedItemKey"] ?? "hookedItemKeyNotFound",
+                  hookedItemOwnerUID: dic["hookedItemOwnerUID"] ?? "hookedItemOwnerUIDNotFound",
+                  hookedItemImageThumbnailPath: dic["hookKey"], // Optional
+                  hookedItemImageThumbnail: nil)
+        
+    }
+    
+    
     
     // MARK: Upload methods
     
