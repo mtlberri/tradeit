@@ -1,26 +1,45 @@
 import UIKit
+import Firebase
 
 class HooksReceivedTableViewController: UITableViewController {
 
 
     // MARK: Properties
-    
+    var hooksReceivedArray: HooksArray!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("HooksReceivedVC: View Did Load!")
+        
+        // Check if the user is signed in
+        if let user = FIRAuth.auth()?.currentUser {
+            
+            // Create a ref to the user's hooks received
+            let userHooksReceivedRef = FIRDatabase.database().reference().child("users/\(user.uid)/hooksReceived")
+            // Init the array of hooks based on that ref
+            self.hooksReceivedArray = HooksArray(hooksAtRef: userHooksReceivedRef)
+            
+            // Observe the hooksArray and react accordingly
+            self.hooksReceivedArray.observeFirebaseHooks { (type, index) in
+                print("HooksReceivedVC: hook event observed. Event type: \(type), at index: \(index)")
+                self.tableView.reloadData()
+                
+            }
+            
+            
+            
+            
+            
+        } else {
+            print("No User signed in... please sign in!")
+        }
+        
 
+        
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        print("HooksReceivedVC: View will appear!")
-        
-        
-        
-        
-        
-    }
     
     
 
@@ -33,7 +52,7 @@ class HooksReceivedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return self.hooksReceivedArray.content.count
     }
 
     
@@ -41,7 +60,7 @@ class HooksReceivedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HookReceivedCell", for: indexPath) as! HookReceivedTableViewCell
 
         // Configure the cell...
-        cell.label.text = "Test"
+        cell.label.text = "Hooked item key is \(self.hooksReceivedArray.content[indexPath.row].hookedItemKey)"
         
 
         return cell

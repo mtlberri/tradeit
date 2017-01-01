@@ -52,15 +52,20 @@ class HooksArray {
         })
         
         
+        
+        
+        // Observe Child Removed and remove from content
+        
+        
+        
+        
+        // Observer Child Changed and update in the content
+        
+        
+        
     }
     
-    
-    
-    
-    
-    // Observe Child Removed and remove from content
-    
-    // Observer Child Changed and update in the content
+
     
     
     
