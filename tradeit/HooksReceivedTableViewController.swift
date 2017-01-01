@@ -79,22 +79,6 @@ class HooksReceivedTableViewController: UITableViewController {
         
         // Item hooked image thumbnail
         
-        // Check if the hooked item image thumbnail needs to be downloaded
-        if hook.hookedItemImageThumbnail == nil {
-            hook.downloadHookedItemImageThumbnail { error in
-                if error == nil {
-                    print("HooksReceivedVC: Successfully downloaded hooked item image thumbnail. Reload View!")
-                    // Completion Block for hooked item image thumbnail
-                    self.tableView.reloadData()
-                } else {
-                    print("HooksReceivedVC: Failed downloading hooked item image thumbnail with error: \(error)")
-                }
-            }
-            
-        } else {
-            print("HooksReceivedVC: hook hooked item image thumbnail already existing")
-        }
-        
         cell.hookedItemImageThumbnail.image = hook.hookedItemImageThumbnail
         
         return cell

@@ -37,11 +37,23 @@ class HooksArray {
                 let addedHook = Hook(withNSDictionary: dic)
                 print("HooksArray: created the addedHookObject \(addedHook.hookKey)")
                 
-                // Append to the content
-                self.content.append(addedHook)
                 
-                // call withBlock with appropriate arguments
-                withBlock(HookEventType.added, IndexPath(row: self.content.count - 1, section: 0))
+                // Download the hooked item image thumbnail
+                addedHook.downloadHookedItemImageThumbnail { error in
+                    if error == nil {
+                        print("HooksArray: Successfully downloaded addedHookObject item image thumbnail.")
+                        
+                    } else {
+                        print("HooksReceivedVC: Failed downloading hooked item image thumbnail with error: \(error)")
+                    }
+                    
+                    // Append to the content
+                    self.content.append(addedHook)
+                    
+                    // call withBlock with appropriate arguments
+                    withBlock(HookEventType.added, IndexPath(row: self.content.count - 1, section: 0))
+                    
+                }
                 
             } else {
                 print("HooksArray: Error with Firebase snapshot conversion into [String: String]")
