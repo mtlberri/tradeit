@@ -29,18 +29,19 @@ class HooksReceivedTableViewController: UITableViewController {
             }
             
             
-            
-            
-            
         } else {
             print("HooksReceivedVC: No User signed in... please sign in!")
         }
-        
-
-        
-        
+    
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // Reload the table view when view appears (so that the aging of hooks get refreshed in the cells)
+        self.tableView.reloadData()
+        
+    }
     
     
 
@@ -56,6 +57,13 @@ class HooksReceivedTableViewController: UITableViewController {
         return self.hooksReceivedArray.content.count
     }
 
+    
+    // Row Height = 100px
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HookReceivedCell", for: indexPath) as! HookReceivedTableViewCell
@@ -84,6 +92,10 @@ class HooksReceivedTableViewController: UITableViewController {
         return cell
     }
 
+    
+    
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

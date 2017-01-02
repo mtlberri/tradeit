@@ -65,7 +65,7 @@ class ItemDisplayViewController: AuthUsingViewController {
         if let item = self.itemToDisplay, let signedInUser = self.user {
             
             // create the hook (via convenience init) and upload it...
-            let hook = Hook(item, sentByUser: signedInUser)
+            let hook = Hook(item, sentByUser: signedInUser, creationDate: Date())
             hook.uploadMetadata { error in
                 
                 if error == nil {

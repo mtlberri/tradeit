@@ -26,6 +26,7 @@ class Hook {
     
     // MARK: Designated Initializer
     init(hookKey: String,
+        dateAndTimeOfCreation: Date,
         
         senderUserUID: String,
         senderUserDisplayName: String,
@@ -39,7 +40,7 @@ class Hook {
         ) {
         
         self.hookKey = hookKey
-        self.dateAndTimeOfCreation = Date()
+        self.dateAndTimeOfCreation = dateAndTimeOfCreation
         
         // Sender User
         self.senderUserUID = senderUserUID
@@ -57,13 +58,14 @@ class Hook {
     
     // MARK: Convenience Initializers
     // MARK: Convenience Initializer based on Item, and senderUser
-    convenience init (_ item: Item, sentByUser: FIRUser) {
+    convenience init (_ item: Item, sentByUser: FIRUser, creationDate: Date) {
         
         // Create the hook key by using childByAutoId on the item/hooks ref
         let generatedHookKey = Item.refD.child("items/\(item.key)/hooks").childByAutoId().key
         
         // Call the designated initializer
         self.init(hookKey: generatedHookKey,
+                  dateAndTimeOfCreation: creationDate,
                   
                   senderUserUID: sentByUser.uid,
                   senderUserDisplayName: sentByUser.displayName ?? "unnamed user",
@@ -77,11 +79,17 @@ class Hook {
         
     }
     
-    // MARK: Convenience Initializer based on NSDictionary (most of the time coming from a Firebase Snapshot
+    // MARK: Convenience Initializer based on NSDictionary (most of the time coming from a Firebase Snapshot)
     convenience init (withNSDictionary dic: [String: String]) {
+        
+        // Customize a dateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
         
         // Call the designated initializer based on the dictionary values
         self.init(hookKey: dic["hookKey"] ?? "hookKeyNotFound",
+                  dateAndTimeOfCreation: dateFormatter.date(from: dic["dateAndTimeOfCreation"] ?? "") ?? Date(),
                   
                   senderUserUID: dic["senderUserUID"] ?? "senderUserUIDNotFound",
                   senderUserDisplayName: dic["senderUserDisplayName"] ?? "senderUserDisplayNameNotFound",
@@ -104,12 +112,12 @@ class Hook {
         print("Entering the uploadMetadata method for hook \(self.hookKey)")
         // Get the itemUser
         
-        // Create a date formatter and customize it
+        // Customize a dateFormatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
         
-        let stringDateAndTime = dateFormatter.string(from: Date())
+        let stringDateAndTime = dateFormatter.string(from: self.dateAndTimeOfCreation)
         print("Date used is going to be \(stringDateAndTime)")
         
         // Create a Dictionary for transfer to Firebase DB
@@ -198,8 +206,27 @@ class Hook {
     
     // Method that returns the aging of the hook as a string
     func getAgingAsString () -> String {
-        // Method to be implemented later
-        return "10s"
+        
+        // Customize a dateFormatter
+        // let dateFormatter = DateFormatter()
+        // dateFormatter.dateStyle = .medium
+        // dateFormatter.timeStyle = .medium
+        
+        print("Hook date and time of creation is: \(self.dateAndTimeOfCreation)")
+        
+        let rawAging = -self.dateAndTimeOfCreation.timeIntervalSinceNow
+        
+        switch rawAging {
+        case 0..<60:
+            return String(Int(rawAging)) + "s"
+        case 60..<3600:
+            return String(Int(rawAging/60)) + "m"
+        case 3600..<86400:
+            return String(Int(rawAging/3600)) + "h"
+        default:
+            return String(Int(rawAging/86400)) + "d"
+            
+        }
         
     }
     
