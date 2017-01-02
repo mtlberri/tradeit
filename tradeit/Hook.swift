@@ -4,6 +4,7 @@ import Firebase
 import SDWebImage
 
 // Hook class created to represent a hook from a sender user to an item being owned by another user
+
 class Hook {
     
     // MARK: Properties
@@ -202,7 +203,23 @@ class Hook {
         
     }
     
+}
+
+// Extension to add conformance to the Comparable protocol (and sort Hooks per date and time
+extension Hook: Comparable {
     
+    static func <(lhs: Hook, rhs: Hook) -> Bool {
+        return lhs.dateAndTimeOfCreation < rhs.dateAndTimeOfCreation
+    }
+    
+    static func ==(lhs: Hook, rhs: Hook) -> Bool {
+        return lhs.dateAndTimeOfCreation == rhs.dateAndTimeOfCreation
+    }
     
     
 }
+
+
+
+
+

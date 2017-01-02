@@ -23,7 +23,7 @@ class HooksArray {
     
     
     // Observe Child hooks in Firebase and keep the content in sync, while calling a completion block after each event
-    func observeFirebaseHooks (withBlock: @escaping (_ eventType: HookEventType, _ atIndexPath: IndexPath) -> Void) -> Void {
+    func observeFirebaseHooks (withBlock: @escaping (_ eventType: HookEventType) -> Void) -> Void {
         
         // Observe hook added to Firebase and append to content
         self.refD.observe(.childAdded, with: { snapshot in
@@ -50,8 +50,11 @@ class HooksArray {
                     // Append to the content
                     self.content.append(addedHook)
                     
+                    // Sort the content per decreasing Date and Time of creation (most recent first)
+                    self.content.sort(by: >)
+                    
                     // call withBlock with appropriate arguments
-                    withBlock(HookEventType.added, IndexPath(row: self.content.count - 1, section: 0))
+                    withBlock(HookEventType.added)
                     
                 }
                 

@@ -22,8 +22,8 @@ class HooksReceivedTableViewController: UITableViewController {
             self.hooksReceivedArray = HooksArray(hooksAtRef: userHooksReceivedRef)
             
             // Observe the hooksArray and react accordingly
-            self.hooksReceivedArray.observeFirebaseHooks { (type, index) in
-                print("HooksReceivedVC: hook event observed. Event type: \(type), at index: \(index)")
+            self.hooksReceivedArray.observeFirebaseHooks { type in
+                print("HooksReceivedVC: hook event observed. Event type: \(type)")
                 self.tableView.reloadData()
                 
             }
