@@ -3,7 +3,7 @@ import Firebase
 
 // That Class implements Protocols as delegate for the UIImagePickerController
 // Also required UINavigationController Delgate (related to the image picker popping out the view)
-class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: Properties
     let imagePicker = UIImagePickerController()    
@@ -30,6 +30,22 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
         let myBorderColor = UIColor.lightGray
         itemDescription.layer.borderColor = myBorderColor.cgColor
         itemDescription.layer.borderWidth = 0.5
+        
+        // Observe user via Auth shared instance
+        Auth.sharedInstance.observeUser { authEvent in
+            print("PostItemVC: observed the user \(authEvent) thanks to Auth.sharedInstance")
+            
+            // Switch on the auth event (execute code depending if user signed in or not)
+            switch authEvent {
+            case .observedSignedIn:
+                print("PostItemVC: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+            case .observedSignedOut:
+                print("PostItemVC: user is signed out \(Auth.sharedInstance.user) ")
+            }
+            
+            
+        }
+        
         
     }
 
@@ -72,7 +88,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
     @IBAction func postItemButtonPressed(_ sender: UIButton) {
         
         // Print message when button pressed
-        print("'Post item!' button pressed")
+        print("PostItemVC: 'Post item!' button pressed")
 
         /////////////////
         
@@ -80,14 +96,14 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
         /////////////////
         
         // Check if the user is signed in to enable upload
-        if let currentUser = self.user {
-            print("user is connected so the posting process can start")
+        if let currentUser = Auth.sharedInstance.user {
+            print("PostItemVC: user is connected so the posting process can start")
             
             // Init an item object
             let newItemKey: String = Item.refD.childByAutoId().key
             let newItemOwnerUID: String = currentUser.uid
             let newItem = Item(key: newItemKey, ownerUID: newItemOwnerUID)
-            print("An Item object has juste been created with key \(newItemKey) and ownerUID \(newItemOwnerUID)")
+            print("PostItemVC: An Item object has juste been created with key \(newItemKey) and ownerUID \(newItemOwnerUID)")
             
             // Customize the item with the elements from the view
             newItem.description = self.itemDescription.text
@@ -98,7 +114,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
             let uploadTask = newItem.upload() { (errorsArray) in
                 
                 //Do some with the array of errors
-                print("Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
+                print("PostItemVC: Overall upload process has completed with \(errorsArray.count) errors. Errors being:")
                 print(errorsArray)
                 
                 /////////////
@@ -107,7 +123,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
                 // Configure the default action
                 let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { alertAction in
                     //Do somehting when OK button pressed
-                    print("Default Action 'OK' has just been pressed")
+                    print("PostItemVC: Default Action 'OK' has just been pressed")
                     
                     
                     
@@ -129,7 +145,7 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
                 if let progress = snapshot.progress {
                     let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
                     self.progressView.progress = Float(percentComplete)
-                    print("Upload progressed: percent complete = \(percentComplete)")
+                    print("PostItemVC: Upload progressed: percent complete = \(percentComplete)")
                 }
             })
             //
@@ -137,27 +153,11 @@ class PostItemViewController: AuthUsingViewController, UIImagePickerControllerDe
             
             
         } else {
-            print("User is not signed in so cannot post item")
+            print("PostItemVC: User is not signed in so cannot post item")
         }
         
         
 
-    }
-
-    // Customization of the AuthUsingViewController methods
-    
-    override func userObservedSignedIn(_ user: FIRUser) {
-        super.userObservedSignedIn(user)
-        
-        // customize if required
-        
-        
-    }
-    
-    override func userObservedSignedOut() {
-        super.userObservedSignedOut()
-        
-        // customize if required
     }
     
     

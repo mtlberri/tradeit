@@ -1,8 +1,10 @@
 import UIKit
 import Firebase
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 import SDWebImage
 
-class ProfileViewController: AuthUsingViewController {
+class ProfileViewController: UIViewController, FUIAuthDelegate {
 
     // MARK: Outlets
     @IBOutlet weak var signInButton: UIButton!
@@ -19,13 +21,23 @@ class ProfileViewController: AuthUsingViewController {
     
     // MARK: Properties
     
+    // Firebase Auth UI instance
+    let authUI = FUIAuth.defaultAuthUI()
+    // Array of providers used (for configuration)
+    let providers: [FUIAuthProvider] = [FUIGoogleAuth()]
+
+    
     // A ItemsCollectionViewController that will be used as delegate and data source for the profile collection view
     let profileCollectionViewDataSourceAndDelegate = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "itemsCollectionStoryboardID") as! ItemsCollectionViewController
 
+
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Profile View Did Load!")
+        print("ProfileVC: Did Load!")
         
         // Set-up the profile collection view delegate and data source
         self.profileCollectionView.delegate = self.profileCollectionViewDataSourceAndDelegate
@@ -34,72 +46,92 @@ class ProfileViewController: AuthUsingViewController {
         // set the present view controller as the foreign VC on the delegate
         self.profileCollectionViewDataSourceAndDelegate.foreignViewControllerUsingDataSourceAndDelegate = self
         
-    }
-    
-
-
-    
-    // MARK: Custyomization of methods from superclass AuthUsingViewController
-    // User Observed Signed In (If User Signed In: Invoked at least a first time at View Will Appear)
-    override func userObservedSignedIn (_ user: FIRUser) -> Void {
-        super.userObservedSignedIn(user)
-        
-        // set the profileCV data source FIRDB ref to the appropriate location based on the current user (userRefDB will be set at that point by AuthUsingViewController super method just above
-        self.profileCollectionViewDataSourceAndDelegate.dbRef = self.userRefDB!.child("userItems")
-        // Using the appropriate FIRDBRef: Init Items Array if required (if nil) and reload collection view
-        self.initItemsArrayIfRequiredAndReloadCollectionView()
         
         
-        // Hide the Sign In Button, show Sign Out
-        self.signInButton.isHidden = true
-        self.signOutButton.isHidden = false
+        // Configure Firebase Auth UI
+        authUI?.delegate = self
+        self.authUI?.providers = providers
+        // Terms Of Service (Can be customized later!)
+        let kFirebaseTermsOfService = URL(string: "https://firebase.google.com/terms/")!
+        authUI?.tosurl = kFirebaseTermsOfService
         
-        // Customize the profile view
         
-        self.userName.text = user.displayName
-        // Go get some profile details of the user from FIRDB and customize the view with it
-        self.userRefDB?.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
-            let value = snapshot.value as? NSDictionary
-            let profileDescription = value?["profileDescription"] as? String ?? ""
-            self.profileDescription.text = profileDescription
+        // Observe user via Auth shared instance
+        Auth.sharedInstance.observeUser { authEvent in
+            print("ProfileVC: observed the user \(authEvent) thanks to Auth.sharedInstance")
+            
+            // Switch on the auth event (execute code depending if user signed in or not)
+            switch authEvent {
+            case .observedSignedIn:
+                print("ProfileVC: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+                
+                // Check if the user and userRef are not nil (should never be else since just observed signed in) - still that check is kept for robustness
+                if Auth.sharedInstance.user != nil && Auth.sharedInstance.userRefDB != nil {
+                    
+                    
+                    // set the profileCV data source FIRDB ref to the appropriate location based on the current user (userRefDB will be set at that point by AuthUsingViewController super method just above
+                    self.profileCollectionViewDataSourceAndDelegate.dbRef = Auth.sharedInstance.userRefDB!.child("userItems")
+                    // Using the appropriate FIRDBRef: Init Items Array if required (if nil) and reload collection view
+                    self.initItemsArrayIfRequiredAndReloadCollectionView()
+                    
+                    
+                    // Hide the Sign In Button, show Sign Out
+                    self.signInButton.isHidden = true
+                    self.signOutButton.isHidden = false
+                    
+                    // Customize the profile view
+                    
+                    self.userName.text = Auth.sharedInstance.user?.displayName
+                    
+                    // Go get some profile details of the user from FIRDB and customize the view with it
+                    Auth.sharedInstance.userRefDB!.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let profileDescription = value?["profileDescription"] as? String ?? ""
+                        self.profileDescription.text = profileDescription
+                    }
+                    // Set User Profile photo
+                    if Auth.sharedInstance.user!.photoURL != nil {
+                        self.profileImage.sd_setImage(with: Auth.sharedInstance.user!.photoURL!)
+                    }
+            
+                }
+                
+                
+            case .observedSignedOut:
+                print("ProfileVC: user is signed out \(Auth.sharedInstance.user) ")
+                
+                
+                // Reset all elements of the view
+                
+                self.userName.text = "No User Signed In"
+                // Hide the Sign Out Button, show Sign In
+                self.signInButton.isHidden = false
+                self.signOutButton.isHidden = true
+                
+                self.profileDescription.text = ""
+                self.numberOfItems.text = ""
+                self.numberOfLikes.text = ""
+                self.profileImage.image = nil
+                //
+                
+                self.profileCollectionViewDataSourceAndDelegate.itemsArray = nil
+                // Reload the Profile Collection View to wipe out the items that were displayed (data source being empty at that point)
+                self.profileCollectionView.reloadData()
+                
+                
+                
+            }
+            
+            
         }
-        // Set User Profile photo
-        if self.user?.photoURL != nil {
-            self.profileImage.sd_setImage(with: self.user?.photoURL!)
-        }
-        
         
         
         
         
     }
     
-    // User Observed Signed Out (If User Signed Out: Invoked at least a first time at View Will Appear)
-    override func userObservedSignedOut () -> Void {
-        
-        super.userObservedSignedOut()
-        
-        // Reset all elements of the view
-        
-        self.userName.text = "No User Signed In"
-        // Hide the Sign Out Button, show Sign In
-        self.signInButton.isHidden = false
-        self.signOutButton.isHidden = true
-        
-        self.profileDescription.text = ""
-        self.numberOfItems.text = ""
-        self.numberOfLikes.text = ""
-        self.profileImage.image = nil
-        //
-        
-        self.profileCollectionViewDataSourceAndDelegate.itemsArray = nil
-        // Reload the Profile Collection View to wipe out the items that were displayed (data source being empty at that point)
-        self.profileCollectionView.reloadData()
-        
-    }
     
-    
-        // MARK: Other Methods
+    // MARK: Methods
     
     
     // Method checking if the array of items needs to be initialized, and doing so if required (while refreshing the Profile Collection View
@@ -150,7 +182,13 @@ class ProfileViewController: AuthUsingViewController {
         
     }
 
-
+    
+    // Called when sign in complete (implementation of protocol FUIAuthDelegate)
+    func authUI(_ authUI: FUIAuth, didSignInWith user: FIRUser?, error: Error?) {
+        // handle user and error as necessary
+        print("authUI called: sign in process completed")
+        
+    }
     
     
 

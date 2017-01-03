@@ -52,7 +52,7 @@ class ItemDisplayViewController: UIViewController {
         Auth.sharedInstance.observeUser { authEvent in
             print("ItemDisplayVC:: observed the user \(authEvent) thanks to Auth.sharedInstance")
             
-            // Switch on the auth event (execute code depending is user signed in or not)
+            // Switch on the auth event (execute code depending if user signed in or not)
             switch authEvent {
             case .observedSignedIn:
                 print("ItemDisplayVC:: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")

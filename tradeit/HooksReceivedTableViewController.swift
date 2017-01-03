@@ -6,34 +6,63 @@ class HooksReceivedTableViewController: UITableViewController {
 
 
     // MARK: Properties
-    var hooksReceivedArray: HooksArray!
+    var hooksReceivedArray: HooksArray?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("HooksReceivedVC: View Did Load!")
         
-        // Check if the user is signed in
-        if let user = FIRAuth.auth()?.currentUser {
+        
+        // Observe user via Auth shared instance
+        Auth.sharedInstance.observeUser { authEvent in
+            print("HooksReceivedVC: observed the user \(authEvent) thanks to Auth.sharedInstance")
             
-            // Create a ref to the user's hooks received
-            let userHooksReceivedRef = FIRDatabase.database().reference().child("users/\(user.uid)/hooksReceived")
-            // Init the array of hooks based on that ref
-            self.hooksReceivedArray = HooksArray(hooksAtRef: userHooksReceivedRef)
-            
-            // Observe the hooksArray and react accordingly
-            self.hooksReceivedArray.observeFirebaseHooks { type in
-                print("HooksReceivedVC: hook event observed. Event type: \(type)")
-                self.tableView.reloadData()
+            // Switch on the auth event (execute code depending if user signed in or not)
+            switch authEvent {
+               
+            // SIGNED IN
+            case .observedSignedIn:
+                
+                print("HooksReceivedVC: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+                
+                // HooksArray initialization and Observation
+                
+                // Check if the user is not nil (should never be else since just observed signed in) - still that check is kept for robustness
+                if let user = Auth.sharedInstance.user {
+    
+                    // Create a ref to the user's hooks received
+                    let userHooksReceivedRef = FIRDatabase.database().reference().child("users/\(user.uid)/hooksReceived")
+                    // Init the array of hooks based on that ref
+                    self.hooksReceivedArray = HooksArray(hooksAtRef: userHooksReceivedRef)
+                    
+                    // Observe the hooksArray and react accordingly
+                    self.hooksReceivedArray?.observeFirebaseHooks { type in
+                        print("HooksReceivedVC: hook event observed. Event type: \(type)")
+                        self.tableView.reloadData()
+                    }
+                    
+                }
+                
+            // SIGNED OUT
+            case .observedSignedOut:
+                print("HooksReceivedVC: user is signed out \(Auth.sharedInstance.user) ")
+                
+                // HooksArray reset to nil
+                self.hooksReceivedArray = nil
                 
             }
             
             
-        } else {
-            print("HooksReceivedVC: No User signed in... please sign in!")
         }
     
     }
+    
+    
+    
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -54,7 +83,7 @@ class HooksReceivedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.hooksReceivedArray.content.count
+        return self.hooksReceivedArray?.content.count ?? 0
     }
 
     
@@ -68,77 +97,35 @@ class HooksReceivedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HookReceivedCell", for: indexPath) as! HookReceivedTableViewCell
 
-        // Configure the cell...
-        // Get the hook object at stake for that cell
-        let hook = self.hooksReceivedArray.content[indexPath.row]
-        
-        // Customize the cell
-        
-        // Label
-        cell.label.text = "\(hook.senderUserDisplayName) hooked your item. \(hook.getAgingAsString())"
-        
-        // Sender User Profile photo
-        if hook.senderUserPhotoURL != nil {
-            cell.senderUserPhoto.sd_setImage(with: URL(string: hook.senderUserPhotoURL!))
-        } else {
-            print("HooksReceivedVC: No Sender User Photo Available")
+        if self.hooksReceivedArray != nil {
+            
+            // Configure the cell...
+            // Get the hook object at stake for that cell
+            let hook = self.hooksReceivedArray!.content[indexPath.row]
+            
+            // Customize the cell
+            
+            // Label
+            cell.label.text = "\(hook.senderUserDisplayName) hooked your item. \(hook.getAgingAsString())"
+            
+            // Sender User Profile photo
+            if hook.senderUserPhotoURL != nil {
+                cell.senderUserPhoto.sd_setImage(with: URL(string: hook.senderUserPhotoURL!))
+            } else {
+                print("HooksReceivedVC: No Sender User Photo Available")
+            }
+            
+            
+            // Item hooked image thumbnail
+            
+            cell.hookedItemImageThumbnail.image = hook.hookedItemImageThumbnail
+            
         }
-
-        
-        // Item hooked image thumbnail
-        
-        cell.hookedItemImageThumbnail.image = hook.hookedItemImageThumbnail
         
         return cell
     }
 
     
-    
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
