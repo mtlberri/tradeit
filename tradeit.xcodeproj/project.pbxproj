@@ -42,6 +42,8 @@
 		B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */; };
 		B7AE20F11E136FBA0099F7C7 /* Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20F01E136FBA0099F7C7 /* Hook.swift */; };
 		B7AE20F21E136FBA0099F7C7 /* Hook.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AE20F01E136FBA0099F7C7 /* Hook.swift */; };
+		B7E178921E1B23BE00184B2F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E178911E1B23BE00184B2F /* Auth.swift */; };
+		B7E178931E1B23BE00184B2F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E178911E1B23BE00184B2F /* Auth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,7 @@
 		B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HooksReceivedTableViewController.swift; sourceTree = "<group>"; };
 		B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HookReceivedTableViewCell.swift; sourceTree = "<group>"; };
 		B7AE20F01E136FBA0099F7C7 /* Hook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hook.swift; sourceTree = "<group>"; };
+		B7E178911E1B23BE00184B2F /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CF072D78F180C6FF486E671A /* Pods_tradeitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,6 +162,7 @@
 		B79113811DD7AB1C002DFA2F /* tradeit */ = {
 			isa = PBXGroup;
 			children = (
+				B7E1788D1E1B1FB600184B2F /* Services */,
 				B75467001DF360A900ABB7EB /* View */,
 				B7F7DAC51DE5261B001319C3 /* Controller */,
 				B7F7DAC41DE525C6001319C3 /* Model */,
@@ -179,6 +183,14 @@
 				B791139B1DD7AB1C002DFA2F /* Info.plist */,
 			);
 			path = tradeitTests;
+			sourceTree = "<group>";
+		};
+		B7E1788D1E1B1FB600184B2F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B7E178911E1B23BE00184B2F /* Auth.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		B7F7DAC41DE525C6001319C3 /* Model */ = {
@@ -418,6 +430,7 @@
 				B7AE20EB1E13674A0099F7C7 /* HooksReceivedTableViewController.swift in Sources */,
 				B7AE20EE1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
+				B7E178921E1B23BE00184B2F /* Auth.swift in Sources */,
 				B74EC52E1E1801560011B136 /* HooksArray.swift in Sources */,
 				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
@@ -438,6 +451,7 @@
 				B75467031DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B77AE1B31E09FA4100C28DB6 /* AuthUsingViewController.swift in Sources */,
 				B75466FF1DF3556500ABB7EB /* ItemsCollectionViewController.swift in Sources */,
+				B7E178931E1B23BE00184B2F /* Auth.swift in Sources */,
 				B791139A1DD7AB1C002DFA2F /* tradeitTests.swift in Sources */,
 				B72DE4F91E074832004BD84F /* ProfileViewController.swift in Sources */,
 				B7AE20EF1E136AE70099F7C7 /* HookReceivedTableViewCell.swift in Sources */,

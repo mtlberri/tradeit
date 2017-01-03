@@ -13,7 +13,7 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
     // MARK: Properties
     // Firebase Auth UI instance
     let authUI = FUIAuth.defaultAuthUI()
-    // Handle to the obserevr
+    // Handle to the observer
     var handle: FIRAuthStateDidChangeListenerHandle?
     
     // Array of providers used (for configuration)
@@ -41,7 +41,7 @@ class AuthUsingViewController: UIViewController, FUIAuthDelegate {
     // Set the user sign in status observer in the view will appear (recommended practice)
     override func viewWillAppear(_ animated: Bool) {
     
-        // Observe the status of commection of the user
+        // Observe the status of connection of the user
         self.handle = FIRAuth.auth()?.addStateDidChangeListener() { (auth, observedUser) in
             //
             if observedUser != nil {
