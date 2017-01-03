@@ -57,7 +57,24 @@ class ItemsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ItemsCV did load!")
-        // do some
+        
+
+        // Observe user via Auth shared instance
+        Auth.sharedInstance.observeUser { authEvent in
+            print("ItemsCV: observed the user \(authEvent) thanks to Auth.sharedInstance")
+            
+            // Switch on the auth event (execute code depending is user signed in or not)
+            switch authEvent {
+            case .observedSignedIn:
+                print("ItemsCV: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+            case .observedSignedOut:
+                print("ItemsCV: user is signed out \(Auth.sharedInstance.user) ")
+            }
+            
+            
+        }
+        
+        
         
     }
     

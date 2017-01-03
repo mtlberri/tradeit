@@ -1,13 +1,12 @@
 import Foundation
 import Firebase
 
-// Class observing the user sign in status and associated data
+// Class used as a Service for observing the user sign in status and accessing associated user data
 
 class Auth {
     
-    
-    
     // MARK: Singleton
+    // Singleton is used because only once centrla instance of that Auth class is to be used in the App
     
     // class variable (can be called without having to instantiate the class)
     class var sharedInstance: Auth {
@@ -38,7 +37,7 @@ class Auth {
     
 
     // MARK: observeUser method
-    func observeUser (withBlock: @escaping (_ event: AuthEvent) -> Void ) {
+    func observeUser(withBlock: @escaping (_ event: AuthEvent) -> Void) {
         
         // Observe the status of connection of the user
         self.handle = FIRAuth.auth()?.addStateDidChangeListener() { (auth, observedUser) in
@@ -55,11 +54,12 @@ class Auth {
                 // Invoke the block with appropriate arguments
                 withBlock(.observedSignedOut)
             }
-            
         }
         
         
     }
+    
+    
     
     // MARK: Supporting Methods
     
@@ -68,7 +68,7 @@ class Auth {
         
         // Set the user property
         self.user = user
-        print("User \(user.displayName) Observed Signed In!")
+        print("Auth: User \(user.displayName) Observed Signed In!")
         
         
         // Update the user in Firebase
@@ -84,9 +84,9 @@ class Auth {
         self.userRefDB!.updateChildValues(userDetails) { (error: Error?, ref: FIRDatabaseReference) -> Void in
             // Completion block
             if error == nil {
-                print("user details have been successfully udpated in Firebase")
+                print("Auth: user details have been successfully udpated in Firebase")
             } else {
-                print("user details have  failed udpate in Firebase with following error: \(error)")
+                print("Auth: user details have  failed udpate in Firebase with following error: \(error)")
             }
             
         }
@@ -96,11 +96,11 @@ class Auth {
     
     // Method called when user signed out
     func userObservedSignedOut () -> Void {
+        print("Auth: User Observed Signed Out!")
         
-        // Set the user property
+        // Reset user related properties to nil
         self.user = nil
-        print("User Observed Signed Out!")
-        
+        self.userRefDB = nil
         
     }
     

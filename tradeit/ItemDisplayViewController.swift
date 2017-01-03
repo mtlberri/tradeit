@@ -1,7 +1,7 @@
 import UIKit
 import Firebase
 
-class ItemDisplayViewController: AuthUsingViewController {
+class ItemDisplayViewController: UIViewController {
 
     // MARK: Outlets
     @IBOutlet weak var itemImage: UIImageView!
@@ -21,20 +21,18 @@ class ItemDisplayViewController: AuthUsingViewController {
         self.itemDescription.layer.borderColor = myBorderColor.cgColor
         self.itemDescription.layer.borderWidth = 0.5
         
-        
-        print("Display item description in the view")
+        // Set description
         self.itemDescription.text = self.itemToDisplay?.description
         
-        print("Start loading of item image")
+        // Download image
         let downloadTask = self.itemToDisplay?.downloadImage(kind: .original) { error in
             // completion block
             if error == nil {
-                print("At view controller level: item image downloaded successfully!")
-                print("set the image in the view! (and hide progress bar)")
+                print("ItemDisplayVC: item image downloaded successfully!")
                 self.itemImage.image = self.itemToDisplay?.image
                 self.progressView.isHidden = true
             } else {
-                print("item image download failed with error: \(error)")
+                print("ItemDisplayVC: item image download failed with error: \(error)")
             }
             
         }
@@ -44,9 +42,26 @@ class ItemDisplayViewController: AuthUsingViewController {
             if let progress = snapshot.progress {
                 let percentComplete = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
                 self.progressView.progress = Float(percentComplete)
-                print("Upload progressed: percent complete = \(percentComplete)")
+                print("ItemDisplayVC: Upload progressed: percent complete = \(percentComplete)")
             }
         })
+        
+        
+        
+        // Observe user via Auth shared instance
+        Auth.sharedInstance.observeUser { authEvent in
+            print("ItemDisplayVC:: observed the user \(authEvent) thanks to Auth.sharedInstance")
+            
+            // Switch on the auth event (execute code depending is user signed in or not)
+            switch authEvent {
+            case .observedSignedIn:
+                print("ItemDisplayVC:: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+            case .observedSignedOut:
+                print("ItemDisplayVC:: user is signed out \(Auth.sharedInstance.user) ")
+            }
+            
+            
+        }
         
         
     }
@@ -62,7 +77,7 @@ class ItemDisplayViewController: AuthUsingViewController {
         print("hook button pressed!")
         
         // Check that the itemToDisplay is not nil (shoud not be per design), and that there is a current user signed in
-        if let item = self.itemToDisplay, let signedInUser = self.user {
+        if let item = self.itemToDisplay, let signedInUser = Auth.sharedInstance.user {
             
             // create the hook (via convenience init) and upload it...
             let hook = Hook(item, sentByUser: signedInUser, creationDate: Date())
@@ -83,8 +98,5 @@ class ItemDisplayViewController: AuthUsingViewController {
         
         
     }
-
-    
-    
 
 }

@@ -30,7 +30,7 @@
 		B789D4221DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B789D4231DD7D939001AD480 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789D4211DD7D939001AD480 /* Item.swift */; };
 		B79113831DD7AB1C002DFA2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113821DD7AB1C002DFA2F /* AppDelegate.swift */; };
-		B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */; };
+		B79113851DD7AB1C002DFA2F /* BrowseCitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113841DD7AB1C002DFA2F /* BrowseCitiesViewController.swift */; };
 		B79113871DD7AB1C002DFA2F /* PostItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */; };
 		B791138A1DD7AB1C002DFA2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B79113881DD7AB1C002DFA2F /* Main.storyboard */; };
 		B791138C1DD7AB1C002DFA2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B791138B1DD7AB1C002DFA2F /* Assets.xcassets */; };
@@ -74,7 +74,7 @@
 		B789D4211DD7D939001AD480 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B791137F1DD7AB1C002DFA2F /* tradeit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79113821DD7AB1C002DFA2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCategoriesViewController.swift; sourceTree = "<group>"; };
+		B79113841DD7AB1C002DFA2F /* BrowseCitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCitiesViewController.swift; sourceTree = "<group>"; };
 		B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItemViewController.swift; sourceTree = "<group>"; };
 		B79113891DD7AB1C002DFA2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B791138B1DD7AB1C002DFA2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,8 +133,8 @@
 		B75467001DF360A900ABB7EB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */,
 				B75467011DF360DE00ABB7EB /* ItemCollectionViewCell.swift */,
+				B7AE20ED1E136AE70099F7C7 /* HookReceivedTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -207,12 +207,12 @@
 		B7F7DAC51DE5261B001319C3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */,
-				B79113841DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift */,
+				B79113841DD7AB1C002DFA2F /* BrowseCitiesViewController.swift */,
 				B75466FD1DF3556500ABB7EB /* ItemsCollectionViewController.swift */,
-				B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */,
-				B72DE4F71E074832004BD84F /* ProfileViewController.swift */,
 				B7392BE01DFCAFB500CB33B1 /* ItemDisplayViewController.swift */,
+				B79113861DD7AB1C002DFA2F /* PostItemViewController.swift */,
+				B7AE20EA1E13674A0099F7C7 /* HooksReceivedTableViewController.swift */,
+				B72DE4F71E074832004BD84F /* ProfileViewController.swift */,
 				B77E93CE1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift */,
 				B77AE1B11E09FA4100C28DB6 /* AuthUsingViewController.swift */,
 			);
@@ -432,7 +432,7 @@
 				B75467021DF360DE00ABB7EB /* ItemCollectionViewCell.swift in Sources */,
 				B7E178921E1B23BE00184B2F /* Auth.swift in Sources */,
 				B74EC52E1E1801560011B136 /* HooksArray.swift in Sources */,
-				B79113851DD7AB1C002DFA2F /* BrowseCategoriesViewController.swift in Sources */,
+				B79113851DD7AB1C002DFA2F /* BrowseCitiesViewController.swift in Sources */,
 				B7392BDB1DFA0C4D00CB33B1 /* ItemsArray.swift in Sources */,
 				B77E93CF1E12C371004EEFF4 /* ProfileItemDisplayViewController.swift in Sources */,
 				B72DE4F81E074832004BD84F /* ProfileViewController.swift in Sources */,
