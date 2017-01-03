@@ -147,6 +147,15 @@
                                     <constraint firstAttribute="width" constant="150" id="5LJ-q0-bmw"/>
                                 </constraints>
                             </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number hook(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTl-Oe-dh6">
+                                <rect key="frame" x="64" y="554" width="100" height="15.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="K3B-We-XQa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig2-xG-lFw">
                                 <rect key="frame" x="25" y="546" width="34" height="30"/>
                                 <state key="normal" title="hook"/>
@@ -159,20 +168,24 @@
                         <constraints>
                             <constraint firstItem="1vw-Uc-WQx" firstAttribute="centerX" secondItem="srH-0K-m5U" secondAttribute="centerX" id="5k5-F2-SvC"/>
                             <constraint firstItem="hQ5-zR-LD1" firstAttribute="top" secondItem="kWs-SL-bbf" secondAttribute="bottom" id="6QX-DD-HV7"/>
+                            <constraint firstItem="ig2-xG-lFw" firstAttribute="leading" secondItem="XTk-jy-4Vc" secondAttribute="leadingMargin" constant="5" id="6Xd-S5-IlI"/>
+                            <constraint firstItem="mTl-Oe-dh6" firstAttribute="centerY" secondItem="ig2-xG-lFw" secondAttribute="centerY" id="7Ha-4y-ql2"/>
                             <constraint firstItem="srH-0K-m5U" firstAttribute="leading" secondItem="XTk-jy-4Vc" secondAttribute="leading" id="CVJ-dC-vdk"/>
                             <constraint firstAttribute="leading" secondItem="kWs-SL-bbf" secondAttribute="leading" id="MAG-Uf-5fC"/>
                             <constraint firstAttribute="trailing" secondItem="kWs-SL-bbf" secondAttribute="trailing" id="O4A-0h-VH3"/>
                             <constraint firstItem="1vw-Uc-WQx" firstAttribute="centerY" secondItem="srH-0K-m5U" secondAttribute="centerY" id="Pqr-5q-wWE"/>
                             <constraint firstItem="srH-0K-m5U" firstAttribute="top" secondItem="OCk-qf-mor" secondAttribute="bottom" constant="20" id="YmW-oV-lCC"/>
                             <constraint firstAttribute="trailing" secondItem="srH-0K-m5U" secondAttribute="trailing" id="bVq-hw-KXg"/>
-                            <constraint firstItem="ig2-xG-lFw" firstAttribute="leading" secondItem="XTk-jy-4Vc" secondAttribute="leadingMargin" constant="5" id="f9X-mI-UE3"/>
+                            <constraint firstItem="mTl-Oe-dh6" firstAttribute="leading" secondItem="ig2-xG-lFw" secondAttribute="trailing" constant="5" id="pNE-os-fr8"/>
                             <constraint firstItem="kWs-SL-bbf" firstAttribute="top" secondItem="ig2-xG-lFw" secondAttribute="bottom" constant="10" id="yk7-9L-5TL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Item Display" id="G7B-dY-gPG"/>
                     <connections>
+                        <outlet property="hookButton" destination="ig2-xG-lFw" id="gIq-C7-5Ys"/>
                         <outlet property="itemDescription" destination="kWs-SL-bbf" id="zBT-4C-Fec"/>
                         <outlet property="itemImage" destination="srH-0K-m5U" id="A4g-qM-GDu"/>
+                        <outlet property="numberHooks" destination="mTl-Oe-dh6" id="oK0-wZ-wR0"/>
                         <outlet property="progressView" destination="1vw-Uc-WQx" id="ok6-Fb-Tpp"/>
                     </connections>
                 </viewController>

@@ -7,9 +7,12 @@ class ItemDisplayViewController: UIViewController {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemDescription: UITextView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var hookButton: UIButton!
+    @IBOutlet weak var numberHooks: UILabel!
     
     // MARK: Properties
     var itemToDisplay: Item?
+    var itemHooks: HooksArray?
     
     // MARK: METHODS
     
@@ -47,6 +50,34 @@ class ItemDisplayViewController: UIViewController {
         })
         
         
+        // Go get the hooks for that item and observe them
+        if let itemKey = self.itemToDisplay?.key {
+            // create a ref to the location of the itemToDisplay hooks
+            let ref = Item.refD.child("items/\(itemKey)/hooks")
+            // initialize the array of hooks at that ref
+            self.itemHooks = HooksArray(hooksAtRef: ref)
+            
+            // Build and observe the array of hooks
+            self.itemHooks?.observeFirebaseHooks { eventType in
+                
+                // Number of hooks
+                let numberOfHooks = self.itemHooks?.content.count ?? 0
+                let hookWithOrWithoutS = numberOfHooks < 2 ? "hook" : "hooks"
+                
+                // Set the number of hooks on the dedicated label
+                self.numberHooks.text = "\(numberOfHooks) " + hookWithOrWithoutS
+                
+            }
+            
+            // If no hooks, set the number of hooks label accordingly
+            if self.itemHooks?.content.count == 0 {
+                self.numberHooks.text = "0 hook"
+            }
+            
+            
+        } else {
+            print("Could not get the array of hooks for that item")
+        }
         
         // Observe user via Auth shared instance
         Auth.sharedInstance.observeUser { authEvent in
@@ -56,6 +87,8 @@ class ItemDisplayViewController: UIViewController {
             switch authEvent {
             case .observedSignedIn:
                 print("ItemDisplayVC:: \(Auth.sharedInstance.user?.displayName) is the user observed signed in")
+                
+                
             case .observedSignedOut:
                 print("ItemDisplayVC:: user is signed out \(Auth.sharedInstance.user) ")
             }
@@ -63,8 +96,8 @@ class ItemDisplayViewController: UIViewController {
             
         }
         
-        
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
