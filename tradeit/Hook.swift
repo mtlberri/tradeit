@@ -235,12 +235,14 @@ class Hook {
 // Extension to add conformance to the Comparable protocol (and sort Hooks per date and time
 extension Hook: Comparable {
     
+    // Hooks ordering is based on time of creation
     static func <(lhs: Hook, rhs: Hook) -> Bool {
         return lhs.dateAndTimeOfCreation < rhs.dateAndTimeOfCreation
     }
     
+    // Two hooks are considered equal if they have the same key
     static func ==(lhs: Hook, rhs: Hook) -> Bool {
-        return lhs.dateAndTimeOfCreation == rhs.dateAndTimeOfCreation
+        return lhs.hookKey == rhs.hookKey
     }
     
     

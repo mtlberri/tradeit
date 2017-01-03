@@ -9,11 +9,12 @@ class ItemDisplayViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var hookButton: UIButton!
     @IBOutlet weak var numberHooks: UILabel!
+    @IBOutlet weak var nameOfHooksSenders: UILabel!
     
     // MARK: Properties
     var itemToDisplay: Item?
     var itemHooks: HooksArray?
-    
+
     // MARK: METHODS
     
     override func viewDidLoad() {
@@ -67,11 +68,32 @@ class ItemDisplayViewController: UIViewController {
                 // Set the number of hooks on the dedicated label
                 self.numberHooks.text = "\(numberOfHooks) " + hookWithOrWithoutS
                 
+                // Reset the label of nameOfHooksSenders to empty
+                self.nameOfHooksSenders.text = ""
+                // Re-populate the names of the hooks senders based on the complete array of hooks
+                if let unwrappedHooksArray = self.itemHooks?.content {
+                    for hook in unwrappedHooksArray {
+                        
+                        // For the first name, don't introduce any space or coma
+                        if self.nameOfHooksSenders.text == "" {
+                            self.nameOfHooksSenders.text = "\(hook.senderUserDisplayName)"
+                        } else {
+                            // Else go append the name to the already started list
+                            self.nameOfHooksSenders.text?.append(", \(hook.senderUserDisplayName)")
+                        }
+                        
+                    }
+                } else {
+                    self.nameOfHooksSenders.text = ""
+                }
+            
+                
             }
             
             // If no hooks, set the number of hooks label accordingly
             if self.itemHooks?.content.count == 0 {
                 self.numberHooks.text = "0 hook"
+                self.nameOfHooksSenders.text = ""
             }
             
             
@@ -111,6 +133,11 @@ class ItemDisplayViewController: UIViewController {
         
         // Check that the itemToDisplay is not nil (shoud not be per design), and that there is a current user signed in
         if let item = self.itemToDisplay, let signedInUser = Auth.sharedInstance.user {
+            
+            
+            // Check if the user already hooked that item
+            
+            
             
             // create the hook (via convenience init) and upload it...
             let hook = Hook(item, sentByUser: signedInUser, creationDate: Date())
