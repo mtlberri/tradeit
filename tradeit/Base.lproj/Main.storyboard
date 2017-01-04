@@ -46,7 +46,7 @@
         <scene sceneID="rIC-TB-aPX">
             <objects>
                 <collectionViewController storyboardIdentifier="itemsCollectionStoryboardID" id="cDq-1I-Lu4" customClass="ItemsCollectionViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="XBN-5f-Djh">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="XBN-5f-Djh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -148,14 +148,14 @@
                                 </constraints>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig2-xG-lFw">
-                                <rect key="frame" x="25" y="525.33333333333337" width="34" height="30"/>
+                                <rect key="frame" x="25" y="525" width="34" height="30"/>
                                 <state key="normal" title="hook"/>
                                 <connections>
                                     <action selector="hookButtonPressed:" destination="VyR-xi-dDQ" eventType="touchUpInside" id="Fnu-O5-n7J"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="number hook(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTl-Oe-dh6">
-                                <rect key="frame" x="64" y="532.33333333333337" width="100" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 hook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTl-Oe-dh6">
+                                <rect key="frame" x="64" y="532" width="100" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="K3B-We-XQa"/>
                                 </constraints>
@@ -163,8 +163,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Names" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqi-iu-xI7">
-                                <rect key="frame" x="25" y="560.33333333333337" width="300" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqi-iu-xI7">
+                                <rect key="frame" x="25" y="560" width="300" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Gfn-BY-pqn"/>
                                 </constraints>
@@ -297,7 +297,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AVb-bI-9Al" id="OE0-dA-3wY">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kZW-Bd-lDf">
@@ -369,7 +369,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wAC-Cg-8be" id="Zbp-aX-4qz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -611,7 +611,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v4l-Sm-Abe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="first" id="4JS-rS-fbY"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vgT-WL-Io1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vgT-WL-Io1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -687,7 +687,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cnS-XF-V4y" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Hooks" image="first" id="iSw-hW-acL"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="pkT-qK-3qS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pkT-qK-3qS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

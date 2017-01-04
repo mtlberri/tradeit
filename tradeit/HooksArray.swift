@@ -21,6 +21,7 @@ class HooksArray {
         self.refD = ref
     }
     
+    // MARK: Methods
     
     // Observe Child hooks in Firebase and keep the content in sync, while calling a completion block after each event
     func observeFirebaseHooks (withBlock: @escaping (_ eventType: HookEventType) -> Void) -> Void {
@@ -78,6 +79,19 @@ class HooksArray {
         
         
         
+    }
+    
+    // Make an array of sender display names based on the array of hooks
+    func makeHookSendersUIDAndDisplayNamesArray () -> [(UID: String, DisplayName: String)] {
+        
+        var result: [(UID: String, DisplayName: String)] = []
+        
+        // Loop over the array of hooks to populate the array of sender names
+        for hook in self.content {
+            result.append((UID: hook.senderUserUID, DisplayName: hook.senderUserDisplayName))
+        }
+        
+        return result
     }
     
 

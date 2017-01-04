@@ -14,8 +14,35 @@ class ItemDisplayViewController: UIViewController {
     // MARK: Properties
     var itemToDisplay: Item?
     var itemHooks: HooksArray?
+    // Hooks related properties
+    var numberOfHooks = 0 {
+        didSet {
+            print("ItemDisplayVC: number of hooks did set to value \(numberOfHooks)")
+            let hookWithOrWithoutS = self.numberOfHooks < 2 ? "hook" : "hooks"
+            // Set the number of hooks on the dedicated label
+            self.numberHooks.text = "\(self.numberOfHooks) " + hookWithOrWithoutS
+        }
+    }
+    var hookSenders: [(UID: String, DisplayName: String)] = [] {
+        didSet {
+            print("ItemDisplayVC: hookSenders array did set to value \(hookSenders)")
+            // Populate the names of hook senders on the dedicated label
+            self.populateNamesOfHookSendersLabel(withArray: self.hookSenders)
+        }
+    }
+    var userAlreadyHookedItemToDisplay = false {
+        didSet {
+            print("ItemDisplayVC: user already hooked item did set: \(userAlreadyHookedItemToDisplay)")
+            // Switc the color of the button depending if user already hooked item or not
+            if userAlreadyHookedItemToDisplay {
+                self.hookButton.titleLabel?.textColor = UIColor.red
+            } else {
+                self.hookButton.titleLabel?.textColor = nil
+            }
+        }
+    }
 
-    // MARK: METHODS
+    // MARK: View Did Load Method
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +79,7 @@ class ItemDisplayViewController: UIViewController {
         
         
         // Go get the hooks for that item and observe them
+        
         if let itemKey = self.itemToDisplay?.key {
             // create a ref to the location of the itemToDisplay hooks
             let ref = Item.refD.child("items/\(itemKey)/hooks")
@@ -61,44 +89,23 @@ class ItemDisplayViewController: UIViewController {
             // Build and observe the array of hooks
             self.itemHooks?.observeFirebaseHooks { eventType in
                 
-                // Number of hooks
-                let numberOfHooks = self.itemHooks?.content.count ?? 0
-                let hookWithOrWithoutS = numberOfHooks < 2 ? "hook" : "hooks"
+                // Block executed for each event on the hooks array:
                 
-                // Set the number of hooks on the dedicated label
-                self.numberHooks.text = "\(numberOfHooks) " + hookWithOrWithoutS
-                
-                // Reset the label of nameOfHooksSenders to empty
-                self.nameOfHooksSenders.text = ""
-                // Re-populate the names of the hooks senders based on the complete array of hooks
-                if let unwrappedHooksArray = self.itemHooks?.content {
-                    for hook in unwrappedHooksArray {
-                        
-                        // For the first name, don't introduce any space or coma
-                        if self.nameOfHooksSenders.text == "" {
-                            self.nameOfHooksSenders.text = "\(hook.senderUserDisplayName)"
-                        } else {
-                            // Else go append the name to the already started list
-                            self.nameOfHooksSenders.text?.append(", \(hook.senderUserDisplayName)")
-                        }
-                        
+                // Refresh the number of hooks
+                self.numberOfHooks = self.itemHooks?.content.count ?? 0
+                // Refresh the array of hook senders names
+                self.hookSenders = self.itemHooks?.makeHookSendersUIDAndDisplayNamesArray() ?? []
+                // Check if the current user (if any) is one of the hook senders (i.e. check if he already hooked that item)
+                if let user = Auth.sharedInstance.user {
+                    self.userAlreadyHookedItemToDisplay = self.hookSenders.contains { hookSender in
+                        return hookSender.UID == user.uid
                     }
-                } else {
-                    self.nameOfHooksSenders.text = ""
                 }
-            
                 
-            }
-            
-            // If no hooks, set the number of hooks label accordingly
-            if self.itemHooks?.content.count == 0 {
-                self.numberHooks.text = "0 hook"
-                self.nameOfHooksSenders.text = ""
-            }
-            
+              }
             
         } else {
-            print("Could not get the array of hooks for that item")
+            print("ItemDisplayVC: Could not get the item key. Error.")
         }
         
         // Observe user via Auth shared instance
@@ -118,12 +125,35 @@ class ItemDisplayViewController: UIViewController {
             
         }
         
+        
+        
     }
 
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: Other methods
+    
+    // Poulate the name of hook senders
+    func populateNamesOfHookSendersLabel (withArray array: [(UID: String, DisplayName: String)]) -> Void {
+        
+        // Reset the label of nameOfHooksSenders to empty
+        self.nameOfHooksSenders.text = ""
+        // Re-populate the names of the hooks senders based on the complete array of hooks
+        if let unwrappedHooksArray = self.itemHooks?.content {
+            for hook in unwrappedHooksArray {
+                
+                // For the first name, don't introduce any space or coma
+                if self.nameOfHooksSenders.text == "" {
+                    self.nameOfHooksSenders.text = "\(hook.senderUserDisplayName)"
+                } else {
+                    // Else go append the name to the already started list
+                    self.nameOfHooksSenders.text?.append(", \(hook.senderUserDisplayName)")
+                }
+                
+            }
+        } else {
+            self.nameOfHooksSenders.text = ""
+        }
+        
     }
     
     
