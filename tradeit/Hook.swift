@@ -163,6 +163,31 @@ class Hook {
         
     }
     
+    // Remove metadata (delete hook from Firebase)
+    func removeMetadata(withCompletionBlock completion: @escaping (_ error: Error?) -> Void) ->Void {
+        
+        // Create the child item that will be removed in the Firebase DB. Atomic removal at three locations: items, hook sender user, item owner user.
+        let childUpdate = ["items/\(self.hookedItemKey)/hooks/\(self.hookKey)" : nil ,
+                           "users/\(self.senderUserUID)/hooksSent/\(self.hookKey)" : nil,
+                           "users/\(self.hookedItemOwnerUID)/hooksReceived/\(self.hookKey)" : nil,
+                           "dummyNode": ""
+        ]
+        
+        // Delete the entries in Firebase
+        Item.refD.updateChildValues(childUpdate, withCompletionBlock: { (error: Error?, ref: FIRDatabaseReference) -> Void in
+            if error == nil {
+                print("Hook method says: Removal of hook METADATA \(self.hookKey) in Firebase DB successfully completed!")
+                // Completion block with error nil
+                completion(error)
+            } else {
+                print("Hook method says: Oops an error occured while removing Hook METADATA to Firebase:")
+                print(error?.localizedDescription ?? "No localized description available for this error. Sorry.")
+                // Completion block with error
+                completion(error)
+            }
+        })
+        
+    }
     
     // MARK: Download methods
     
@@ -202,6 +227,7 @@ class Hook {
     }
     
     
+    
     // MARK: Other methods
     
     // Method that returns the aging of the hook as a string
@@ -229,6 +255,10 @@ class Hook {
         }
         
     }
+    
+    
+    
+    
     
 }
 

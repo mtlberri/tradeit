@@ -35,9 +35,9 @@ class ItemDisplayViewController: UIViewController {
             print("ItemDisplayVC: user already hooked item did set: \(userAlreadyHookedItemToDisplay)")
             // Switc the color of the button depending if user already hooked item or not
             if userAlreadyHookedItemToDisplay {
-                self.hookButton.titleLabel?.textColor = UIColor.red
+                self.hookButton.titleLabel?.textColor = UIColor.green
             } else {
-                self.hookButton.titleLabel?.textColor = nil
+                self.hookButton.titleLabel?.textColor = UIColor.blue
             }
         }
     }
@@ -165,24 +165,46 @@ class ItemDisplayViewController: UIViewController {
         if let item = self.itemToDisplay, let signedInUser = Auth.sharedInstance.user {
             
             
-            // Check if the user already hooked that item
-            
-            
-            
-            // create the hook (via convenience init) and upload it...
-            let hook = Hook(item, sentByUser: signedInUser, creationDate: Date())
-            hook.uploadMetadata { error in
+            // Check if the user did not already hook that item
+            if self.userAlreadyHookedItemToDisplay == false {
                 
-                if error == nil {
-                    print("Item Display VC: Successfully uploaded metadata for the hook \(hook.hookKey)")
-                } else {
-                    print("Item Display VC: Failed to upload metadata for the hook \(hook.hookKey) with error \(error)")
+                // create the hook (via convenience init) and upload it...
+                let hook = Hook(item, sentByUser: signedInUser, creationDate: Date())
+                hook.uploadMetadata { error in
+                    
+                    if error == nil {
+                        print("Item Display VC: Successfully uploaded metadata for the hook \(hook.hookKey)")
+                    } else {
+                        print("Item Display VC: Failed to upload metadata for the hook \(hook.hookKey) with error \(error)")
+                    }
+                    
+                }
+                
+            } else {
+                // The user already hooked that item - so go ahead and remove it (unhook)
+                
+                // Retrieve the specific hook from current user
+                // Get the hook index
+                let indexOfHookFromCurrentUser = self.itemHooks?.content.index { hook in
+                    return hook.senderUserUID == signedInUser.uid
+                }
+                // Remove the hook (index should not be nil because the user already hooked item so his hook index should be found in the array of hooks
+                if indexOfHookFromCurrentUser != nil {
+                    self.itemHooks?.content[indexOfHookFromCurrentUser!].removeMetadata { error in
+                        if error == nil {
+                            print("Item Display VC: Successfully removed hook after user request to do so")
+                        } else {
+                            print("Item Display VC: Failed removal of hook after user request to do so")
+                        }
+                    }
+                    
                 }
                 
             }
+
             
         } else {
-            print("Could not hook item: either item is nil or user not signed in")
+            print("Item Display VC: either item is nil or user not signed in")
         }
         
         
