@@ -22,8 +22,8 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
     // MARK: Properties
     
     // Properties Identifying the user for which the Profile is being displayed (default to the signed in user, but could be set to another user in order to display a third party profile)
-    let presentedUserUID = Auth.sharedInstance.user?.uid
-    let selfIsUserProfile = true
+    var presentedUserUID: String?
+    var selfIsUserProfile = true
     
     // Firebase Auth UI instance
     let authUI = FUIAuth.defaultAuthUI()
@@ -61,7 +61,12 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
             // Switch on the auth event (execute code depending if user signed in or not)
             switch authEvent {
             case .observedSignedIn:
-
+                
+                // If self is user profile, then set the presentedUserUID accordingly
+                if self.selfIsUserProfile {
+                    self.presentedUserUID = Auth.sharedInstance.user?.uid
+                }
+                
                 
                 // Customize the Profile View with the user related data
                 if let presentedUID = self.presentedUserUID {
