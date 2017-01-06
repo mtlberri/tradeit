@@ -67,7 +67,7 @@ class HooksReceivedTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        // Reload the table view when view appears (so that the aging of hooks get refreshed in the cells)
+        // Reload the table view when view appears (Implies - for e.g. - that the aging of hooks gets refreshed in the cells)
         self.tableView.reloadData()
         
     }
@@ -125,6 +125,31 @@ class HooksReceivedTableViewController: UITableViewController {
         return cell
     }
 
+    // User did select cell shall trigger navigation to the hook sender profile
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("User did select cell at index row \(indexPath.row)")
+        
+        // Get the hook item concerned
+        let hookSelected = self.hooksReceivedArray?.content[indexPath.row]
+        // Get the UID of the sender of that hook
+        let senderUserUID = hookSelected?.senderUserUID
+        
+        // Optional binding
+        if let senderUID = senderUserUID {
+            
+            // Create a Profile View Controller and configure it to display the hook sender profile
+            let senderProfileViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewControllerID") as! ProfileViewController
+            // Configure the target view controller
+            senderProfileViewController.presentedUserUID = senderUID
+            senderProfileViewController.selfIsUserProfile = false
+            
+            // Push the target view controller in the navigation controller stack
+            self.navigationController?.pushViewController(senderProfileViewController, animated: true)
+            
+        }
+        
+        
+    }
     
 
 

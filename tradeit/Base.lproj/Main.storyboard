@@ -46,7 +46,7 @@
         <scene sceneID="rIC-TB-aPX">
             <objects>
                 <collectionViewController storyboardIdentifier="itemsCollectionStoryboardID" id="cDq-1I-Lu4" customClass="ItemsCollectionViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="XBN-5f-Djh">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="XBN-5f-Djh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -289,7 +289,7 @@
         <scene sceneID="htC-da-BBb">
             <objects>
                 <tableViewController id="Lln-Qr-sjY" customClass="HooksReceivedTableViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUf-LC-5Ia">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUf-LC-5Ia">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -298,7 +298,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AVb-bI-9Al" id="OE0-dA-3wY">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kZW-Bd-lDf">
@@ -370,7 +370,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wAC-Cg-8be" id="Zbp-aX-4qz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -410,7 +410,7 @@
         <!--Profile View Controller-->
         <scene sceneID="bEs-Vg-lb6">
             <objects>
-                <viewController id="bwU-cz-VM7" customClass="ProfileViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewControllerID" id="bwU-cz-VM7" customClass="ProfileViewController" customModule="tradeit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="w65-3h-eHQ"/>
                         <viewControllerLayoutGuide type="bottom" id="ChF-aj-Ugf"/>
@@ -593,7 +593,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pS1-ac-0f3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GOe-u2-FEj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GOe-u2-FEj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -612,7 +612,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v4l-Sm-Abe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="first" id="4JS-rS-fbY"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vgT-WL-Io1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vgT-WL-Io1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -631,7 +631,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cnS-XF-V4y" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Hooks" image="first" id="iSw-hW-acL"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="pkT-qK-3qS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pkT-qK-3qS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
