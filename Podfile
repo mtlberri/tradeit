@@ -12,6 +12,7 @@ target 'tradeit' do
   pod 'FirebaseUI/Auth'
   pod 'FirebaseUI/Google'
   pod 'SDWebImage'
+  pod 'TemporaryAlert'
 
   target 'tradeitTests' do
     inherit! :search_paths
@@ -22,6 +23,7 @@ target 'tradeit' do
     pod 'FirebaseUI/Auth'
     pod 'FirebaseUI/Google'
     pod 'SDWebImage'
+    pod 'TemporaryAlert'
   end
 
 end

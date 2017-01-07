@@ -34,20 +34,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TemporaryAlert.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>06E30577210F89A1A7937D0A07230B7F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4659AB62B1A296DB709BA883136A8DFB</key>
+		<key>1D9165B813E63B88ACC52120158A8539</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>957FBFBBE4B977D10E8F4E7F57448503</key>
+		<key>82DA282E819112FCF198E3CBC9C54DD5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A4578EEBE2F2C69F5B5A7D7B187E782C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC123B6DFD28647E5B7717722F576F70</key>
 		<dict>
 			<key>primary</key>
 			<true/>

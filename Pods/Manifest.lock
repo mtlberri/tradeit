@@ -65,6 +65,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - TemporaryAlert (1.0.0)
 
 DEPENDENCIES:
   - Firebase/Core
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - FirebaseUI/Auth
   - FirebaseUI/Google
   - SDWebImage
+  - TemporaryAlert
 
 SPEC CHECKSUMS:
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
@@ -91,7 +93,8 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  TemporaryAlert: aa5c3e28ab351f55bfaacc26a438234460a61571
 
-PODFILE CHECKSUM: d83e8a948ac7b43a6664ccbbe0d61cd81add8438
+PODFILE CHECKSUM: 95642a3ce26972f59971b9a741f9870a7824749e
 
 COCOAPODS: 1.1.1

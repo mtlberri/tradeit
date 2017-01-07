@@ -3,6 +3,7 @@ import Firebase
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 import SDWebImage
+import TemporaryAlert
 
 class ProfileViewController: UIViewController, FUIAuthDelegate {
 
@@ -11,8 +12,8 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var numberOfItems: UITextField!
-    @IBOutlet weak var numberOfLikes: UITextField!
+    @IBOutlet weak var numberOfItemsPosted: UILabel!
+    @IBOutlet weak var numberOfHooksReceived: UILabel!
     @IBOutlet weak var profileDescription: UITextView!
 
     
@@ -24,6 +25,9 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
     // Properties Identifying the user for which the Profile is being displayed (default to the signed in user, but could be set to another user in order to display a third party profile)
     var presentedUserUID: String?
     var selfIsUserProfile = true
+    
+    // E-mail property (for use in 'Contact me')
+    var userEmail: String?
     
     // Firebase Auth UI instance
     let authUI = FUIAuth.defaultAuthUI()
@@ -94,6 +98,9 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
                         // Display Name
                         self.userName.text = value?["displayName"] as? String
                         
+                        // E-mail
+                        self.userEmail = value?["email"] as? String
+                        
                         // Profile photo
                         if let photoURLString = value?["photoURL"] as? String {
                             let photoURL = URL(string: photoURLString)
@@ -101,7 +108,25 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
                         }
                         
                     }
+                    
+                    // Observe (Listener) the number of Hooks Received by the user and keep view updated accordingly
+                    presentedUserRef.child("hooksReceived").observe(.value, with: { snapshot in
+                        print("ProfileVC: hooks received .value event observed")
+                        let arrayOfHooksSnapshot = snapshot.value as? NSDictionary
+                        if let arrayOfHooks = arrayOfHooksSnapshot {
+                            self.numberOfHooksReceived.text = String(arrayOfHooks.count)
+                        }
+                    })
+                    
+                    
+                    
+                    
                 }
+                
+                
+                
+                
+                
                 
                 
             case .observedSignedOut:
@@ -116,8 +141,8 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
                 self.signOutButton.isHidden = true
                 
                 self.profileDescription.text = ""
-                self.numberOfItems.text = ""
-                self.numberOfLikes.text = ""
+                self.numberOfItemsPosted.text = "0"
+                self.numberOfHooksReceived.text = "0"
                 self.profileImage.image = nil
                 //
                 
@@ -154,9 +179,9 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
                 print("Profile CV: Reload the View!")
                 self.profileCollectionView.reloadData()
                 
-                // Set the number of items in the view
+                // Set the number of items posted in the view
                 print("Set the number of items of the user: \(self.profileCollectionViewDataSourceAndDelegate.itemsArray?.content.count ?? 0)")
-                self.numberOfItems.text = String(describing: self.profileCollectionViewDataSourceAndDelegate.itemsArray?.content.count ?? 0)
+                self.numberOfItemsPosted.text = String(describing: self.profileCollectionViewDataSourceAndDelegate.itemsArray?.content.count ?? 0)
                 
             }
         
@@ -166,10 +191,11 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
         
     }
     
+    // MARK: Button actions
     
     // Sign in button pressed
     @IBAction func signInPressed(_ sender: Any) {
-        print("Sign In button pressed")
+        print("ProfileCV: Sign In button pressed")
         
         // Create a Firebase Auth UI View Controller (default) and present it
         let authViewController = self.authUI?.authViewController()
@@ -178,17 +204,48 @@ class ProfileViewController: UIViewController, FUIAuthDelegate {
     
     // sign out button pressed
     @IBAction func signOutPressed(_ sender: Any) {
-        print("Sign Out Button pressed!")
+        print("ProfileCV: Sign Out Button pressed!")
         
         do {
             try FIRAuth.auth()?.signOut()
             }
         catch {
-            print("Sign Out did fail")
+            print("ProfileCV: Sign Out did fail")
         }
         
     }
 
+    // Contact me button pressed
+    
+    @IBAction func contactMePressed(_ sender: UIButton) {
+        
+        let emailString = "\(userEmail ?? "No user email available")"
+        
+        let alertController = UIAlertController(title: "E-mail", message: emailString, preferredStyle: .alert)
+        // Configure the default action
+        let defaultAction = UIAlertAction(title: "Copy to clipboard", style: .default, handler: { alertAction in
+            //Do somehting when Copy button pressed
+            print("ProfileCV: Go copy e-mail in clipboard!")
+            UIPasteboard.general.string = emailString
+            
+            // Confirm via temporary alert
+            TemporaryAlert.Configuration.lifeSpan = 1
+            TemporaryAlert.show(image: .checkmark, title: "Copied to clipboard", message: nil)
+            
+            
+        })
+        // Add the default action to the alert controller
+        alertController.addAction(defaultAction)
+        
+        // Present the alert controller
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
+    
     
     // FUIAuthDelegate protocol implementation: Called when sign in is complete
     func authUI(_ authUI: FUIAuth, didSignInWith user: FIRUser?, error: Error?) {
